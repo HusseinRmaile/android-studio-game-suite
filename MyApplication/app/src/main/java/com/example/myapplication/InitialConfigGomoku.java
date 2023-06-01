@@ -4,6 +4,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.EditText;
@@ -47,8 +48,20 @@ public class InitialConfigGomoku extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 userName = inputEditText.getText().toString();
-                Intent intent = new Intent(InitialConfigGomoku.this, Gomoku.class);
-                startActivity(intent);
+                boolean invalid = true;
+                for (int i = 0; i < userName.length(); i++){
+                    if (userName.charAt(i) != ' '){
+                        invalid = false;
+                    }
+                }
+                if (invalid) {
+                    inputEditText.setError("Invalid name");
+                } else if (avatar == null) {
+                    inputEditText.setError("Choose an avatar");
+                } else {
+                    Intent intent = new Intent(InitialConfigGomoku.this, Gomoku.class);
+                    startActivity(intent);
+                }
             }
         });
     }
