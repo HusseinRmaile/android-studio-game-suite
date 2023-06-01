@@ -1,12 +1,12 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Gomoku extends AppCompatActivity{
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Wordle extends AppCompatActivity{
     private TextView nameDisplay;
     private ImageView dynamicImageView;
 
@@ -14,12 +14,12 @@ public class Gomoku extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gomoku);
+        setContentView(R.layout.wordle);
 
         nameDisplay = findViewById(R.id.nameDisplay);
-        nameDisplay.setText(InitialConfigGomoku.userName);
+        nameDisplay.setText(InitialConfigWordle.userName);
 
         dynamicImageView = findViewById(R.id.dynamicImageView);
-        dynamicImageView.setImageDrawable(InitialConfigGomoku.avatar.getDrawable());
+        dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
     }
 }

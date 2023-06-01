@@ -22,15 +22,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Start_Screen">
+            android:name=".StartScreenGomoku">
+        </activity>
+        <activity
+            android:name=".StartScreenSudoku">
+        </activity>
+        <activity
+            android:name=".StartScreenWordle">
         </activity>
 
         <activity
-            android:name=".InitialConfig"
+            android:name=".InitialConfigGomoku"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".InitialConfigSudoku"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".InitialConfigWordle"
             android:exported="true">
         </activity>
         <activity
             android:name=".Gomoku">
+        </activity>
+        <activity
+            android:name=".Sudoku">
+        </activity>
+        <activity
+            android:name=".Wordle">
         </activity>
 
     </application>

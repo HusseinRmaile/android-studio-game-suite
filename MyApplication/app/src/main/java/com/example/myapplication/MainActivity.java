@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button game1Button, game2Button, game3Button;
-    public static String gameChosen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
         game1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameChosen = "gomoku";
-                Intent intent = new Intent(MainActivity.this, Start_Screen.class);
+                Intent intent = new Intent(MainActivity.this, StartScreenGomoku.class);
                 startActivity(intent);
             }
         });
@@ -30,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
         game2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameChosen = "sudoku";
-                Intent intent = new Intent(MainActivity.this, Start_Screen.class);
+                Intent intent = new Intent(MainActivity.this, StartScreenSudoku.class);
                 startActivity(intent);
             }
         });
@@ -39,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         game3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameChosen = "wordle";
-                Intent intent = new Intent(MainActivity.this, Start_Screen.class);
+                Intent intent = new Intent(MainActivity.this, StartScreenWordle.class);
                 startActivity(intent);
             }
         });
