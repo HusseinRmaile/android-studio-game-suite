@@ -50,8 +50,20 @@ public class InitialConfigSudoku extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 userName = inputEditText.getText().toString();
-                Intent intent = new Intent(InitialConfigSudoku.this, Sudoku.class);
-                startActivity(intent);
+                boolean invalid = true;
+                for (int i = 0; i < userName.length(); i++){
+                    if (userName.charAt(i) != ' '){
+                        invalid = false;
+                    }
+                }
+                if (invalid) {
+                    inputEditText.setError("Invalid name");
+                } else if (avatar == null) {
+                    inputEditText.setError("Choose an avatar");
+                } else {
+                    Intent intent = new Intent(InitialConfigSudoku.this, Sudoku.class);
+                    startActivity(intent);
+                }
             }
         });
     }

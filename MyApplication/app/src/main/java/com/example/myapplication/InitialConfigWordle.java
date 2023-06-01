@@ -50,9 +50,20 @@ public class InitialConfigWordle extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 userName = inputEditText.getText().toString();
-                //displayTextView.setText("you chose the gomoku game");
-                Intent intent = new Intent(InitialConfigWordle.this, Wordle.class);
-                startActivity(intent);
+                boolean invalid = true;
+                for (int i = 0; i < userName.length(); i++){
+                    if (userName.charAt(i) != ' '){
+                        invalid = false;
+                    }
+                }
+                if (invalid) {
+                    inputEditText.setError("Invalid name");
+                } else if (avatar == null) {
+                    inputEditText.setError("Choose an avatar");
+                } else {
+                    Intent intent = new Intent(InitialConfigWordle.this, Wordle.class);
+                    startActivity(intent);
+                }
             }
         });
     }
