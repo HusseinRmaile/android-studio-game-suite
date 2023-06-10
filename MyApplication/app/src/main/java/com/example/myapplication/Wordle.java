@@ -16,10 +16,10 @@ public class Wordle extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wordle);
 
-        nameDisplay = findViewById(R.id.nameDisplay);
+        nameDisplay = findViewById(R.id.player1Name);
         nameDisplay.setText(InitialConfigWordle.userName);
 
-        dynamicImageView = findViewById(R.id.dynamicImageView);
+        dynamicImageView = findViewById(R.id.player1Avatar);
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
     }
 }

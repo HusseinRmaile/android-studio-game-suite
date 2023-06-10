@@ -26,7 +26,7 @@ public class InitialConfigSudoku extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_config_sudoku);
 
-        inputEditText = findViewById(R.id.inputEditText);
+        inputEditText = findViewById(R.id.inputName1);
         storeButton = findViewById(R.id.storeButton);
         displayTextView = findViewById(R.id.displayTextView);
         avatar1 = findViewById(R.id.avatar1);
