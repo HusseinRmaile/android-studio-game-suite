@@ -3,19 +3,19 @@ package com.example.myapplication;
 import android.widget.ImageView;
 
 public class GomokuPlayer {
-    private String color;
+    private int color;
     private String name;
     private ImageView sprite;
     private int winCounter;
 
-    public GomokuPlayer(String color, String name, ImageView sprite) {
+    public GomokuPlayer(int color, String name, ImageView sprite) {
         this.color = color;
         this.name = name;
         this.sprite = sprite;
         this.winCounter = 0;
     }
 
-    public String getColor() {
+    public int getColor() {
         return this.color;
     }
 
@@ -31,7 +31,7 @@ public class GomokuPlayer {
         return this.winCounter;
     }
 
-    public void setColor(String c) {
+    public void setColor(int c) {
         this.color = c;
     }
 
@@ -45,5 +45,9 @@ public class GomokuPlayer {
 
     public void setWinCounter(int n) {
         this.winCounter = n;
+    }
+
+    public void addWin() {
+        this.winCounter += 1;
     }
 }
