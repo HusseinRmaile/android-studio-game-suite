@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // hi tat
+        // tate was here
     }
 }
