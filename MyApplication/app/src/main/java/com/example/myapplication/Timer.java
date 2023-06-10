@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Timer extends AppCompatActivity implements Timer.TimerListener {
+public class Timer {
     private static final long timeLimit = 5 * 60000;
     private static final long interval = 1000;
     CountDownTimer timer;
