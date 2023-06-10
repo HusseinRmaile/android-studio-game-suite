@@ -7,12 +7,14 @@ public class GomokuPlayer {
     private String name;
     private ImageView sprite;
     private int winCounter;
+    private Timer timer;
 
-    public GomokuPlayer(int color, String name, ImageView sprite) {
+    public GomokuPlayer(int color, String name, ImageView sprite, Timer timer) {
         this.color = color;
         this.name = name;
         this.sprite = sprite;
         this.winCounter = 0;
+        this.timer = timer;
     }
 
     public int getColor() {
