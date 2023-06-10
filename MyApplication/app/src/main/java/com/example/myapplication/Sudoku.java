@@ -16,10 +16,10 @@ public class Sudoku extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sudoku);
 
-        nameDisplay = findViewById(R.id.nameDisplay);
+        nameDisplay = findViewById(R.id.player1Name);
         nameDisplay.setText(InitialConfigSudoku.userName);
 
-        dynamicImageView = findViewById(R.id.dynamicImageView);
+        dynamicImageView = findViewById(R.id.player1Avatar);
         dynamicImageView.setImageDrawable(InitialConfigSudoku.avatar.getDrawable());
     }
 }
