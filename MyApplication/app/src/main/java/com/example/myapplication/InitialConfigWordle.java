@@ -67,4 +67,8 @@ public class InitialConfigWordle extends AppCompatActivity{
             }
         });
     }
+
+    public static class GomokuPlayer {
+
+    }
 }
