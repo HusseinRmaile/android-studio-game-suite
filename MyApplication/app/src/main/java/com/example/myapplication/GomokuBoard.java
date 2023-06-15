@@ -37,7 +37,7 @@ public class GomokuBoard {
         }
     }
 
-    public int placePiece(int row, int col, int piece){
+    public int placePiece(int row, int col, int playerNumber){
         if(col < 0 || col >= numCols){
             return -1;
             //out of bounds
@@ -47,25 +47,87 @@ public class GomokuBoard {
             //out of bounds
         }
         if(board[row][col] != 0){
-            return -2;
-            //a piece is already there
+            return -1;
+            //a playerNumber is already there
         }
-        board[row][col] = piece;
+        board[row][col] = playerNumber;
         spacesLeft--;
-        //piece successfully placed
+        //playerNumber successfully placed
 
-        return checkWin(row, col, piece);
-        //0 = draw, -1 = game continues, any other number means that player won
+        return checkWin(row, col, playerNumber);
     }
 
-    public int checkWin(int row, int col, int piece) {
+    public int checkWin(int row, int col, int playerNumber) {
         int boundCheck = winLength - 1;
         int colMax = col + boundCheck;
         int colMin = col - boundCheck;
         int rowMax = row + boundCheck;
         int rowMin = row - boundCheck;
         int counter = 0;
-        boolean win = false;
+
+        if (colMin < 0) {
+            colMin = 0;
+        }
+        if (colMax >= numCols) {
+            colMax = numCols - 1;
+        }
+
+        if (rowMin < 0) {
+            rowMin = 0;
+        }
+        if (rowMax >= numRows) {
+            rowMax = numRows - 1;
+        }
+
+        //vertical check
+        for (int i = rowMin; i <= rowMax; i++) {
+            if (board[i][col] == playerNumber) {
+                counter++;
+            } else {
+                counter = 0;
+            }
+            if (counter == winLength) {
+                return playerNumber;
+            }
+        }
+
+        //horizontal check
+        for (int i = colMin; i <= colMax + boundCheck; i++) {
+            if (board[row][i] == playerNumber) {
+                counter++;
+            } else {
+                counter = 0;
+            }
+            if (counter == winLength) {
+                return playerNumber;
+            }
+        }
+
+        int diagRetVal =  diagonalChecks(row, col, playerNumber);
+
+        //if the return value is 0, that means no win was found.
+        //if it's a positive integer, that player won on a diagonal.
+        if(diagRetVal > 0) {
+            return diagRetVal;
+        }
+
+        //if code has made it this far, no win was found
+        if(spacesLeft == 0){
+            //return draw (board is full)
+            return -2;
+        } else {
+            //no win or draw, game continues
+            return 0;
+        }
+    }
+
+    private int diagonalChecks(int row, int col, int playerNumber){
+        int boundCheck = winLength - 1;
+        int colMax = col + boundCheck;
+        int colMin = col - boundCheck;
+        int rowMax = row + boundCheck;
+        int rowMin = row - boundCheck;
+        int counter = 0;
         int diff = 0;
 
         if (colMin < 0) {
@@ -90,65 +152,82 @@ public class GomokuBoard {
             rowMax -= diff;
         }
 
-        //vertical check
-        for (int i = rowMin; i <= rowMax; i++) {
-            if (board[i][col] == piece) {
-                counter++;
-            } else {
-                counter = 0;
-            }
-            if (counter == winLength) {
-                return piece;
-            }
-        }
-
-        //horizontal check
-        for (int i = colMin; i <= colMax; i++) {
-            if (board[row][i] == piece) {
-                counter++;
-            } else {
-                counter = 0;
-            }
-            if (counter == winLength) {
-                return piece;
-            }
-        }
-
         //("\") diagonal check
         for (int i = rowMin; i <= rowMax; i++) {
             for (int j = colMin; j <= colMax; j++) {
-                if (board[i][j] == piece) {
+                if (board[i][j] == playerNumber) {
                     counter++;
                 } else {
                     counter = 0;
                 }
                 if (counter == winLength) {
-                    return piece;
+                    return playerNumber;
                 }
             }
+        }
+
+        //variables are being reinitialized because its necessary for new calculations
+        colMax = col + boundCheck;
+        colMin = col - boundCheck;
+        rowMax = row + boundCheck;
+        rowMin = row - boundCheck;
+        counter = 0;
+        diff = 0;
+
+        if (colMin < 0) {
+            diff = -colMin;
+            colMin += diff;
+            rowMax -= diff;
+        }
+        if (colMax >= numCols) {
+            diff = colMax - numCols + 1;
+            colMax -= diff;
+            rowMin += diff;
+        }
+
+        if (rowMin < 0) {
+            diff = -rowMin;
+            colMax -= diff;
+            rowMin += diff;
+        }
+        if (rowMax >= numRows) {
+            diff = rowMax - numRows + 1;
+            colMin += diff;
+            rowMax -= diff;
         }
 
         //("/") diagonal check
         for (int i = rowMax; i >= rowMin; i--) {
             for (int j = colMin; j <= colMax; j++) {
-                if (board[i][j] == piece) {
+                if (board[i][j] == playerNumber) {
                     counter++;
                 } else {
                     counter = 0;
                 }
                 if (counter == winLength) {
-                    return piece;
+                    return playerNumber;
                 }
             }
         }
 
-        //if code has made it this far, no win was found
-        if(spacesLeft == 0){
-            //return draw (board is full)
-            return 0;
-        } else {
-            //no win or draw, game continues
-            return -1;
+        //no win found yet
+        return  0;
+    }
+
+    public boolean isBoardFull() {
+        return (spacesLeft == 0);
+    }
+
+    public void printBoard() {
+
+        //Loop through the board printing one character at a time
+        for(int i=0; i<numRows; ++i) {
+            for(int j=0; j<numCols; ++j) {
+                System.out.print('[');
+                System.out.print(board[i][j]);
+                System.out.print("] ");
+            }
+            System.out.print('\n');
         }
     }
 }
