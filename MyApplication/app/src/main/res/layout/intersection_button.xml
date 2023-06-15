@@ -6,8 +6,9 @@
     android:layout_columnWeight="1"
     android:layout_rowWeight="1"
     android:gravity="center"
-    android:src="@drawable/intersection"
+    android:src="@drawable/blank_intersection"
     android:contentDescription="@null"
+    android:onClick="place"
     android:background="@null"
     android:id="@+id/empty_intersection"
     />

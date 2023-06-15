@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class Gomoku extends AppCompatActivity{
     private int col;
     private int piece;
     private int gameState;
+    private int turn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,9 @@ public class Gomoku extends AppCompatActivity{
         player2 = new GomokuPlayer(2);
         board = new GomokuBoard();
         gameState = -1;
+        turn = 0;
 
-        while (gameState == -1) {
-            gameState = board.placePiece(row, col, piece);
-        }
+
     }
     private void boardMake(){
         GridLayout griddy = (GridLayout) findViewById(R.id.griddy);
@@ -61,6 +62,24 @@ public class Gomoku extends AppCompatActivity{
                 View intersectionCur = (View) findViewById(R.id.empty_intersection);
                 intersectionCur.setId(i * bSize + j);
             }
+        }
+    }
+    public void place (View button) {
+        System.out.println("aaaa");
+        ImageButton buttonCur = (ImageButton) button;
+        piece = buttonCur.getId();
+        row = piece / bSize;
+        col = piece % bSize;
+        int aaa = board.placePiece(row, col, turn % 2 + 1);
+        if (aaa == 0) {
+            // add piece, swap turns
+
+            if(turn % 2 == 0) {
+                buttonCur.setImageResource(R.drawable.black_intersection);
+            } else {
+                buttonCur.setImageResource(R.drawable.white_intersection);
+            }
+            turn++;
         }
     }
 }
