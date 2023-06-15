@@ -11,7 +11,6 @@ public class Gomoku extends AppCompatActivity{
     private ImageView player1Avatar;
     private TextView player2Name;
     private ImageView player2Avatar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,5 +26,7 @@ public class Gomoku extends AppCompatActivity{
         player1Avatar.setImageDrawable(InitialConfigGomoku.player_avatar1.getDrawable());
         player2Avatar = findViewById(R.id.player2Avatar);
         player2Avatar.setImageDrawable(InitialConfigGomoku.player_avatar2.getDrawable());
+
+
     }
 }
