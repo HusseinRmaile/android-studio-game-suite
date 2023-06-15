@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,19 +68,29 @@ public class Gomoku extends AppCompatActivity{
     public void place (View button) {
         System.out.println("aaaa");
         ImageButton buttonCur = (ImageButton) button;
+        ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
         row = piece / bSize;
         col = piece % bSize;
-        int aaa = board.placePiece(row, col, turn % 2 + 1);
-        if (aaa == 0) {
+        int gamestate = board.placePiece(row, col, turn % 2 + 1);
+        if (gamestate == 0) {
             // add piece, swap turns
 
             if(turn % 2 == 0) {
                 buttonCur.setImageResource(R.drawable.black_intersection);
+                turnbox.setBackgroundColor(Color.WHITE);
+
             } else {
                 buttonCur.setImageResource(R.drawable.white_intersection);
+                turnbox.setBackgroundColor(Color.BLACK);
             }
             turn++;
+        } else if (gamestate == 1) {
+            //player 1 win
+        } else if (gamestate == 2) {
+            //player 2 win
+        } else {
+            //board full
         }
     }
 }

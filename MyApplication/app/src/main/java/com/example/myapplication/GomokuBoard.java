@@ -170,18 +170,6 @@ public class GomokuBoard {
             a++;
         }
 
-//        for (int i = rowMin; i <= rowMax; i++) {
-//            for (int j = colMin; j <= colMax; j++) {
-//                if (board[i][j] == playerNumber) {
-//                    counter++;
-//                } else {
-//                    counter = 0;
-//                }
-//                if (counter == winLength) {
-//                    return playerNumber;
-//                }
-//            }
-//        }
 
         //variables are being reinitialized because its necessary for new calculations
         colMax = col + boundCheck;
@@ -230,18 +218,6 @@ public class GomokuBoard {
             b++;
         }
 
-//        for (int i = rowMax; i >= rowMin; i--) {
-//            for (int j = colMin; j <= colMax; j++) {
-//                if (board[i][j] == playerNumber) {
-//                    counter++;
-//                } else {
-//                    counter = 0;
-//                }
-//                if (counter == winLength) {
-//                    return playerNumber;
-//                }
-//            }
-//        }
 
         //no win found yet
         return  0;
