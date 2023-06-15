@@ -10,10 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Gomoku extends AppCompatActivity{
+
     final static int bSize = 19;
-    private TextView nameDisplay;
-    private ImageView dynamicImageView;
     private LinearLayout goBoard;
+    private TextView player1Name;
+    private ImageView player1Avatar;
+    private TextView player2Name;
+    private ImageView player2Avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +24,15 @@ public class Gomoku extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gomoku);
 
-        nameDisplay = findViewById(R.id.nameDisplay);
-        nameDisplay.setText(InitialConfigGomoku.userName);
+        player1Name = findViewById(R.id.player1Name);
+        player1Name.setText(InitialConfigGomoku.userName1);
+        player2Name = findViewById(R.id.player2Name);
+        player2Name.setText(InitialConfigGomoku.userName2);
 
-        dynamicImageView = findViewById(R.id.dynamicImageView);
-        dynamicImageView.setImageDrawable(InitialConfigGomoku.avatar.getDrawable());
+        player1Avatar = findViewById(R.id.player1Avatar);
+        player1Avatar.setImageDrawable(InitialConfigGomoku.player_avatar1.getDrawable());
+        player2Avatar = findViewById(R.id.player2Avatar);
+        player2Avatar.setImageDrawable(InitialConfigGomoku.player_avatar2.getDrawable());
 
         boardMake();
     }
@@ -40,5 +47,4 @@ public class Gomoku extends AppCompatActivity{
             }
         }
     }
-
 }
