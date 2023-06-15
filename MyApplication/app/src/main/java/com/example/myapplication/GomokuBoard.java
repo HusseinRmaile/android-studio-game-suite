@@ -1,20 +1,21 @@
 package com.example.myapplication;
 
-public class Board {
+public class GomokuBoard {
     private int numRows;
     private int numCols;
-    private int board[][] = new int[numRows][numCols];
+    private int board[][];
     //rows and cols corresponds to placeable areas
     //not grid, but rather the corners the stones can go on
     private int winLength;
     private int spacesLeft;
 
     //default 20x20 board with 5 in a row win condition
-    public Board() {
-        this.numRows = 20;
-        this.numCols = 20;
+    public GomokuBoard() {
+        this.numRows = 19;
+        this.numCols = 19;
         this.winLength = 5;
         this.spacesLeft = numRows * numCols;
+        this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 board[i][j] = 0;
@@ -23,11 +24,12 @@ public class Board {
     }
 
     //customizable board dimensions and win condition
-    public Board(int height, int width, int winLength) {
+    public GomokuBoard(int height, int width, int winLength) {
         this.numRows = height;
         this.numCols = width;
         this.winLength = winLength;
         this.spacesLeft = numRows * numCols;
+        this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 board[i][j] = 0;
@@ -35,7 +37,7 @@ public class Board {
         }
     }
 
-    public int placePiece(int row, int col, int piece){
+    public int placePiece(int row, int col, int playerNumber){
         if(col < 0 || col >= numCols){
             return -1;
             //out of bounds
@@ -45,18 +47,17 @@ public class Board {
             //out of bounds
         }
         if(board[row][col] != 0){
-            return -2;
-            //a piece is already there
+            return -1;
+            //a playerNumber is already there
         }
-        board[row][col] = piece;
+        board[row][col] = playerNumber;
         spacesLeft--;
-        //piece successfully placed
+        //playerNumber successfully placed
 
-        return checkWin(row, col, piece);
-        //0 = draw, -1 = game continues, any other number means that player won
+        return checkWin(row, col, playerNumber);
     }
 
-    public int checkWin(int row, int col, int piece) {
+    public int checkWin(int row, int col, int playerNumber) {
         int boundCheck = winLength - 1;
         int colMax = col + boundCheck;
         int colMin = col - boundCheck;
@@ -69,59 +70,59 @@ public class Board {
         if (colMin < 0) {
             diff = -colMin;
             colMin += diff;
-            rowMin += diff;
+//            rowMin += diff;
         }
         if (colMax >= numCols) {
             diff = colMax - numCols + 1;
             colMax -= diff;
-            rowMax -= diff;
+//            rowMax -= diff;
         }
 
         if (rowMin < 0) {
             diff = -rowMin;
-            colMin += diff;
+//            colMin += diff;
             rowMin += diff;
         }
         if (rowMax >= numRows) {
             diff = rowMax - numRows + 1;
-            colMax -= diff;
+//            colMax -= diff;
             rowMax -= diff;
         }
 
         //vertical check
         for (int i = rowMin; i <= rowMax; i++) {
-            if (board[i][col] == piece) {
+            if (board[i][col] == playerNumber) {
                 counter++;
             } else {
                 counter = 0;
             }
             if (counter == winLength) {
-                return piece;
+                return playerNumber;
             }
         }
 
         //horizontal check
         for (int i = colMin; i <= colMax; i++) {
-            if (board[row][i] == piece) {
+            if (board[row][i] == playerNumber) {
                 counter++;
             } else {
                 counter = 0;
             }
             if (counter == winLength) {
-                return piece;
+                return playerNumber;
             }
         }
 
         //("\") diagonal check
         for (int i = rowMin; i <= rowMax; i++) {
             for (int j = colMin; j <= colMax; j++) {
-                if (board[i][j] == piece) {
+                if (board[i][j] == playerNumber) {
                     counter++;
                 } else {
                     counter = 0;
                 }
                 if (counter == winLength) {
-                    return piece;
+                    return playerNumber;
                 }
             }
         }
@@ -129,13 +130,13 @@ public class Board {
         //("/") diagonal check
         for (int i = rowMax; i >= rowMin; i--) {
             for (int j = colMin; j <= colMax; j++) {
-                if (board[i][j] == piece) {
+                if (board[i][j] == playerNumber) {
                     counter++;
                 } else {
                     counter = 0;
                 }
                 if (counter == winLength) {
-                    return piece;
+                    return playerNumber;
                 }
             }
         }
@@ -143,10 +144,27 @@ public class Board {
         //if code has made it this far, no win was found
         if(spacesLeft == 0){
             //return draw (board is full)
-            return 0;
+            return -2;
         } else {
             //no win or draw, game continues
-            return -1;
+            return 0;
+        }
+    }
+
+    public boolean isBoardFull() {
+        return (spacesLeft == 0);
+    }
+
+    public void printBoard() {
+
+        //Loop through the board printing one character at a time
+        for(int i=0; i<numRows; ++i) {
+            for(int j=0; j<numCols; ++j) {
+                System.out.print('[');
+                System.out.print(board[i][j]);
+                System.out.print("] ");
+            }
+            System.out.print('\n');
         }
     }
 }

@@ -26,7 +26,7 @@ public class InitialConfigWordle extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_config_wordle);
 
-        inputEditText = findViewById(R.id.inputEditText);
+        inputEditText = findViewById(R.id.inputName1);
         storeButton = findViewById(R.id.storeButton);
         displayTextView = findViewById(R.id.displayTextView);
         avatar1 = findViewById(R.id.avatar1);
@@ -66,5 +66,9 @@ public class InitialConfigWordle extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    public static class GomokuPlayer {
+
     }
 }
