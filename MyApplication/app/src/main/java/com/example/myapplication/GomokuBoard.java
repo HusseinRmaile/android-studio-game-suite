@@ -92,7 +92,7 @@ public class GomokuBoard {
         }
 
         //horizontal check
-        for (int i = colMin; i <= colMax + boundCheck; i++) {
+        for (int i = colMin; i <= colMax; i++) {
             if (board[row][i] == playerNumber) {
                 counter++;
             } else {
