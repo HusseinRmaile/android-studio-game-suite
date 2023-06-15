@@ -70,27 +70,27 @@ public class GomokuBoard {
         if (colMin < 0) {
             diff = -colMin;
             colMin += diff;
-//            rowMin += diff;
+            rowMin += diff;
         }
         if (colMax >= numCols) {
             diff = colMax - numCols + 1;
             colMax -= diff;
-//            rowMax -= diff;
+            rowMax -= diff;
         }
 
         if (rowMin < 0) {
             diff = -rowMin;
-//            colMin += diff;
+            colMin += diff;
             rowMin += diff;
         }
         if (rowMax >= numRows) {
             diff = rowMax - numRows + 1;
-//            colMax -= diff;
+            colMax -= diff;
             rowMax -= diff;
         }
 
         //vertical check
-        for (int i = rowMin; i <= rowMax; i++) {
+        for (int i = row - boundCheck; i <= row + boundCheck; i++) {
             if (board[i][col] == playerNumber) {
                 counter++;
             } else {
@@ -102,7 +102,7 @@ public class GomokuBoard {
         }
 
         //horizontal check
-        for (int i = colMin; i <= colMax; i++) {
+        for (int i = col - boundCheck; i <= col + boundCheck; i++) {
             if (board[row][i] == playerNumber) {
                 counter++;
             } else {
