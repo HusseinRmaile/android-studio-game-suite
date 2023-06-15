@@ -1,20 +1,21 @@
 package com.example.myapplication;
 
-public class Board {
+public class GomokuBoard {
     private int numRows;
     private int numCols;
-    private int board[][] = new int[numRows][numCols];
+    private int board[][];
     //rows and cols corresponds to placeable areas
     //not grid, but rather the corners the stones can go on
     private int winLength;
     private int spacesLeft;
 
     //default 20x20 board with 5 in a row win condition
-    public Board() {
-        this.numRows = 20;
-        this.numCols = 20;
+    public GomokuBoard() {
+        this.numRows = 19;
+        this.numCols = 19;
         this.winLength = 5;
         this.spacesLeft = numRows * numCols;
+        this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 board[i][j] = 0;
@@ -23,11 +24,12 @@ public class Board {
     }
 
     //customizable board dimensions and win condition
-    public Board(int height, int width, int winLength) {
+    public GomokuBoard(int height, int width, int winLength) {
         this.numRows = height;
         this.numCols = width;
         this.winLength = winLength;
         this.spacesLeft = numRows * numCols;
+        this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 board[i][j] = 0;
