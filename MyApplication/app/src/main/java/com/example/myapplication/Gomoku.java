@@ -62,6 +62,30 @@ public class Gomoku extends AppCompatActivity{
                 View inflated = View.inflate(Gomoku.this, R.layout.intersection_button,griddy);
                 View intersectionCur = (View) findViewById(R.id.empty_intersection);
                 intersectionCur.setId(i * bSize + j);
+                ImageButton buttonCur = (ImageButton) intersectionCur;
+                if (i == 0) {
+                    if (j == 0) {
+                        buttonCur.setImageResource(R.drawable.wall_topleft);
+                    } else if (j == bSize - 1) {
+                        buttonCur.setImageResource(R.drawable.wall_topright);
+                    } else {
+                        buttonCur.setImageResource(R.drawable.wall_top);
+                    }
+                } else if (j == 0) {
+                    if (i == bSize - 1) {
+                        buttonCur.setImageResource(R.drawable.wall_bottomleft);
+                    } else {
+                        buttonCur.setImageResource(R.drawable.wall_left);
+                    }
+                } else if (i == bSize - 1) {
+                    if (j == bSize - 1) {
+                        buttonCur.setImageResource(R.drawable.wall_bottomright);
+                    } else {
+                        buttonCur.setImageResource(R.drawable.wall_bottom);
+                    }
+                } else if (j == bSize - 1) {
+                    buttonCur.setImageResource(R.drawable.wall_right);
+                }
             }
         }
     }
@@ -77,11 +101,10 @@ public class Gomoku extends AppCompatActivity{
             // add piece, swap turns
 
             if(turn % 2 == 0) {
-                buttonCur.setImageResource(R.drawable.black_intersection);
+                buttonCur.setImageResource(R.drawable.black);
                 turnbox.setBackgroundColor(Color.WHITE);
-
             } else {
-                buttonCur.setImageResource(R.drawable.white_intersection);
+                buttonCur.setImageResource(R.drawable.white);
                 turnbox.setBackgroundColor(Color.BLACK);
             }
             turn++;
