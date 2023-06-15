@@ -9,6 +9,6 @@
     android:src="@drawable/blank_intersection"
     android:contentDescription="@null"
     android:onClick="place"
-    android:background="@null"
+    android:background="@drawable/go_cell"
     android:id="@+id/empty_intersection"
     />
