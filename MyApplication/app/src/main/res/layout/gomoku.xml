@@ -51,4 +51,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/player1WinCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="0"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/player1Name"
+        app:layout_constraintEnd_toStartOf="@+id/winning"
+        app:layout_constraintTop_toTopOf="@+id/player1Avatar" />
+
+    <TextView
+        android:id="@+id/player2WinCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="32"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/player2Name"
+        app:layout_constraintStart_toEndOf="@+id/winning"
+        app:layout_constraintTop_toTopOf="@+id/player2Avatar" />
+
+    <TextView
+        android:id="@+id/winning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="@+id/player2Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/player2Avatar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

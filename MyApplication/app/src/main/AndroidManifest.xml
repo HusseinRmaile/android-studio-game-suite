@@ -52,6 +52,9 @@
         <activity
             android:name=".Wordle">
         </activity>
+        <activity
+            android:name=".EndGomoku">
+        </activity>
 
     </application>
 
