@@ -153,9 +153,10 @@ public class GomokuBoard {
         }
 
         //("\") diagonal check
+        int a = colMin;
         for (int i = rowMin; i <= rowMax; i++) {
-            for (int j = colMin; j <= colMax; j++) {
-                if (board[i][j] == playerNumber) {
+            if (a <= colMax) {
+                if (board[i][a] == playerNumber) {
                     counter++;
                 } else {
                     counter = 0;
@@ -163,8 +164,24 @@ public class GomokuBoard {
                 if (counter == winLength) {
                     return playerNumber;
                 }
+            } else {
+                break;
             }
+            a++;
         }
+
+//        for (int i = rowMin; i <= rowMax; i++) {
+//            for (int j = colMin; j <= colMax; j++) {
+//                if (board[i][j] == playerNumber) {
+//                    counter++;
+//                } else {
+//                    counter = 0;
+//                }
+//                if (counter == winLength) {
+//                    return playerNumber;
+//                }
+//            }
+//        }
 
         //variables are being reinitialized because its necessary for new calculations
         colMax = col + boundCheck;
@@ -172,7 +189,6 @@ public class GomokuBoard {
         rowMax = row + boundCheck;
         rowMin = row - boundCheck;
         counter = 0;
-        diff = 0;
 
         if (colMin < 0) {
             diff = -colMin;
@@ -197,9 +213,10 @@ public class GomokuBoard {
         }
 
         //("/") diagonal check
+        int b = colMin;
         for (int i = rowMax; i >= rowMin; i--) {
-            for (int j = colMin; j <= colMax; j++) {
-                if (board[i][j] == playerNumber) {
+            if (b <= colMax) {
+                if (board[i][b] == playerNumber) {
                     counter++;
                 } else {
                     counter = 0;
@@ -207,8 +224,24 @@ public class GomokuBoard {
                 if (counter == winLength) {
                     return playerNumber;
                 }
+            } else {
+                break;
             }
+            b++;
         }
+
+//        for (int i = rowMax; i >= rowMin; i--) {
+//            for (int j = colMin; j <= colMax; j++) {
+//                if (board[i][j] == playerNumber) {
+//                    counter++;
+//                } else {
+//                    counter = 0;
+//                }
+//                if (counter == winLength) {
+//                    return playerNumber;
+//                }
+//            }
+//        }
 
         //no win found yet
         return  0;
