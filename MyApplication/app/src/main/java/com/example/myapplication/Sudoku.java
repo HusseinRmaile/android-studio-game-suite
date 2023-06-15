@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,5 +22,10 @@ public class Sudoku extends AppCompatActivity{
 
         dynamicImageView = findViewById(R.id.dynamicImageView);
         dynamicImageView.setImageDrawable(InitialConfigSudoku.avatar.getDrawable());
+
+
+    }
+    private void buildBoard() {
+        GridLayout griddy = (GridLayout) findViewById(R.id.griddy);
     }
 }
