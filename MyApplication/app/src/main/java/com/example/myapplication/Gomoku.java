@@ -17,6 +17,13 @@ public class Gomoku extends AppCompatActivity{
     private ImageView player1Avatar;
     private TextView player2Name;
     private ImageView player2Avatar;
+    private GomokuPlayer player1;
+    private GomokuPlayer player2;
+    private GomokuBoard board;
+    private int row;
+    private int col;
+    private int piece;
+    private int gameState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,15 @@ public class Gomoku extends AppCompatActivity{
         player2Avatar.setImageDrawable(InitialConfigGomoku.player_avatar2.getDrawable());
 
         boardMake();
+
+        player1 = new GomokuPlayer(1);
+        player2 = new GomokuPlayer(2);
+        board = new GomokuBoard();
+        gameState = -1;
+
+        while (gameState == -1) {
+            gameState = board.placePiece(row, col, piece);
+        }
     }
     private void boardMake(){
         GridLayout griddy = (GridLayout) findViewById(R.id.griddy);
