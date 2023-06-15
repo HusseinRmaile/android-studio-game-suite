@@ -64,29 +64,19 @@ public class GomokuBoard {
         int rowMax = row + boundCheck;
         int rowMin = row - boundCheck;
         int counter = 0;
-        boolean win = false;
-        int diff = 0;
 
         if (colMin < 0) {
-            diff = -colMin;
-            colMin += diff;
-//            rowMin += diff;
+            colMin = 0;
         }
         if (colMax >= numCols) {
-            diff = colMax - numCols + 1;
-            colMax -= diff;
-//            rowMax -= diff;
+            colMax = numCols - 1;
         }
 
         if (rowMin < 0) {
-            diff = -rowMin;
-//            colMin += diff;
-            rowMin += diff;
+            rowMin = 0;
         }
         if (rowMax >= numRows) {
-            diff = rowMax - numRows + 1;
-//            colMax -= diff;
-            rowMax -= diff;
+            rowMax = numRows - 1;
         }
 
         //vertical check
@@ -102,7 +92,7 @@ public class GomokuBoard {
         }
 
         //horizontal check
-        for (int i = colMin; i <= colMax; i++) {
+        for (int i = colMin; i <= colMax + boundCheck; i++) {
             if (board[row][i] == playerNumber) {
                 counter++;
             } else {
@@ -111,6 +101,55 @@ public class GomokuBoard {
             if (counter == winLength) {
                 return playerNumber;
             }
+        }
+
+        int diagRetVal =  diagonalChecks(row, col, playerNumber);
+
+        //if the return value is 0, that means no win was found.
+        //if it's a positive integer, that player won on a diagonal.
+        if(diagRetVal > 0) {
+            return diagRetVal;
+        }
+
+        //if code has made it this far, no win was found
+        if(spacesLeft == 0){
+            //return draw (board is full)
+            return -2;
+        } else {
+            //no win or draw, game continues
+            return 0;
+        }
+    }
+
+    private int diagonalChecks(int row, int col, int playerNumber){
+        int boundCheck = winLength - 1;
+        int colMax = col + boundCheck;
+        int colMin = col - boundCheck;
+        int rowMax = row + boundCheck;
+        int rowMin = row - boundCheck;
+        int counter = 0;
+        int diff = 0;
+
+        if (colMin < 0) {
+            diff = -colMin;
+            colMin += diff;
+            rowMin += diff;
+        }
+        if (colMax >= numCols) {
+            diff = colMax - numCols + 1;
+            colMax -= diff;
+            rowMax -= diff;
+        }
+
+        if (rowMin < 0) {
+            diff = -rowMin;
+            colMin += diff;
+            rowMin += diff;
+        }
+        if (rowMax >= numRows) {
+            diff = rowMax - numRows + 1;
+            colMax -= diff;
+            rowMax -= diff;
         }
 
         //("\") diagonal check
@@ -127,6 +166,36 @@ public class GomokuBoard {
             }
         }
 
+        //variables are being reinitialized because its necessary for new calculations
+        colMax = col + boundCheck;
+        colMin = col - boundCheck;
+        rowMax = row + boundCheck;
+        rowMin = row - boundCheck;
+        counter = 0;
+        diff = 0;
+
+        if (colMin < 0) {
+            diff = -colMin;
+            colMin += diff;
+            rowMax -= diff;
+        }
+        if (colMax >= numCols) {
+            diff = colMax - numCols + 1;
+            colMax -= diff;
+            rowMin += diff;
+        }
+
+        if (rowMin < 0) {
+            diff = -rowMin;
+            colMax -= diff;
+            rowMin += diff;
+        }
+        if (rowMax >= numRows) {
+            diff = rowMax - numRows + 1;
+            colMin += diff;
+            rowMax -= diff;
+        }
+
         //("/") diagonal check
         for (int i = rowMax; i >= rowMin; i--) {
             for (int j = colMin; j <= colMax; j++) {
@@ -141,14 +210,8 @@ public class GomokuBoard {
             }
         }
 
-        //if code has made it this far, no win was found
-        if(spacesLeft == 0){
-            //return draw (board is full)
-            return -2;
-        } else {
-            //no win or draw, game continues
-            return 0;
-        }
+        //no win found yet
+        return  0;
     }
 
     public boolean isBoardFull() {
