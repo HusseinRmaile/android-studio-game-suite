@@ -1,12 +1,11 @@
 package com.example.myapplication;
 
-import android.widget.ImageView;
-
 public class GomokuPlayer {
     private int color;
 //    private String name;
 //    private ImageView sprite;
     private int winCounter;
+    private int drawCounter;
 
     public GomokuPlayer(int color) {
         this.color = color;
@@ -18,6 +17,7 @@ public class GomokuPlayer {
     public int getColor() {
         return this.color;
     }
+
 
 //    public String getName() {
 //        return this.name;
@@ -35,14 +35,6 @@ public class GomokuPlayer {
         this.color = c;
     }
 
-//    public void setName(String n) {
-//        this.name = n;
-//    }
-//
-//    public void setSprite(ImageView s) {
-//        this.sprite = s;
-//    }
-
     public void setWinCounter(int n) {
         this.winCounter = n;
     }
@@ -50,4 +42,6 @@ public class GomokuPlayer {
     public void addWin() {
         this.winCounter += 1;
     }
+    public void setDrawCounter(int n) { this.drawCounter = n; }
+    public int getDrawCounter() { return this.drawCounter; }
 }

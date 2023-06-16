@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.graphics.Color;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 public class Gomoku extends AppCompatActivity{
 
+    public static String winMessage;
     final static int bSize = 19;
     private LinearLayout goBoard;
     private TextView player1Name;
@@ -25,32 +28,46 @@ public class Gomoku extends AppCompatActivity{
     private int row;
     private int col;
     private int piece;
-    private int gameState;
     private int turn;
-
+    private int gameState = -1;
+    //private int drawCount = InitialConfigGomoku.drawCount;
+    GomokuPlayer p1 = InitialConfigGomoku.player1;
+    GomokuPlayer p2 = InitialConfigGomoku.player2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        int player1WinCounter = p1.getWinCounter();
+        int player2WinCounter = p2.getWinCounter();
+        int drawCount = p1.getDrawCounter();
+        Log.d("Gomoku", "Player 1 win count: " + p1.getWinCounter());
+        Log.d("Gomoku", "Player 2 win count: " + p2.getWinCounter());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gomoku);
 
-        player1Name = findViewById(R.id.player1Name);
+        TextView player1Name = findViewById(R.id.player1Name);
         player1Name.setText(InitialConfigGomoku.userName1);
-        player2Name = findViewById(R.id.player2Name);
+        TextView player2Name = findViewById(R.id.player2Name);
         player2Name.setText(InitialConfigGomoku.userName2);
 
-        player1Avatar = findViewById(R.id.player1Avatar);
+        ImageView player1Avatar = findViewById(R.id.player1Avatar);
         player1Avatar.setImageDrawable(InitialConfigGomoku.player_avatar1.getDrawable());
-        player2Avatar = findViewById(R.id.player2Avatar);
+        ImageView player2Avatar = findViewById(R.id.player2Avatar);
         player2Avatar.setImageDrawable(InitialConfigGomoku.player_avatar2.getDrawable());
+
+        TextView player1WinCount = findViewById(R.id.player1WinCount);
+        player1WinCount.setText(Integer.toString(player1WinCounter));
+        TextView player2WinCount = findViewById(R.id.player2WinCount);
+        player2WinCount.setText(Integer.toString(player2WinCounter));
+        TextView draw = findViewById(R.id.drawCount);
+        draw.setText(Integer.toString(drawCount));
 
         boardMake();
 
-        player1 = new GomokuPlayer(1);
-        player2 = new GomokuPlayer(2);
         board = new GomokuBoard();
-        gameState = -1;
         turn = 0;
+        Log.d("Gomoku", "game state is " + gameState);
 
 
     }
@@ -96,10 +113,10 @@ public class Gomoku extends AppCompatActivity{
         piece = buttonCur.getId();
         row = piece / bSize;
         col = piece % bSize;
-        int gamestate = board.placePiece(row, col, turn % 2 + 1);
-        if (gamestate == 0) {
-            // add piece, swap turns
+        gameState = board.placePiece(row, col, turn % 2 + 1);
 
+        if (gameState == 0) {
+            // add piece, swap turns
             if(turn % 2 == 0) {
                 buttonCur.setImageResource(R.drawable.black);
                 turnbox.setBackgroundColor(Color.WHITE);
@@ -108,12 +125,37 @@ public class Gomoku extends AppCompatActivity{
                 turnbox.setBackgroundColor(Color.BLACK);
             }
             turn++;
-        } else if (gamestate == 1) {
+        } else if (gameState == 1) {
             //player 1 win
-        } else if (gamestate == 2) {
+            p1.setWinCounter(p1.getWinCounter() + 1);
+            winMessage = "Player 1 wins!";
+            Log.d("Gomoku", "Player 1 win count: " + p1.getWinCounter());
+            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
+            intent.putExtra("player1WinCounter", p1.getWinCounter());
+            intent.putExtra("player2WinCounter", p2.getWinCounter());
+            intent.putExtra("drawCounter", p1.getDrawCounter());
+            startActivity(intent);
+        } else if (gameState == 2) {
             //player 2 win
+            p2.setWinCounter(p2.getWinCounter() + 1);
+            winMessage = "Player 2 wins!";
+            Log.d("Gomoku", "Player 2 win count: " + p2.getWinCounter());
+            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
+            intent.putExtra("player1WinCounter", p1.getWinCounter());
+            intent.putExtra("player2WinCounter", p2.getWinCounter());
+            intent.putExtra("drawCounter", p1.getDrawCounter());
+            startActivity(intent);
         } else {
             //board full
+            p1.setDrawCounter(p1.getDrawCounter() + 1);
+            p2.setDrawCounter(p2.getDrawCounter() + 1);
+            winMessage = "It's a draw!";
+            Log.d("Gomoku", "draw count: " + p1.getDrawCounter());
+            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
+            intent.putExtra("player1WinCounter", p1.getWinCounter());
+            intent.putExtra("player2WinCounter", p2.getWinCounter());
+            intent.putExtra("drawCounter", p1.getDrawCounter());
+            startActivity(intent);
         }
     }
 }

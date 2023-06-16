@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Arrays;
+
 public class InitialConfigGomoku extends AppCompatActivity{
     private EditText inputName1;
     private EditText inputName2;
@@ -26,18 +29,27 @@ public class InitialConfigGomoku extends AppCompatActivity{
     public static String userName2;
     public static ImageView player_avatar1;
     public static ImageView player_avatar2;
+    public static GomokuPlayer player1 = new GomokuPlayer(1);
+    public static GomokuPlayer player2 = new GomokuPlayer(2);
+    //public int drawCount, player1WinCount, player2WinCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_config_gomoku);
 
+        player1.setWinCounter(0);
+        player2.setWinCounter(0);
+        player1.setDrawCounter(0);
+        player2.setDrawCounter(0);
         inputName1 = findViewById(R.id.inputName1);
         inputName2 = findViewById(R.id.inputName2);
         chooseAvatar1 = findViewById(R.id.chooseAvatar1);
         chooseAvatar2 = findViewById(R.id.chooseAvatar2);
         storeButton = findViewById(R.id.storeButton);
-        displayTextView = findViewById(R.id.displayTextView);
+        displayTextView = findViewById(R.id.textView2);
+        //int[] temp = new int[] {drawCount, player1WinCount, player2WinCount};
+        //displayTextView.setText(Arrays.toString(temp));
         avatar1 = findViewById(R.id.avatar1);
         avatar2 = findViewById(R.id.avatar2);
         avatar3 = findViewById(R.id.avatar3);
