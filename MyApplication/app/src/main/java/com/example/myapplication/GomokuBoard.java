@@ -9,7 +9,7 @@ public class GomokuBoard {
     private int winLength;
     private int spacesLeft;
 
-    //default 20x20 board with 5 in a row win condition
+    //default 19x19 board with 5 in a row win condition
     public GomokuBoard() {
         this.numRows = 19;
         this.numCols = 19;
@@ -237,5 +237,21 @@ public class GomokuBoard {
             }
             System.out.print('\n');
         }
+    }
+
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+
+    public int getWinLength() {
+        return winLength;
+    }
+
+    public int getSpacesLeft() {
+        return spacesLeft;
     }
 }
