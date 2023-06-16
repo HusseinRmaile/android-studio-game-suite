@@ -23,6 +23,9 @@ public class EndGomoku extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.end_gomoku);
 
+        TextView winMessage = findViewById(R.id.winMessage);
+        winMessage.setText(Gomoku.winMessage);
+
         player1Name = findViewById(R.id.player1Name);
         player1Name.setText(InitialConfigGomoku.userName1);
         player2Name = findViewById(R.id.player2Name);
