@@ -90,7 +90,7 @@ public class GomokuBoard {
                 return playerNumber;
             }
         }
-
+        counter = 0;
         //horizontal check
         for (int i = colMin; i <= colMax; i++) {
             if (board[row][i] == playerNumber) {
@@ -102,7 +102,6 @@ public class GomokuBoard {
                 return playerNumber;
             }
         }
-
         int diagRetVal =  diagonalChecks(row, col, playerNumber);
 
         //if the return value is 0, that means no win was found.
