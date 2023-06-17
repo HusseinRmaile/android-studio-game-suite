@@ -175,4 +175,32 @@ public class ExampleUnitTest {
         assertEquals(board2.getSpacesLeft(), 0);
         assertEquals(board2.isBoardFull(), true);
     }
+
+    //Yuanning unit test 1
+    @Test
+    public void test_repeated_piece() {
+        GomokuBoard board = new GomokuBoard(3, 3, 3);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertEquals(board.placePiece(i,j,1), 0);
+                assertEquals(board.placePiece(i,j,1), -1);
+                assertEquals(board.placePiece(i,j,2), -1);
+            }
+        }
+    }
+
+    //Yuanning unit test 2
+    @Test
+    public void test_draw() {
+        GomokuBoard board = new GomokuBoard(3, 3, 3);
+        assertEquals(board.placePiece(0,0,1), 0);
+        assertEquals(board.placePiece(0,1,2), 0);
+        assertEquals(board.placePiece(0,2,1), 0);
+        assertEquals(board.placePiece(1,1,2), 0);
+        assertEquals(board.placePiece(1,0,1), 0);
+        assertEquals(board.placePiece(2,0,2), 0);
+        assertEquals(board.placePiece(1,2,1), 0);
+        assertEquals(board.placePiece(2,2,2), 0);
+        assertEquals(board.placePiece(2,1,1), -2);
+    }
 }
