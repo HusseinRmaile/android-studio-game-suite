@@ -115,6 +115,7 @@ public class ExampleUnitTest {
         assertEquals(board3.placePiece(3,3,2),0);
     }
 
+    @Test
     //Zaid unit test 1
     //Checks player initialization
     public void playerInitialization() {
@@ -125,6 +126,7 @@ public class ExampleUnitTest {
         assertEquals(player1.getWinCounter(),0);
     }
 
+    @Test
     //Zaid unit test 2
     //Checks win incrementer
     public void playerAddWin() {
@@ -137,6 +139,7 @@ public class ExampleUnitTest {
         assertEquals(player1.getWinCounter(),2);
     }
 
+    @Test
     //Taiki unit test 1
     public void test_placePiece() {
         GomokuBoard board = new GomokuBoard(2,2,3);
@@ -147,6 +150,7 @@ public class ExampleUnitTest {
         assertEquals(board.getSpacesLeft(), 3);
     }
 
+    @Test
     //Taiki unit test 2
     public void test_isBoardFull() {
         GomokuBoard board1 = new GomokuBoard(2, 2, 10);
