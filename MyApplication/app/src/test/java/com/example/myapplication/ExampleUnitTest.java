@@ -116,7 +116,7 @@ public class ExampleUnitTest {
     }
 
     //Zaid unit test 1
-    //checks player initialization
+    //Checks player initialization
     public void playerInitialization() {
         //checking if  constructor sets player properly
         GomokuPlayer player1 = new GomokuPlayer(1);
@@ -125,8 +125,8 @@ public class ExampleUnitTest {
         assertEquals(player1.getWinCounter(),0);
     }
 
-    //Zaid unit test 1
-    //checks win incrementer
+    //Zaid unit test 2
+    //Checks win incrementer
     public void playerAddWin() {
         //checking if  constructor sets player properly
         GomokuPlayer player1 = new GomokuPlayer(1);
@@ -135,5 +135,40 @@ public class ExampleUnitTest {
         assertEquals(player1.getWinCounter(),1);
         player1.addWin();
         assertEquals(player1.getWinCounter(),2);
+    }
+
+    //Taiki unit test 1
+    public void test_placePiece() {
+        GomokuBoard board = new GomokuBoard(2,2,3);
+        assertEquals(board.placePiece(0,2,1), -1);
+        assertEquals(board.placePiece(0,-1,1), -1);
+        assertEquals(board.placePiece(0,0,1), 0);
+        assertEquals(board.placePiece(0,0,1), -1);
+        assertEquals(board.getSpacesLeft(), 3);
+    }
+
+    //Taiki unit test 2
+    public void test_isBoardFull() {
+        GomokuBoard board1 = new GomokuBoard(2, 2, 10);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertEquals(board1.isBoardFull(), false);
+                board1.placePiece(i,j,1);
+                assertEquals(board1.placePiece(i, j, 1), -1);
+            }
+        }
+        assertEquals(board1.getSpacesLeft(), 0);
+        assertEquals(board1.isBoardFull(), true);
+
+        GomokuBoard board2 = new GomokuBoard(8, 8, 10);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                assertEquals(board2.isBoardFull(), false);
+                board2.placePiece(i,j,1);
+                assertEquals(board2.placePiece(i, j, 1), -1);
+            }
+        }
+        assertEquals(board2.getSpacesLeft(), 0);
+        assertEquals(board2.isBoardFull(), true);
     }
 }
