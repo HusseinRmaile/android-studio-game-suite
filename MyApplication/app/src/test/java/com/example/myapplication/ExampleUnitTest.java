@@ -114,4 +114,26 @@ public class ExampleUnitTest {
         assertEquals(board3.placePiece(9,9,2),2);
         assertEquals(board3.placePiece(3,3,2),0);
     }
+
+    //Zaid unit test 1
+    //checks player initialization
+    public void playerInitialization() {
+        //checking if  constructor sets player properly
+        GomokuPlayer player1 = new GomokuPlayer(1);
+
+        assertEquals(player1.getColor(),1);
+        assertEquals(player1.getWinCounter(),0);
+    }
+
+    //Zaid unit test 1
+    //checks win incrementer
+    public void playerAddWin() {
+        //checking if  constructor sets player properly
+        GomokuPlayer player1 = new GomokuPlayer(1);
+        assertEquals(player1.getWinCounter(),0);
+        player1.addWin();
+        assertEquals(player1.getWinCounter(),1);
+        player1.addWin();
+        assertEquals(player1.getWinCounter(),2);
+    }
 }
