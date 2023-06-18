@@ -9,7 +9,7 @@ public class GomokuBoard {
     private int winLength;
     private int spacesLeft;
 
-    //default 20x20 board with 5 in a row win condition
+    //default 19x19 board with 5 in a row win condition
     public GomokuBoard() {
         this.numRows = 19;
         this.numCols = 19;
@@ -90,7 +90,7 @@ public class GomokuBoard {
                 return playerNumber;
             }
         }
-
+        counter = 0;
         //horizontal check
         for (int i = colMin; i <= colMax; i++) {
             if (board[row][i] == playerNumber) {
@@ -102,7 +102,6 @@ public class GomokuBoard {
                 return playerNumber;
             }
         }
-
         int diagRetVal =  diagonalChecks(row, col, playerNumber);
 
         //if the return value is 0, that means no win was found.
@@ -238,5 +237,21 @@ public class GomokuBoard {
             }
             System.out.print('\n');
         }
+    }
+
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+
+    public int getWinLength() {
+        return winLength;
+    }
+
+    public int getSpacesLeft() {
+        return spacesLeft;
     }
 }
