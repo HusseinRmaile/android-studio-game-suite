@@ -107,7 +107,6 @@ public class Gomoku extends AppCompatActivity{
         }
     }
     public void place (View button) {
-        System.out.println("aaaa");
         ImageButton buttonCur = (ImageButton) button;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
@@ -160,7 +159,7 @@ public class Gomoku extends AppCompatActivity{
             intent.putExtra("player2WinCounter", p2.getWinCounter());
             intent.putExtra("drawCounter", p1.getDrawCounter());
             startActivity(intent);
-        } else {
+        } else if (gameState == -2) {
             //something went wrong if it makes it here
             return;
         }
