@@ -4,6 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageButton;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -202,5 +207,43 @@ public class ExampleUnitTest {
         assertEquals(board.placePiece(1,2,1), 0);
         assertEquals(board.placePiece(2,2,2), 0);
         assertEquals(board.placePiece(2,1,1), -2);
+    }
+
+    //Tate unit test 1
+    @Test
+    public void test_notWin() {
+        GomokuBoard boardA = new GomokuBoard(9, 9, 5);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(boardA.placePiece(i,4,1), 0);
+            assertEquals(boardA.placePiece(i,i,1), 0);
+            assertEquals(boardA.placePiece(4,i,1), 0);
+            assertEquals(boardA.placePiece(i + 5,i + 5,1), 0);
+            assertEquals(boardA.placePiece(i + 5,4,1), 0);
+            assertEquals(boardA.placePiece(4,i + 5,1), 0);
+            assertEquals(boardA.placePiece(8-i,i,1), 0);
+            assertEquals(boardA.placePiece(3-i,i+5,1), 0);
+        }
+        boardA.printBoard();
+        assertEquals(boardA.placePiece(4,4,1), 1);
+    }
+
+    //Tate unit test 2
+    @Test
+    public void test_diagonal() {
+
+        //"\" diagonal
+        GomokuBoard boardA = new GomokuBoard(5, 5, 5);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(boardA.placePiece(i,i,1), 0);
+        }
+        assertEquals(boardA.placePiece(4,4,1), 1);
+
+        //"/" diagonal
+        GomokuBoard boardB = new GomokuBoard(5, 5, 5);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(boardB.placePiece(4 - i,i,2), 0);
+        }
+        assertEquals(boardB.placePiece(0,4,2), 2);
+
     }
 }
