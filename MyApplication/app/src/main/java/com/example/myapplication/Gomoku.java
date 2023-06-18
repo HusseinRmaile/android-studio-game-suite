@@ -116,6 +116,7 @@ public class Gomoku extends AppCompatActivity{
         gameState = board.placePiece(row, col, turn % 2 + 1);
 
         if (gameState == 0) {
+            //0 means piece was placed and game continues
             // add piece, swap turns
             if(turn % 2 == 0) {
                 buttonCur.setImageResource(R.drawable.black);
@@ -125,6 +126,20 @@ public class Gomoku extends AppCompatActivity{
                 turnbox.setBackgroundColor(Color.BLACK);
             }
             turn++;
+        } else if (gameState == -1) {
+            //-1 means piece is out of bounds or on an occupied space, was not placed
+            return;
+        } else if (gameState == -2) {
+            //-2 means board is full and no win is present, so it's a draw
+            p1.setDrawCounter(p1.getDrawCounter() + 1);
+            p2.setDrawCounter(p2.getDrawCounter() + 1);
+            winMessage = "It's a draw!";
+            Log.d("Gomoku", "draw count: " + p1.getDrawCounter());
+            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
+            intent.putExtra("player1WinCounter", p1.getWinCounter());
+            intent.putExtra("player2WinCounter", p2.getWinCounter());
+            intent.putExtra("drawCounter", p1.getDrawCounter());
+            startActivity(intent);
         } else if (gameState == 1) {
             //player 1 win
             p1.setWinCounter(p1.getWinCounter() + 1);
@@ -146,16 +161,8 @@ public class Gomoku extends AppCompatActivity{
             intent.putExtra("drawCounter", p1.getDrawCounter());
             startActivity(intent);
         } else {
-            //board full
-            p1.setDrawCounter(p1.getDrawCounter() + 1);
-            p2.setDrawCounter(p2.getDrawCounter() + 1);
-            winMessage = "It's a draw!";
-            Log.d("Gomoku", "draw count: " + p1.getDrawCounter());
-            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
-            intent.putExtra("player1WinCounter", p1.getWinCounter());
-            intent.putExtra("player2WinCounter", p2.getWinCounter());
-            intent.putExtra("drawCounter", p1.getDrawCounter());
-            startActivity(intent);
+            //something went wrong if it makes it here
+            return;
         }
     }
 }
