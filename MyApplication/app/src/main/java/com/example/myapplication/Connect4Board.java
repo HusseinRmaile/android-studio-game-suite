@@ -11,7 +11,7 @@ public class Connect4Board {
 
     private int colHeight[];
 
-    //default 19x19 board with 5 in a row win condition
+    //default 6x7 board with 4 in a row win condition
     public Connect4Board() {
         this.numRows = 6;
         this.numCols = 7;
@@ -47,23 +47,20 @@ public class Connect4Board {
         }
     }
 
-    public int placePiece(int col, int playerNumber){
+    public int placePiece(int row, int col, int playerNumber){
         if(col < 0 || col >= numCols){
             return -1;
             //out of bounds
         }
-        if(colHeight[col] >= numRows){
+        if(row < 0 || row >= numRows){
             return -1;
             //out of bounds
         }
-        int row = colHeight[col];
-
         if(board[row][col] != 0){
             return -1;
             //a playerNumber is already there (this should never happen)
         }
         board[row][col] = playerNumber;
-        colHeight[col] = colHeight[col] + 1;
         spacesLeft--;
         //playerNumber successfully placed
 
