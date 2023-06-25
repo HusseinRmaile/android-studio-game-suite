@@ -24,17 +24,17 @@ public class EndConnect4 extends AppCompatActivity{
         setContentView(R.layout.end_connect4);
 
         TextView winMessage = findViewById(R.id.winMessage);
-        winMessage.setText(Gomoku.winMessage);
+        winMessage.setText(Connect4.winMessage);
 
         player1Name = findViewById(R.id.player1Name);
-        player1Name.setText(InitialConfigGomoku.userName1);
+        player1Name.setText(InitialConfigConnect4.userName1);
         player2Name = findViewById(R.id.player2Name);
-        player2Name.setText(InitialConfigGomoku.userName2);
+        player2Name.setText(InitialConfigConnect4.userName2);
 
         player1Avatar = findViewById(R.id.player1Avatar);
-        player1Avatar.setImageDrawable(InitialConfigGomoku.player_avatar1.getDrawable());
+        player1Avatar.setImageDrawable(InitialConfigConnect4.player_avatar1.getDrawable());
         player2Avatar = findViewById(R.id.player2Avatar);
-        player2Avatar.setImageDrawable(InitialConfigGomoku.player_avatar2.getDrawable());
+        player2Avatar.setImageDrawable(InitialConfigConnect4.player_avatar2.getDrawable());
 
         TextView player1WinCount = findViewById(R.id.player1WinCount);
         int player1Win = getIntent().getIntExtra("player1WinCounter", 0);
