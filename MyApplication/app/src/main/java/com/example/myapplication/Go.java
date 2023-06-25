@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class Go extends AppCompatActivity{
 
     public static String winMessage;
-    final static int bSize = 19;
+    final static int bSize = 9;
     private LinearLayout goBoard;
     private TextView player1Name;
     private ImageView player1Avatar;

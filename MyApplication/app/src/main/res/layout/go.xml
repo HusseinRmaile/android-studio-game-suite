@@ -121,8 +121,8 @@
             android:id="@+id/griddy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnCount="19"
-            android:rowCount="19">
+            android:columnCount="9"
+            android:rowCount="9">
 
         </GridLayout>
     </LinearLayout>
