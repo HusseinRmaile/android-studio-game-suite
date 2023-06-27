@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.util.Log;
+
 public class Connect4Board {
     private int numRows;
     private int numCols;
@@ -63,7 +65,7 @@ public class Connect4Board {
         board[row][col] = playerNumber;
         spacesLeft--;
         //playerNumber successfully placed
-
+        Log.d("Connect4", "("+row+","+col+")");
         return checkWin(row, col, playerNumber);
     }
 

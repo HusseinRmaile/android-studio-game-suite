@@ -28,6 +28,8 @@ public class Connect4 extends AppCompatActivity{
     private int col;
     private int piece;
     private int turn;
+    private ImageButton[][] buttons;
+    private int[] colHeight;
     private int gameState = -1;
     //private int drawCount = InitialConfigConnect4.drawCount;
     Connect4Player p1 = InitialConfigConnect4.player1;
@@ -71,14 +73,18 @@ public class Connect4 extends AppCompatActivity{
 
     }
     private void boardMake(){
+        buttons = new ImageButton[numRows][numCols];
         GridLayout griddy = (GridLayout) findViewById(R.id.griddy);
         griddy.removeAllViews();
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 View inflated = View.inflate(Connect4.this, R.layout.intersection_button,griddy);
                 View intersectionCur = (View) findViewById(R.id.empty_intersection);
-                intersectionCur.setId(i * numRows + j);
+                intersectionCur.setId(i * numCols + j);
                 ImageButton buttonCur = (ImageButton) intersectionCur;
+                buttons[i][j] = buttonCur;
+                Log.d("Connect4", "i="+i+"j="+j);
+                Log.d("Connect4", "buttonId: " + buttons[i][j]);
                 if (i == 0) {
                     if (j == 0) {
                         buttonCur.setImageResource(R.drawable.wall_topleft);
@@ -104,14 +110,25 @@ public class Connect4 extends AppCompatActivity{
                 }
             }
         }
+        colHeight = new int[numCols];
+        for (int i = 0; i < numCols; i++){
+            colHeight[i] = 0;
+        }
     }
     public void place (View button) {
         ImageButton buttonCur = (ImageButton) button;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
+        Log.d("Connect4", "buttonId: " + piece);
         row = piece / numCols;
         col = piece % numCols;
+        if (colHeight[col] < numRows){
+            row = (numRows - 1) - colHeight[col];
+            colHeight[col] = colHeight[col] + 1;
+        }
         gameState = board.placePiece(row, col, turn % 2 + 1);
+        buttonCur = buttons[row][col];
+        Log.d("Connect4", "buttonId: " + piece);
 
         if (gameState == 0) {
             //0 means piece was placed and game continues
