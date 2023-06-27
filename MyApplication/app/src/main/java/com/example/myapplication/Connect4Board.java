@@ -15,7 +15,7 @@ public class Connect4Board {
 
     //default 6x7 board with 4 in a row win condition
     public Connect4Board() {
-        this.numRows = 6;
+        this.numRows = 6 + 1; // 1 extra row for top arrows, not part of board
         this.numCols = 7;
         this.winLength = 4;
         this.spacesLeft = numRows * numCols;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class Connect4 extends AppCompatActivity{
     public static String winMessage;
-    final static int numRows = 6;
+    final static int numRows = 6 + 1; // 1 extra row for arrows at top, not part of board
     final static int numCols = 7;
     private LinearLayout c4Board;
     private TextView player1Name;
@@ -116,15 +116,26 @@ public class Connect4 extends AppCompatActivity{
         }
     }
     public void place (View button) {
+        boolean topRow = false;
+        for (int j = 0; j < numCols; j++) {
+            if ((ImageButton) button == buttons[0][j]) {
+                topRow = true;
+            }
+        }
+        if (!topRow){
+            return;
+        }
         ImageButton buttonCur = (ImageButton) button;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
         Log.d("Connect4", "buttonId: " + piece);
         row = piece / numCols;
         col = piece % numCols;
-        if (colHeight[col] < numRows){
+        if (colHeight[col] < (numRows - 1)){
             row = (numRows - 1) - colHeight[col];
             colHeight[col] = colHeight[col] + 1;
+        } else {
+            return;
         }
         gameState = board.placePiece(row, col, turn % 2 + 1);
         buttonCur = buttons[row][col];
