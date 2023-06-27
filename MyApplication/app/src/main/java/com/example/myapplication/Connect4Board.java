@@ -18,7 +18,7 @@ public class Connect4Board {
         this.numRows = 6 + 1; // 1 extra row for top arrows, not part of board
         this.numCols = 7;
         this.winLength = 4;
-        this.spacesLeft = numRows * numCols;
+        this.spacesLeft = (numRows-1) * numCols;
         this.colHeight = new int[numCols];
         for (int i = 0; i < numCols; i++) {
             colHeight[i] = 0;
