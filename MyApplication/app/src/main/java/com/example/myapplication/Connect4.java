@@ -78,7 +78,7 @@ public class Connect4 extends AppCompatActivity{
         griddy.removeAllViews();
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                View inflated = View.inflate(Connect4.this, R.layout.intersection_button,griddy);
+                View inflated = View.inflate(Connect4.this, R.layout.blank_c4_cell,griddy);
                 View intersectionCur = (View) findViewById(R.id.empty_intersection);
                 intersectionCur.setId(i * numCols + j);
                 ImageButton buttonCur = (ImageButton) intersectionCur;
@@ -87,26 +87,26 @@ public class Connect4 extends AppCompatActivity{
                 Log.d("Connect4", "buttonId: " + buttons[i][j]);
                 if (i == 0) {
                     if (j == 0) {
-                        buttonCur.setImageResource(R.drawable.wall_topleft);
+                        buttonCur.setImageResource(R.drawable.piece_input_c4);
                     } else if (j == numCols - 1) {
-                        buttonCur.setImageResource(R.drawable.wall_topright);
+                        buttonCur.setImageResource(R.drawable.piece_input_c4);
                     } else {
-                        buttonCur.setImageResource(R.drawable.wall_top);
+                        buttonCur.setImageResource(R.drawable.piece_input_c4);
                     }
                 } else if (j == 0) {
                     if (i == numRows - 1) {
-                        buttonCur.setImageResource(R.drawable.wall_bottomleft);
+                        buttonCur.setImageResource(R.drawable.empty_c4_cell);
                     } else {
-                        buttonCur.setImageResource(R.drawable.wall_left);
+                        buttonCur.setImageResource(R.drawable.empty_c4_cell);
                     }
                 } else if (i == numRows - 1) {
                     if (j == numCols - 1) {
-                        buttonCur.setImageResource(R.drawable.wall_bottomright);
+                        buttonCur.setImageResource(R.drawable.empty_c4_cell);
                     } else {
-                        buttonCur.setImageResource(R.drawable.wall_bottom);
+                        buttonCur.setImageResource(R.drawable.empty_c4_cell);
                     }
                 } else if (j == numCols - 1) {
-                    buttonCur.setImageResource(R.drawable.wall_right);
+                    buttonCur.setImageResource(R.drawable.empty_c4_cell);
                 }
             }
         }
@@ -145,11 +145,11 @@ public class Connect4 extends AppCompatActivity{
             //0 means piece was placed and game continues
             // add piece, swap turns
             if(turn % 2 == 0) {
-                buttonCur.setImageResource(R.drawable.black);
-                turnbox.setBackgroundColor(Color.WHITE);
+                buttonCur.setImageResource(R.drawable.red_c4_cell);
+                turnbox.setBackgroundColor(Color.YELLOW);
             } else {
-                buttonCur.setImageResource(R.drawable.white);
-                turnbox.setBackgroundColor(Color.BLACK);
+                buttonCur.setImageResource(R.drawable.yellow_c4_cell);
+                turnbox.setBackgroundColor(Color.RED);
             }
             turn++;
         } else if (gameState == -1) {
