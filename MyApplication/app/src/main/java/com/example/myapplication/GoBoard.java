@@ -1,8 +1,7 @@
 package com.example.myapplication;
 
-import android.graphics.Point;
-
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class GoBoard {
     private int numRows;
@@ -12,6 +11,8 @@ public class GoBoard {
     //not grid, but rather the corners the stones can go on
     private int surroundLen;
     private int spacesLeft;
+
+    private Stack<Integer> delList = new Stack<>();
 
     //default 19x19 board with 5 in a row win condition
     public GoBoard() {
@@ -44,19 +45,32 @@ public class GoBoard {
             return -1;
             //a playerNumber is already there
         }
-        if(checkCan(row, col, playerNumber, true) == 0){
+        board[row][col] = playerNumber;
+        int l = 0;
+        int opponent = (playerNumber + 1) % 2;
+        l += libertyCount(row - 1,col,opponent, false);
+        l += libertyCount(row + 1,col,opponent, false);
+        l += libertyCount(row,col - 1,opponent, false);
+        l += libertyCount(row,col + 1,opponent, false);
+        if (l > 0) {
+            for (int index:
+                 delList) {
+                board[index / 9][row / 9] = 0;
+            }
+            delList.clear();
+        }
+        if(libertyCount(row, col, playerNumber, true) == 0){
             return -1;
             //illegal move
         }
-        board[row][col] = playerNumber;
         spacesLeft--;
         //playerNumber successfully placed
 
         return 0;
     }
 
-    public int checkCan(int row, int col, int playerNumber, boolean puttingDown) {
-        int i = 0;
+    public int libertyCount(int row, int col, int playerNumber, boolean puttingDown) {
+        int liberty = 0;
         if (row < 0 || row == numRows || col < 0 || col == numCols) {
             return 0;
         }
@@ -65,15 +79,16 @@ public class GoBoard {
             if (color == 0) {
                 return 1;
             }
-            return i;
+            return 0;
         }
-        board[row][col] += 3;
-        i += checkCan(row - 1,col,playerNumber, false);
-        i += checkCan(row + 1,col,playerNumber, false);
-        i += checkCan(row,col - 1,playerNumber, false);
-        i += checkCan(row,col + 1,playerNumber, false);
-        board[row][col] -= 3;
-        return i;
+        board[row][col] = 3;
+        delList.push(row * 9 + col);
+        liberty += libertyCount(row - 1,col,playerNumber, false);
+        liberty += libertyCount(row + 1,col,playerNumber, false);
+        liberty += libertyCount(row,col - 1,playerNumber, false);
+        liberty += libertyCount(row,col + 1,playerNumber, false);
+        board[row][col] = 3;
+        return liberty;
     }
 
     public boolean isBoardFull() {
