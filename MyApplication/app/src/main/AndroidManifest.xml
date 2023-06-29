@@ -25,7 +25,7 @@
             android:name=".StartScreenGomoku">
         </activity>
         <activity
-            android:name=".StartScreenSudoku">
+            android:name=".StartScreenGo">
         </activity>
         <activity
             android:name=".StartScreenWordle">
@@ -36,7 +36,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".InitialConfigSudoku"
+            android:name=".InitialConfigGo"
             android:exported="true">
         </activity>
         <activity
@@ -47,13 +47,16 @@
             android:name=".Gomoku">
         </activity>
         <activity
-            android:name=".Sudoku">
+            android:name=".Go">
         </activity>
         <activity
             android:name=".Wordle">
         </activity>
         <activity
             android:name=".EndGomoku">
+        </activity>
+        <activity
+            android:name=".EndGo">
         </activity>
 
     </application>
