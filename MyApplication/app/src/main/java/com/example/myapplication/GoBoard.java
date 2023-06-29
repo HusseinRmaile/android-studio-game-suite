@@ -1,19 +1,22 @@
 package com.example.myapplication;
 
+import android.graphics.Point;
+
+import java.util.Queue;
+
 public class GoBoard {
     private int numRows;
     private int numCols;
     private int board[][];
     //rows and cols corresponds to placeable areas
     //not grid, but rather the corners the stones can go on
-    private int winLength;
+    private int surroundLen;
     private int spacesLeft;
 
     //default 19x19 board with 5 in a row win condition
     public GoBoard() {
-        this.numRows = 19;
-        this.numCols = 19;
-        this.winLength = 5;
+        this.numRows = 9;
+        this.numCols = 9;
         this.spacesLeft = numRows * numCols;
         this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
@@ -24,10 +27,9 @@ public class GoBoard {
     }
 
     //customizable board dimensions and win condition
-    public GoBoard(int height, int width, int winLength) {
+    public GoBoard(int height, int width) {
         this.numRows = height;
         this.numCols = width;
-        this.winLength = winLength;
         this.spacesLeft = numRows * numCols;
         this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
@@ -38,188 +40,40 @@ public class GoBoard {
     }
 
     public int placePiece(int row, int col, int playerNumber){
-        if(col < 0 || col >= numCols){
-            return -1;
-            //out of bounds
-        }
-        if(row < 0 || row >= numRows){
-            return -1;
-            //out of bounds
-        }
         if(board[row][col] != 0){
             return -1;
             //a playerNumber is already there
+        }
+        if(checkCan(row, col, playerNumber, true) == 0){
+            return -1;
+            //illegal move
         }
         board[row][col] = playerNumber;
         spacesLeft--;
         //playerNumber successfully placed
 
-        return checkWin(row, col, playerNumber);
+        return 0;
     }
 
-    public int checkWin(int row, int col, int playerNumber) {
-        int boundCheck = winLength - 1;
-        int colMax = col + boundCheck;
-        int colMin = col - boundCheck;
-        int rowMax = row + boundCheck;
-        int rowMin = row - boundCheck;
-        int counter = 0;
-
-        if (colMin < 0) {
-            colMin = 0;
-        }
-        if (colMax >= numCols) {
-            colMax = numCols - 1;
-        }
-
-        if (rowMin < 0) {
-            rowMin = 0;
-        }
-        if (rowMax >= numRows) {
-            rowMax = numRows - 1;
-        }
-
-        //vertical check
-        for (int i = rowMin; i <= rowMax; i++) {
-            if (board[i][col] == playerNumber) {
-                counter++;
-            } else {
-                counter = 0;
-            }
-            if (counter == winLength) {
-                return playerNumber;
-            }
-        }
-        counter = 0;
-        //horizontal check
-        for (int i = colMin; i <= colMax; i++) {
-            if (board[row][i] == playerNumber) {
-                counter++;
-            } else {
-                counter = 0;
-            }
-            if (counter == winLength) {
-                return playerNumber;
-            }
-        }
-        int diagRetVal =  diagonalChecks(row, col, playerNumber);
-
-        //if the return value is 0, that means no win was found.
-        //if it's a positive integer, that player won on a diagonal.
-        if(diagRetVal > 0) {
-            return diagRetVal;
-        }
-
-        //if code has made it this far, no win was found
-        if(spacesLeft == 0){
-            //return draw (board is full)
-            return -2;
-        } else {
-            //no win or draw, game continues
+    public int checkCan(int row, int col, int playerNumber, boolean puttingDown) {
+        int i = 0;
+        if (row < 0 || row == numRows || col < 0 || col == numCols) {
             return 0;
         }
-    }
-
-    private int diagonalChecks(int row, int col, int playerNumber){
-        int boundCheck = winLength - 1;
-        int colMax = col + boundCheck;
-        int colMin = col - boundCheck;
-        int rowMax = row + boundCheck;
-        int rowMin = row - boundCheck;
-        int counter = 0;
-        int diff = 0;
-
-        if (colMin < 0) {
-            diff = -colMin;
-            colMin += diff;
-            rowMin += diff;
-        }
-        if (colMax >= numCols) {
-            diff = colMax - numCols + 1;
-            colMax -= diff;
-            rowMax -= diff;
-        }
-
-        if (rowMin < 0) {
-            diff = -rowMin;
-            colMin += diff;
-            rowMin += diff;
-        }
-        if (rowMax >= numRows) {
-            diff = rowMax - numRows + 1;
-            colMax -= diff;
-            rowMax -= diff;
-        }
-
-        //("\") diagonal check
-        int a = colMin;
-        for (int i = rowMin; i <= rowMax; i++) {
-            if (a <= colMax) {
-                if (board[i][a] == playerNumber) {
-                    counter++;
-                } else {
-                    counter = 0;
-                }
-                if (counter == winLength) {
-                    return playerNumber;
-                }
-            } else {
-                break;
+        int color = board[row][col];
+        if (color != playerNumber && !puttingDown) {
+            if (color == 0) {
+                return 1;
             }
-            a++;
+            return i;
         }
-
-
-        //variables are being reinitialized because its necessary for new calculations
-        colMax = col + boundCheck;
-        colMin = col - boundCheck;
-        rowMax = row + boundCheck;
-        rowMin = row - boundCheck;
-        counter = 0;
-
-        if (colMin < 0) {
-            diff = -colMin;
-            colMin += diff;
-            rowMax -= diff;
-        }
-        if (colMax >= numCols) {
-            diff = colMax - numCols + 1;
-            colMax -= diff;
-            rowMin += diff;
-        }
-
-        if (rowMin < 0) {
-            diff = -rowMin;
-            colMax -= diff;
-            rowMin += diff;
-        }
-        if (rowMax >= numRows) {
-            diff = rowMax - numRows + 1;
-            colMin += diff;
-            rowMax -= diff;
-        }
-
-        //("/") diagonal check
-        int b = colMin;
-        for (int i = rowMax; i >= rowMin; i--) {
-            if (b <= colMax) {
-                if (board[i][b] == playerNumber) {
-                    counter++;
-                } else {
-                    counter = 0;
-                }
-                if (counter == winLength) {
-                    return playerNumber;
-                }
-            } else {
-                break;
-            }
-            b++;
-        }
-
-
-        //no win found yet
-        return  0;
+        board[row][col] += 3;
+        i += checkCan(row - 1,col,playerNumber, false);
+        i += checkCan(row + 1,col,playerNumber, false);
+        i += checkCan(row,col - 1,playerNumber, false);
+        i += checkCan(row,col + 1,playerNumber, false);
+        board[row][col] -= 3;
+        return i;
     }
 
     public boolean isBoardFull() {
@@ -247,9 +101,6 @@ public class GoBoard {
         return numCols;
     }
 
-    public int getWinLength() {
-        return winLength;
-    }
 
     public int getSpacesLeft() {
         return spacesLeft;

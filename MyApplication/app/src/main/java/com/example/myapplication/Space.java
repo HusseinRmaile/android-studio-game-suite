@@ -10,6 +10,7 @@ public class Space {
     private Space topSpace;
     private Space bottomSpace;
     private int state;
+    private int[][] board = new int[19][19];
     //board
 
     public Space(int row, int col, int libertiesCount, int connectionCount, Space topSpace, int state,
@@ -19,10 +20,6 @@ public class Space {
         }
         this.row = row;
         this.col = col;
-        this.topSpace = board.getSpace(row + 1, col);
-        this.bottomSpace = board.getSpace(row - 1, col);
-        this.leftSpace = board.getSpace(row, col + 1);
-        this.rightSpace = board.getSpace(row, col - 1);
         this.state = state;
         if ((this.getState() == 1 || this.getState() == 2)
                 && (this.getState() == topSpace.getState())) {
