@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -40,33 +41,21 @@ public class GoBoard {
         }
     }
 
-    public int placePiece(int row, int col, int playerNumber){
+    public ArrayList<Integer> placePiece(int row, int col, int playerNumber){
         if(board[row][col] != 0){
-            return -1;
+            return null;
             //a playerNumber is already there
         }
         board[row][col] = playerNumber;
-        int l = 0;
-        int opponent = (playerNumber + 1) % 2;
-        l += libertyCount(row - 1,col,opponent, false);
-        l += libertyCount(row + 1,col,opponent, false);
-        l += libertyCount(row,col - 1,opponent, false);
-        l += libertyCount(row,col + 1,opponent, false);
-        if (l > 0) {
-            for (int index:
-                 delList) {
-                board[index / 9][row / 9] = 0;
-            }
-            delList.clear();
-        }
+        ArrayList<Integer> ret = capture(row, col, (playerNumber + 1) % 2);
         if(libertyCount(row, col, playerNumber, true) == 0){
-            return -1;
+            return null;
             //illegal move
         }
         spacesLeft--;
         //playerNumber successfully placed
 
-        return 0;
+        return ret;
     }
 
     public int libertyCount(int row, int col, int playerNumber, boolean puttingDown) {
@@ -89,6 +78,42 @@ public class GoBoard {
         liberty += libertyCount(row,col + 1,playerNumber, false);
         board[row][col] = 3;
         return liberty;
+    }
+
+    public ArrayList<Integer> capture(int row, int col, int playerNumber) {
+        ArrayList<Integer> trueDel = new ArrayList<>();
+        if (libertyCount(row - 1,col,playerNumber, false) == 0) {
+            for (int i = 0; i < delList.size(); i++) {
+                     trueDel.add(delList.pop());
+            }
+            delList.clear();
+        }
+        if (libertyCount(row + 1,col,playerNumber, false) == 0) {
+            for (int i = 0; i < delList.size(); i++) {
+                trueDel.add(delList.pop());
+            }
+            delList.clear();
+        }
+
+        if (libertyCount(row,col - 1,playerNumber, false) == 0) {
+            for (int i = 0; i < delList.size(); i++) {
+                trueDel.add(delList.pop());
+            }
+            delList.clear();
+        }
+
+        if (libertyCount(row,col + 1,playerNumber, false) == 0) {
+            for (int i = 0; i < delList.size(); i++) {
+                trueDel.add(delList.pop());
+            }
+            delList.clear();
+        }
+        for (int i = 0; i < trueDel.size(); i++) {
+            int index = trueDel.get(i);
+            board[index / 9][index % 9] = 0;
+        }
+        printBoard();
+        return trueDel;
     }
 
     public boolean isBoardFull() {
