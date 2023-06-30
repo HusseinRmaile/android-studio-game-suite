@@ -49,10 +49,13 @@ public class GoBoard {
         board[row][col] = playerNumber;
         ArrayList<Integer> ret = capture(row, col, playerNumber % 2 + 1);
         if(libertyCount(row, col, playerNumber, true) == 0){
+            board[row][col] = 0;
+            unCheck();
             delList.clear();
             return null;
             //illegal move
         }
+        unCheck();
         delList.clear();
         spacesLeft--;
         //playerNumber successfully placed
@@ -78,34 +81,53 @@ public class GoBoard {
         liberty += libertyCount(row + 1,col,playerNumber, false);
         liberty += libertyCount(row,col - 1,playerNumber, false);
         liberty += libertyCount(row,col + 1,playerNumber, false);
-        board[row][col] -= 3;
         return liberty;
     }
 
     public ArrayList<Integer> capture(int row, int col, int playerNumber) {
         ArrayList<Integer> trueDel = new ArrayList<>();
         if (libertyCount(row - 1,col,playerNumber, false) == 0) {
-            for (int i = 0; i < delList.size(); i++) {
-                     trueDel.add(delList.pop());
+            int size = delList.size();
+            for (int i = 0; i < size; i++) {
+                int index = delList.pop();
+                board[index / 9][index % 9] -= 3;
+                trueDel.add(index);
             }
+        } else {
+            unCheck();
         }
         delList.clear();
         if (libertyCount(row + 1,col,playerNumber, false) == 0) {
-            for (int i = 0; i < delList.size(); i++) {
-                trueDel.add(delList.pop());
+            int size = delList.size();
+            for (int i = 0; i < size; i++) {
+                int index = delList.pop();
+                board[index / 9][index % 9] -= 3;
+                trueDel.add(index);
             }
+        } else {
+            unCheck();
         }
         delList.clear();
         if (libertyCount(row,col - 1,playerNumber, false) == 0) {
-            for (int i = 0; i < delList.size(); i++) {
-                trueDel.add(delList.pop());
+            int size = delList.size();
+            for (int i = 0; i < size; i++) {
+                int index = delList.pop();
+                board[index / 9][index % 9] -= 3;
+                trueDel.add(index);
             }
+        } else {
+            unCheck();
         }
         delList.clear();
         if (libertyCount(row,col + 1,playerNumber, false) == 0) {
-            for (int i = 0; i < delList.size(); i++) {
-                trueDel.add(delList.pop());
+            int size = delList.size();
+            for (int i = 0; i < size; i++) {
+                int index = delList.pop();
+                board[index / 9][index % 9] -= 3;
+                trueDel.add(index);
             }
+        } else {
+            unCheck();
         }
         delList.clear();
         for (int i = 0; i < trueDel.size(); i++) {
@@ -130,6 +152,13 @@ public class GoBoard {
                 System.out.print("] ");
             }
             System.out.print('\n');
+        }
+    }
+
+    private void unCheck() {
+        for (int i:
+             delList) {
+            board[i / 9][i % 9] -= 3;
         }
     }
 
