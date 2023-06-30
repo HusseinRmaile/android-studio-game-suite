@@ -135,6 +135,7 @@
                         }
                     }
                 }
+                return true;
             }
             if (playerNumber == 2) {
                 for (int i = 0; i < numRows; i++) {
@@ -144,8 +145,9 @@
                         }
                     }
                 }
+                return true;
             }
-            return true;
+            return false;
         }
 
 
