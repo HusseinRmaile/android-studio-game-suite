@@ -93,56 +93,30 @@ public class GoBoard {
 
     public ArrayList<Integer> capture(int row, int col, int playerNumber) {
         ArrayList<Integer> trueDel = new ArrayList<>();
-        if (libertyCount(row - 1,col,playerNumber, false) == 0) {
-            int size = delList.size();
-            for (int i = 0; i < size; i++) {
-                GoStone Cur = delList.pop();
-                Cur.setChain(false);
-                trueDel.add(Cur.getIndex());
-            }
-        } else {
-            unCheck();
-        }
-        delList.clear();
-        if (libertyCount(row + 1,col,playerNumber, false) == 0) {
-            int size = delList.size();
-            for (int i = 0; i < size; i++) {
-                GoStone Cur = delList.pop();
-                Cur.setChain(false);
-                trueDel.add(Cur.getIndex());
-            }
-        } else {
-            unCheck();
-        }
-        delList.clear();
-        if (libertyCount(row,col - 1,playerNumber, false) == 0) {
-            int size = delList.size();
-            for (int i = 0; i < size; i++) {
-                GoStone Cur = delList.pop();
-                Cur.setChain(false);
-                trueDel.add(Cur.getIndex());
-            }
-        } else {
-            unCheck();
-        }
-        delList.clear();
-        if (libertyCount(row,col + 1,playerNumber, false) == 0) {
-            int size = delList.size();
-            for (int i = 0; i < size; i++) {
-                GoStone Cur = delList.pop();
-                Cur.setChain(false);
-                trueDel.add(Cur.getIndex());
-            }
-        } else {
-            unCheck();
-        }
-        delList.clear();
+        captureHelper(row - 1, col, playerNumber, trueDel);
+        captureHelper(row + 1, col, playerNumber, trueDel);
+        captureHelper(row, col - 1, playerNumber, trueDel);
+        captureHelper(row, col + 1, playerNumber, trueDel);
         for (int i = 0; i < trueDel.size(); i++) {
             int index = trueDel.get(i);
             board[index / 9][index % 9] = null;
         }
         printBoard();
         return trueDel;
+    }
+
+    private void captureHelper(int row, int col, int playerNumber, ArrayList<Integer> trueDel) {
+        if (libertyCount(row, col, playerNumber, false) == 0) {
+            int size = delList.size();
+            for (int i = 0; i < size; i++) {
+                GoStone Cur = delList.pop();
+                Cur.setChain(false);
+                trueDel.add(Cur.getIndex());
+            }
+        } else {
+            unCheck();
+        }
+        delList.clear();
     }
 
     public boolean isBoardFull() {
