@@ -47,11 +47,13 @@ public class GoBoard {
             //a playerNumber is already there
         }
         board[row][col] = playerNumber;
-        ArrayList<Integer> ret = capture(row, col, (playerNumber + 1) % 2);
+        ArrayList<Integer> ret = capture(row, col, playerNumber % 2 + 1);
         if(libertyCount(row, col, playerNumber, true) == 0){
+            delList.clear();
             return null;
             //illegal move
         }
+        delList.clear();
         spacesLeft--;
         //playerNumber successfully placed
 
@@ -70,13 +72,13 @@ public class GoBoard {
             }
             return 0;
         }
-        board[row][col] = 3;
+        board[row][col] += 3;
         delList.push(row * 9 + col);
         liberty += libertyCount(row - 1,col,playerNumber, false);
         liberty += libertyCount(row + 1,col,playerNumber, false);
         liberty += libertyCount(row,col - 1,playerNumber, false);
         liberty += libertyCount(row,col + 1,playerNumber, false);
-        board[row][col] = 3;
+        board[row][col] -= 3;
         return liberty;
     }
 
@@ -86,28 +88,26 @@ public class GoBoard {
             for (int i = 0; i < delList.size(); i++) {
                      trueDel.add(delList.pop());
             }
-            delList.clear();
         }
+        delList.clear();
         if (libertyCount(row + 1,col,playerNumber, false) == 0) {
             for (int i = 0; i < delList.size(); i++) {
                 trueDel.add(delList.pop());
             }
-            delList.clear();
         }
-
+        delList.clear();
         if (libertyCount(row,col - 1,playerNumber, false) == 0) {
             for (int i = 0; i < delList.size(); i++) {
                 trueDel.add(delList.pop());
             }
-            delList.clear();
         }
-
+        delList.clear();
         if (libertyCount(row,col + 1,playerNumber, false) == 0) {
             for (int i = 0; i < delList.size(); i++) {
                 trueDel.add(delList.pop());
             }
-            delList.clear();
         }
+        delList.clear();
         for (int i = 0; i < trueDel.size(); i++) {
             int index = trueDel.get(i);
             board[index / 9][index % 9] = 0;

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Go extends AppCompatActivity{
 
     public static String winMessage;
@@ -112,56 +114,62 @@ public class Go extends AppCompatActivity{
         piece = buttonCur.getId();
         row = piece / bSize;
         col = piece % bSize;
-        gameState = board.placePiece(row, col, turn % 2 + 1);
-
-        if (gameState == 0) {
+        ArrayList<Integer> delist = board.placePiece(row, col, turn % 2 + 1);
+        if (delist != null) {
             //0 means piece was placed and game continues
             // add piece, swap turns
-            if(turn % 2 == 0) {
+            if (turn % 2 == 0) {
                 buttonCur.setImageResource(R.drawable.black);
                 turnbox.setBackgroundColor(Color.WHITE);
             } else {
                 buttonCur.setImageResource(R.drawable.white);
                 turnbox.setBackgroundColor(Color.BLACK);
             }
+            if (delist.size() > 0) {
+                for (int index:
+                     delist) {
+                    View viewThing = findViewById(index);
+                    ImageButton buttonNo = (ImageButton) viewThing;
+                    buttonNo.setImageResource(R.drawable.blank_intersection);
+                }
+            }
             turn++;
-        } else if (gameState == -1) {
-            //-1 means piece is out of bounds or on an occupied space, was not placed
-            return;
-        } else if (gameState == -2) {
-            //-2 means board is full and no win is present, so it's a draw
-            p1.setDrawCounter(p1.getDrawCounter() + 1);
-            p2.setDrawCounter(p2.getDrawCounter() + 1);
-            winMessage = "It's a draw!";
-            Log.d("Go", "draw count: " + p1.getDrawCounter());
-            Intent intent = new Intent(Go.this, EndGo.class);
-            intent.putExtra("player1WinCounter", p1.getWinCounter());
-            intent.putExtra("player2WinCounter", p2.getWinCounter());
-            intent.putExtra("drawCounter", p1.getDrawCounter());
-            startActivity(intent);
-        } else if (gameState == 1) {
-            //player 1 win
-            p1.setWinCounter(p1.getWinCounter() + 1);
-            winMessage = "Player 1 wins!";
-            Log.d("Go", "Player 1 win count: " + p1.getWinCounter());
-            Intent intent = new Intent(Go.this, EndGo.class);
-            intent.putExtra("player1WinCounter", p1.getWinCounter());
-            intent.putExtra("player2WinCounter", p2.getWinCounter());
-            intent.putExtra("drawCounter", p1.getDrawCounter());
-            startActivity(intent);
-        } else if (gameState == 2) {
-            //player 2 win
-            p2.setWinCounter(p2.getWinCounter() + 1);
-            winMessage = "Player 2 wins!";
-            Log.d("Go", "Player 2 win count: " + p2.getWinCounter());
-            Intent intent = new Intent(Go.this, EndGo.class);
-            intent.putExtra("player1WinCounter", p1.getWinCounter());
-            intent.putExtra("player2WinCounter", p2.getWinCounter());
-            intent.putExtra("drawCounter", p1.getDrawCounter());
-            startActivity(intent);
-        } else if (gameState == -2) {
-            //something went wrong if it makes it here
-            return;
         }
     }
+//        else if (gameState == -2) {
+//            //-2 means board is full and no win is present, so it's a draw
+//            p1.setDrawCounter(p1.getDrawCounter() + 1);
+//            p2.setDrawCounter(p2.getDrawCounter() + 1);
+//            winMessage = "It's a draw!";
+//            Log.d("Go", "draw count: " + p1.getDrawCounter());
+//            Intent intent = new Intent(Go.this, EndGo.class);
+//            intent.putExtra("player1WinCounter", p1.getWinCounter());
+//            intent.putExtra("player2WinCounter", p2.getWinCounter());
+//            intent.putExtra("drawCounter", p1.getDrawCounter());
+//            startActivity(intent);
+//        } else if (gameState == 1) {
+//            //player 1 win
+//            p1.setWinCounter(p1.getWinCounter() + 1);
+//            winMessage = "Player 1 wins!";
+//            Log.d("Go", "Player 1 win count: " + p1.getWinCounter());
+//            Intent intent = new Intent(Go.this, EndGo.class);
+//            intent.putExtra("player1WinCounter", p1.getWinCounter());
+//            intent.putExtra("player2WinCounter", p2.getWinCounter());
+//            intent.putExtra("drawCounter", p1.getDrawCounter());
+//            startActivity(intent);
+//        } else if (gameState == 2) {
+//            //player 2 win
+//            p2.setWinCounter(p2.getWinCounter() + 1);
+//            winMessage = "Player 2 wins!";
+//            Log.d("Go", "Player 2 win count: " + p2.getWinCounter());
+//            Intent intent = new Intent(Go.this, EndGo.class);
+//            intent.putExtra("player1WinCounter", p1.getWinCounter());
+//            intent.putExtra("player2WinCounter", p2.getWinCounter());
+//            intent.putExtra("drawCounter", p1.getDrawCounter());
+//            startActivity(intent);
+//        } else if (gameState == -2) {
+//            //something went wrong if it makes it here
+//            return;
+//        }
+
 }
