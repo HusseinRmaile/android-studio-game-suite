@@ -82,29 +82,7 @@ public class Go extends AppCompatActivity{
                 View intersectionCur = (View) findViewById(R.id.empty_intersection);
                 intersectionCur.setId(i * bSize + j);
                 ImageButton buttonCur = (ImageButton) intersectionCur;
-                if (i == 0) {
-                    if (j == 0) {
-                        buttonCur.setImageResource(R.drawable.wall_topleft);
-                    } else if (j == bSize - 1) {
-                        buttonCur.setImageResource(R.drawable.wall_topright);
-                    } else {
-                        buttonCur.setImageResource(R.drawable.wall_top);
-                    }
-                } else if (j == 0) {
-                    if (i == bSize - 1) {
-                        buttonCur.setImageResource(R.drawable.wall_bottomleft);
-                    } else {
-                        buttonCur.setImageResource(R.drawable.wall_left);
-                    }
-                } else if (i == bSize - 1) {
-                    if (j == bSize - 1) {
-                        buttonCur.setImageResource(R.drawable.wall_bottomright);
-                    } else {
-                        buttonCur.setImageResource(R.drawable.wall_bottom);
-                    }
-                } else if (j == bSize - 1) {
-                    buttonCur.setImageResource(R.drawable.wall_right);
-                }
+                boardHelp(i, j, buttonCur);
             }
         }
     }
@@ -130,12 +108,44 @@ public class Go extends AppCompatActivity{
                      delist) {
                     View viewThing = findViewById(index);
                     ImageButton buttonNo = (ImageButton) viewThing;
-                    buttonNo.setImageResource(R.drawable.blank_intersection);
+                    boardHelp(index / 9, index % 9, buttonNo);
                 }
             }
             turn++;
         }
     }
+
+    private void boardHelp (int i, int j, ImageButton buttonCur) {
+        if (i == 0) {
+            if (j == 0) {
+                buttonCur.setImageResource(R.drawable.wall_topleft);
+            } else if (j == bSize - 1) {
+                buttonCur.setImageResource(R.drawable.wall_topright);
+            } else {
+                buttonCur.setImageResource(R.drawable.wall_top);
+            }
+        } else if (j == 0) {
+            if (i == bSize - 1) {
+                buttonCur.setImageResource(R.drawable.wall_bottomleft);
+            } else {
+                buttonCur.setImageResource(R.drawable.wall_left);
+            }
+        } else if (i == bSize - 1) {
+            if (j == bSize - 1) {
+                buttonCur.setImageResource(R.drawable.wall_bottomright);
+            } else {
+                buttonCur.setImageResource(R.drawable.wall_bottom);
+            }
+        } else if (j == bSize - 1) {
+            buttonCur.setImageResource(R.drawable.wall_right);
+        } else {
+            buttonCur.setImageResource(R.drawable.blank_intersection);
+        }
+    }
+}
+
+
+
 //        else if (gameState == -2) {
 //            //-2 means board is full and no win is present, so it's a draw
 //            p1.setDrawCounter(p1.getDrawCounter() + 1);
@@ -171,5 +181,3 @@ public class Go extends AppCompatActivity{
 //            //something went wrong if it makes it here
 //            return;
 //        }
-
-}
