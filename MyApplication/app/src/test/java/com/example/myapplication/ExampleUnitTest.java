@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -201,6 +203,18 @@ public class ExampleUnitTest {
             assertEquals(boardB.placePiece(4 - i,i,2), 0);
         }
         assertEquals(boardB.placePiece(0,4,2), 2);
+    }
 
+    @Test
+    public void GoScoreTest() {
+        int[][] board1 = GoScoreKeeper.generateBoard(9, 9);
+        for (int i = 0; i < board1.length; i++) {
+            // Iterate over each column
+            for (int j = 0; j < board1[i].length; j++) {
+                System.out.print(board1[i][j] + " ");
+            }
+            System.out.println(); // Move to the next line after each row
+        }
+        GoScoreKeeper.checkScore(board1);
     }
 }
