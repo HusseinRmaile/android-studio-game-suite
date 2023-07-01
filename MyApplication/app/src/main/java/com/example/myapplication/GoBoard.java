@@ -26,7 +26,7 @@
             this.board = new GoStone[numRows][numCols];
             for (int i = 0; i < numRows; i++) {
                 for (int j = 0; j < numCols; j++) {
-                    board[i][j] = null;
+                    board[i][j] = new GoEmpty(i,j);
                 }
             }
         }
@@ -39,15 +39,15 @@
             this.board = new GoStone[numRows][numCols];
             for (int i = 0; i < numRows; i++) {
                 for (int j = 0; j < numCols; j++) {
-                    board[i][j] = null;
+                    board[i][j] = new GoEmpty(i,j);
                 }
             }
         }
         public void deletePiece(int row, int col){
-            board[row][col] = null;
+            board[row][col] = new GoEmpty(row,col);
         }
         public ArrayList<Integer> placePiece(int row, int col, int playerNumber){
-            if(board[row][col] != null){
+            if(board[row][col].getColor() != 0){
                 return null;
                 //a playerNumber is already there
             }
@@ -64,7 +64,7 @@
                 revertBoard(playerNumber);
             }
             if(libertyCount(row, col, playerNumber, true) == 0){
-                board[row][col] = null;
+                board[row][col] = new GoEmpty(row,col);
                 unCheck();
                 delList.clear();
                 return null;
@@ -81,9 +81,10 @@
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 0; j < numCols; j++) {
                         GoStone stone = board[i][j];
-                        if (stone != null) {
-                            KOboard1[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-                        }
+                        KOboard1[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
+//                        if (stone.getColor() != 0) {
+//                            KOboard1[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
+//                        }
                     }
                 }
             }
@@ -92,9 +93,10 @@
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 0; j < numCols; j++) {
                         GoStone stone = board[i][j];
-                        if (stone != null) {
-                            KOboard2[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-                        }
+                        KOboard2[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
+//                        if (stone.getColor() != 0) {
+//                            KOboard2[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
+//                        }
                     }
                 }
             }
@@ -107,7 +109,7 @@
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 0; j < numCols; j++) {
                         GoStone stone = KOboard2[i][j];
-                        if (stone != null) {
+                        if (stone.getColor() != 0) {
                             board[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
                         }
                     }
@@ -117,7 +119,7 @@
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 0; j < numCols; j++) {
                         GoStone stone = KOboard1[i][j];
-                        if (stone != null) {
+                        if (stone.getColor() != 0) {
                             board[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
                         }
                     }
@@ -132,7 +134,7 @@
             if (playerNumber == 1) {
                 for (int i = 0; i < numRows; i++) {
                     for (int j =0; j < numCols; j++) {
-                        if (KOboard2[i][j] != null && !(KOboard2[i][j].equals(board[i][j]))) {
+                        if (KOboard2[i][j].getColor() != 0 && !(KOboard2[i][j].equals(board[i][j]))) {
                             return false;
                         }
                     }
@@ -142,7 +144,7 @@
             if (playerNumber == 2) {
                 for (int i = 0; i < numRows; i++) {
                     for (int j =0; j < numCols; j++) {
-                        if (KOboard1[i][j] != null && !(KOboard1[i][j].equals(board[i][j]))) {
+                        if (KOboard1[i][j].getColor() != 0 && !(KOboard1[i][j].equals(board[i][j]))) {
                             return false;
                         }
                     }
@@ -158,7 +160,7 @@
             if (row < 0 || row == numRows || col < 0 || col == numCols) {
                 return 0;
             }
-            if (board[row][col] == null && !puttingDown) {
+            if (board[row][col].getColor() == 0 && !puttingDown) {
                 return 1;
             }
             GoStone marked = board[row][col];
@@ -183,7 +185,7 @@
             captureHelper(row, col + 1, playerNumber, trueDel);
             for (int i = 0; i < trueDel.size(); i++) {
                 int index = trueDel.get(i);
-                board[index / 9][index % 9] = null;
+                board[index / 9][index % 9] = new GoEmpty(row,col);
             }
             printBoard();
             return trueDel;
@@ -213,7 +215,7 @@
                 for(int j=0; j<numCols; ++j) {
                     GoStone a = board[i][j];
                     System.out.print('[');
-                    if (a == null) {
+                    if (a.getColor() == 0) {
                         System.out.print(0);
                     } else {
                         System.out.print(board[i][j].getColor());
@@ -239,9 +241,9 @@
             return numCols;
         }
 
-    public Integer getPiece(int x, int y) {
-        return board[x][y].getColor();
-    }
+        public Integer getPiece(int x, int y) {
+            return board[x][y].getColor();
+        }
 
         public int getSpacesLeft() {
             return spacesLeft;

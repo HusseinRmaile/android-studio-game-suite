@@ -7,6 +7,18 @@
     android:background="#5EB590"
     android:onClick="pass">
 
+    <Button
+        android:id="@+id/endGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="pass"
+        android:text="End the game"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/drawCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goBoard" />
+
     <TextView
         android:id="@+id/drawCount"
         android:layout_width="wrap_content"
@@ -145,13 +157,9 @@
         android:id="@+id/passButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="45dp"
         android:onClick="pass"
         android:text="Pass"
-        app:layout_constraintBottom_toTopOf="@+id/winning2"
+        app:layout_constraintBottom_toTopOf="@+id/drawCount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goBoard" />

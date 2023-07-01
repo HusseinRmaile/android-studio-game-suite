@@ -8,13 +8,15 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 public class GoScoreKeeper {
-    public static int checkScore(GoBoard board) {
+    public static double[] checkScore(GoBoard board) {
         int blackSpace = 0;
         int whiteSpace = 0;
         boolean[][] visited = new boolean[board.getNumRows()][board.getNumCols()];
         for (int i = 0; i < board.getNumRows(); i++) {
             for (int j = 0; j < board.getNumCols(); j++) {
-                if (board.getPiece(i, j) == null && !visited[i][j]) {
+                Log.d("GoScoreKeeper", "trying to check piece at location" + i + " and " + j);
+                if (board.getPiece(i, j) == 0 && !visited[i][j]) {
+
                     ArrayList<int[]> cluster = findCluster(board, i, j);
                     System.out.println("starting position" + i + j);
                     Set<Integer> colorList = new HashSet<Integer>();
@@ -27,7 +29,10 @@ public class GoScoreKeeper {
                         // check neighbors for color
                         int localColor = checkNeighbor(board, x, y);
                         System.out.println("local color at this place is" + localColor);
-                        colorList.add(localColor);
+                        if (localColor != 0) {
+                            colorList.add(localColor);
+                        }
+
 //                        if (localColor != -1) { // means this piece has same color neighbors
 //                            colorList.add(localColor);
 //                        }
@@ -58,7 +63,11 @@ public class GoScoreKeeper {
         }
         System.out.println("black has " + blackSpace);
         System.out.println("white has " + whiteSpace);
-        return 0;
+        double[] scores = new double[2];
+        scores[0] = blackSpace;
+        scores[1] = whiteSpace;
+
+        return scores;
     }
 
     public static int checkNeighbor(GoBoard board, int X, int Y) {
