@@ -152,11 +152,14 @@ public class Go extends AppCompatActivity{
     }
     public void pass(View button) {
         if (gameEnded) {
+            //call whatever method is needed for counting up points
             return;
         }
         Log.d("Go", "Pass");
         if (lastPass >= 0 && lastPass == turn - 1) {
             gameEnded = true;
+            Button buttonCur = findViewById(R.id.passButton);
+            buttonCur.setText("Done");
         }
         lastPass = turn;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
