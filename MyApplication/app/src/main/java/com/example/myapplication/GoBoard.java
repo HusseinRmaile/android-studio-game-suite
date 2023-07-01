@@ -4,7 +4,7 @@
     import java.util.ArrayList;
     import java.util.Stack;
 
-    public class GoBoard {
+    public class    GoBoard {
         private int numRows;
         private int numCols;
         private GoStone board[][];
@@ -108,20 +108,14 @@
             if (playerNumber == 1) {
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 0; j < numCols; j++) {
-                        GoStone stone = KOboard2[i][j];
-                        if (stone.getColor() != 0) {
-                            board[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-                        }
+                        board[i][j] = KOboard2[i][j];
                     }
                 }
             }
             if (playerNumber == 2) {
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 0; j < numCols; j++) {
-                        GoStone stone = KOboard1[i][j];
-                        if (stone.getColor() != 0) {
-                            board[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-                        }
+                        board[i][j] = KOboard1[i][j];
                     }
                 }
             }
