@@ -43,7 +43,9 @@
                 }
             }
         }
-
+        public void deletePiece(int row, int col){
+            board[row][col] = null;
+        }
         public ArrayList<Integer> placePiece(int row, int col, int playerNumber){
             if(board[row][col] != null){
                 return null;

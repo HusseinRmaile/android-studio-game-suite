@@ -31,6 +31,8 @@ public class Go extends AppCompatActivity{
     private int col;
     private int piece;
     private int turn;
+    private int lastPass = -1;
+    private boolean gameEnded = false;
     private int gameState = -1;
     //private int drawCount = InitialConfigGo.drawCount;
     GoPlayer p1 = InitialConfigGo.player1;
@@ -92,6 +94,12 @@ public class Go extends AppCompatActivity{
         piece = buttonCur.getId();
         row = piece / bSize;
         col = piece % bSize;
+        if (gameEnded) {
+            board.deletePiece(row, col);
+            buttonCur.setImageResource(R.drawable.blank_intersection);
+            boardHelp(row, col, buttonCur);
+            return;
+        }
         ArrayList<Integer> delist = board.placePiece(row, col, turn % 2 + 1);
         if (delist != null) {
             //0 means piece was placed and game continues
@@ -142,7 +150,26 @@ public class Go extends AppCompatActivity{
             buttonCur.setImageResource(R.drawable.blank_intersection);
         }
     }
+    public void pass(View button) {
+        if (gameEnded) {
+            return;
+        }
+        Log.d("Go", "Pass");
+        if (lastPass >= 0 && lastPass == turn - 1) {
+            gameEnded = true;
+        }
+        lastPass = turn;
+        ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
+        if (turn % 2 == 0) {
+            turnbox.setBackgroundColor(Color.WHITE);
+        } else {
+            turnbox.setBackgroundColor(Color.BLACK);
+        }
+        turn++;
+    }
 }
+
+
 
 
 
