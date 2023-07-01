@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Go extends AppCompatActivity{
-
     public static String winMessage;
     final static int bSize = 9;
     private LinearLayout goBoard;
@@ -37,7 +36,6 @@ public class Go extends AppCompatActivity{
     GoPlayer p2 = InitialConfigGo.player2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         int player1WinCounter = p1.getWinCounter();
         int player2WinCounter = p2.getWinCounter();
@@ -115,6 +113,15 @@ public class Go extends AppCompatActivity{
         }
     }
 
+    public void selectDead (View button) {
+        ImageButton buttonCur = (ImageButton) button;
+        ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
+        piece = buttonCur.getId();
+        row = piece / bSize;
+        col = piece % bSize;
+        boardHelp(row, col, buttonCur);
+        GoScoreKeeper.checkScore(board);
+    }
     private void boardHelp (int i, int j, ImageButton buttonCur) {
         if (i == 0) {
             if (j == 0) {

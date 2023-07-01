@@ -155,6 +155,9 @@ public class GoBoard {
         return numCols;
     }
 
+    public Integer getPiece(int x, int y) {
+        return board[x][y].getColor();
+    }
 
     public int getSpacesLeft() {
         return spacesLeft;
