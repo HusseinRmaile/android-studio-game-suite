@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class GoUnitTetst {
+public class GoUnitTest {
     //Jeongyeop Han Test1
     //Test goStone Initialization
     @Test
