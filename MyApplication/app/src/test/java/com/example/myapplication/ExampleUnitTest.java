@@ -4,6 +4,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -17,6 +24,7 @@ public class ExampleUnitTest {
 
     @Test
     //Hussein unit test 1
+    //tests default constructor and custom constructor for board
     public void boardInitialization() {
         //checking if default constructor sets board properly
         GomokuBoard board1 = new GomokuBoard();
@@ -51,68 +59,24 @@ public class ExampleUnitTest {
 
     @Test
     //Hussein unit test 2
-    public void test_checkWin() {
-        GomokuBoard board1 = new GomokuBoard(2,2,3);
-        //checking that out of bounds properly doesn't place pieces
-        assertEquals(board1.placePiece(2,0,1),-1);
-        assertEquals(board1.placePiece(1,2,1),-1);
-        assertEquals(board1.getSpacesLeft(),2*2);
-
-        //checking that pieces are not placed on occupied spaces
-        assertEquals(board1.placePiece(0,0,1),0);
-        assertEquals(board1.getSpacesLeft(), 3);
-        assertEquals(board1.placePiece(0,0,1),-1);
-        assertEquals(board1.getSpacesLeft(), 3);
-        assertEquals(board1.placePiece(0,0,2),-1);
-        assertEquals(board1.getSpacesLeft(), 3);
-
-        //checking that draw works properly
-        assertEquals(board1.placePiece(1,1,1),0);
-        assertEquals(board1.getSpacesLeft(), 2);
-        assertEquals(board1.placePiece(1,0,1),0);
-        assertEquals(board1.getSpacesLeft(), 1);
-        assertEquals(board1.placePiece(0,1,1),-2);
-        assertEquals(board1.getSpacesLeft(), 0);
-
-        //checking that a draw is not registered when a win is available but the board is also full
-        GomokuBoard board2 = new GomokuBoard(1,1,1);
-        assertEquals(board2.placePiece(0,0,2),2);
-
-        //checking more general cases for win
-        GomokuBoard board3 = new GomokuBoard();
+    //tests horizontal wins and vertical wins
+    public void test_horizontal_and_vertical() {
+        GomokuBoard board = new GomokuBoard();
         //vertical check
-        assertEquals(board3.placePiece(0,0,2),0);
-        assertEquals(board3.placePiece(1,0,2),0);
-        assertEquals(board3.placePiece(2,0,2),0);
-        assertEquals(board3.placePiece(3,0,2),0);
-        assertEquals(board3.placePiece(4,0,2),2);
+        assertEquals(board.placePiece(0,0,2),0);
+        assertEquals(board.placePiece(1,0,2),0);
+        assertEquals(board.placePiece(2,0,2),0);
+        assertEquals(board.placePiece(3,0,2),0);
+        assertEquals(board.placePiece(4,0,2),2);
         //horizontal check
-        assertEquals(board3.placePiece(18,14,1),0);
-        assertEquals(board3.placePiece(18,15,1),0);
-        assertEquals(board3.placePiece(18,16,1),0);
-        assertEquals(board3.placePiece(18,17,2),0);
-        assertEquals(board3.placePiece(18,18,1),0);
-        assertEquals(board3.placePiece(18,12,1),0);
-        assertEquals(board3.placePiece(18,11,2),0);
-        assertEquals(board3.placePiece(18,13,1),1);
-        //("/") diagonal check
-        assertEquals(board3.placePiece(10,9,1),0);
-        assertEquals(board3.placePiece(9,10,1),0);
-        assertEquals(board3.placePiece(12,7,1),0);
-        assertEquals(board3.placePiece(11,8,2),0);
-        assertEquals(board3.placePiece(13,6,1),0);
-        assertEquals(board3.placePiece(14,5,1),0);
-        assertEquals(board3.placePiece(15,4,1),0);
-        assertEquals(board3.placePiece(16,3,1),1);
-        //("\") diagonal check
-        assertEquals(board3.placePiece(10,10,2),0);
-        assertEquals(board3.placePiece(11,11,2),0);
-        assertEquals(board3.placePiece(7,7,2),0);
-        assertEquals(board3.placePiece(8,8,1),0);
-        assertEquals(board3.placePiece(12,12,2),0);
-        assertEquals(board3.placePiece(13,13,2),0);
-        assertEquals(board3.placePiece(9,9,2),2);
-        assertEquals(board3.placePiece(3,3,2),0);
+        assertEquals(board.placePiece(18,14,1),0);
+        assertEquals(board.placePiece(18,15,1),0);
+        assertEquals(board.placePiece(18,16,1),0);
+        assertEquals(board.placePiece(18,17,2),0);
+        assertEquals(board.placePiece(18,18,1),0);
+        assertEquals(board.placePiece(18,12,1),0);
+        assertEquals(board.placePiece(18,11,2),0);
+        assertEquals(board.placePiece(18,13,1),1);
     }
 
     @Test
@@ -174,5 +138,84 @@ public class ExampleUnitTest {
         }
         assertEquals(board2.getSpacesLeft(), 0);
         assertEquals(board2.isBoardFull(), true);
+    }
+
+    //Yuanning unit test 1
+    @Test
+    public void test_repeated_piece() {
+        GomokuBoard board = new GomokuBoard(3, 3, 3);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertEquals(board.placePiece(i,j,1), 0);
+                assertEquals(board.placePiece(i,j,1), -1);
+                assertEquals(board.placePiece(i,j,2), -1);
+            }
+        }
+    }
+
+    //Yuanning unit test 2
+    @Test
+    public void test_draw() {
+        GomokuBoard board = new GomokuBoard(3, 3, 3);
+        assertEquals(board.placePiece(0,0,1), 0);
+        assertEquals(board.placePiece(0,1,2), 0);
+        assertEquals(board.placePiece(0,2,1), 0);
+        assertEquals(board.placePiece(1,1,2), 0);
+        assertEquals(board.placePiece(1,0,1), 0);
+        assertEquals(board.placePiece(2,0,2), 0);
+        assertEquals(board.placePiece(1,2,1), 0);
+        assertEquals(board.placePiece(2,2,2), 0);
+        assertEquals(board.placePiece(2,1,1), -2);
+    }
+
+    //Tate unit test 1
+    @Test
+    public void test_notWin() {
+        GomokuBoard boardA = new GomokuBoard(9, 9, 5);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(boardA.placePiece(i,4,1), 0);
+            assertEquals(boardA.placePiece(i,i,1), 0);
+            assertEquals(boardA.placePiece(4,i,1), 0);
+            assertEquals(boardA.placePiece(i + 5,i + 5,1), 0);
+            assertEquals(boardA.placePiece(i + 5,4,1), 0);
+            assertEquals(boardA.placePiece(4,i + 5,1), 0);
+            assertEquals(boardA.placePiece(8-i,i,1), 0);
+            assertEquals(boardA.placePiece(3-i,i+5,1), 0);
+        }
+        boardA.printBoard();
+        assertEquals(boardA.placePiece(4,4,1), 1);
+    }
+
+    //Tate unit test 2
+    @Test
+    public void test_diagonal() {
+
+        //"\" diagonal
+        GomokuBoard boardA = new GomokuBoard(5, 5, 5);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(boardA.placePiece(i,i,1), 0);
+        }
+        assertEquals(boardA.placePiece(4,4,1), 1);
+
+        //"/" diagonal
+        GomokuBoard boardB = new GomokuBoard(5, 5, 5);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(boardB.placePiece(4 - i,i,2), 0);
+        }
+        assertEquals(boardB.placePiece(0,4,2), 2);
+    }
+
+    @Test
+    public void GoScoreTest() {
+        //int[][] board1 = GoScoreKeeper.generateBoard(9, 9);
+        GoBoard board1 = new GoBoard();
+        for (int i = 0; i < board1.getNumRows(); i++) {
+            // Iterate over each column
+            for (int j = 0; j < board1.getNumCols(); j++) {
+                System.out.print(board1.getPiece(i,j) + " ");
+            }
+            System.out.println(); // Move to the next line after each row
+        }
+        GoScoreKeeper.checkScore(board1);
     }
 }

@@ -1,0 +1,107 @@
+package com.example.myapplication;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import java.util.Random;
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+public class GoUnitTest {
+    //Jeongyeop Han Test1
+    //Test goStone Initialization
+    @Test
+    public void goStoneInitialization() {
+        GoStone stone = new GoStone(1, 2, 3);
+
+        assertEquals(stone.getColor(), 1);
+        assertEquals(stone.getRow(), 2);
+        assertEquals(stone.getCol(), 3);
+    }
+    //Jeongyeop Han Test2
+    //Test libertyCount method in GoBoard class
+    @Test
+    public void Test_libertyCount() {
+        GoBoard board = new GoBoard();
+        //Test libertyCount method without placing pieces
+        assertEquals(board.libertyCount(3, 4 , 2, true), 4);
+        //Test libertyCount method after placing pieces
+        board.placePiece(3, 3, 1);
+        assertEquals(board.libertyCount(3, 4 , 2, true), 3);
+
+        board.placePiece(3, 5, 1);
+        assertEquals(board.libertyCount(3, 4 , 2, true), 2);
+
+        board.placePiece(2, 4, 1);
+        assertEquals(board.libertyCount(3, 4 , 2, true), 1);
+    }
+
+    //Yuanning Test 1
+    @Test
+    public void testScoreKeeper1() {
+        GoBoard board = new GoBoard();
+        board.placePiece(4, 0, 1);
+        board.placePiece(3, 1, 1);
+        board.placePiece(2, 2, 1);
+        board.placePiece(1, 3, 1);
+        board.placePiece(0, 4, 1);
+        board.placePiece(8, 5, 2);
+        board.placePiece(7, 6, 2);
+        board.placePiece(6, 7, 2);
+        board.placePiece(5, 8, 2);
+        double[] scores = GoScoreKeeper.checkScore(board);
+        assertEquals(scores[0], 10.0, 1e-15);
+        assertEquals(scores[1], 6.0, 1e-15);
+    }
+
+    //Yuanning Test 2
+    @Test
+    public void testScoreKeeper2() {
+        GoBoard board = new GoBoard();
+        board.placePiece(4, 0, 1);
+        board.placePiece(3, 1, 1);
+        board.placePiece(2, 2, 1);
+        board.placePiece(1, 3, 1);
+        board.placePiece(0, 4, 1);
+        board.placePiece(1, 5, 1);
+        board.placePiece(2, 6, 1);
+        board.placePiece(3, 7, 1);
+        board.placePiece(4, 8, 1);
+
+        board.placePiece(5, 0, 2);
+        board.placePiece(5, 1, 2);
+        board.placePiece(5, 2, 2);
+        board.placePiece(6, 3, 2);
+        board.placePiece(7, 4, 2);
+        board.placePiece(8, 5, 2);
+        board.placePiece(7, 6, 2);
+        board.placePiece(6, 7, 2);
+        board.placePiece(5, 8, 2);
+
+        double[] scores = GoScoreKeeper.checkScore(board);
+        assertEquals(scores[0], 20.0, 1e-15);
+        assertEquals(scores[1], 18.0, 1e-15);
+    }
+    //Zaid Test1
+    //Test get num rows GoBoard
+    @Test
+    public void getRows() {
+        GoBoard board1 = new GoBoard();
+        assertEquals(board1.getNumRows(), 9);
+
+        GoBoard board2 = new GoBoard(5, 6);
+        assertEquals(board2.getNumRows(), 5);
+    }
+
+    //Zaid Test2
+    //Test get num cols GoBoard
+    @Test
+    public void getCols() {
+        GoBoard board1 = new GoBoard();
+        assertEquals(board1.getNumRows(), 9);
+
+        GoBoard board2 = new GoBoard(5, 6);
+        assertEquals(board2.getNumCols(), 6);
+    }
+}
