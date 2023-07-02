@@ -104,4 +104,44 @@ public class GoUnitTest {
         GoBoard board2 = new GoBoard(5, 6);
         assertEquals(board2.getNumCols(), 6);
     }
+
+    // Taiki Test 1
+    // Test getSpacesLeft GoBoard
+    @Test
+    public void testGetSpacesLeft() {
+        GoBoard board1 = new GoBoard();
+        assertEquals(board1.getSpacesLeft(), 81);
+        board1.placePiece(4, 0, 1);
+        board1.placePiece(3, 1, 1);
+        board1.placePiece(2, 2, 1);
+        board1.placePiece(1, 3, 1);
+        board1.placePiece(0, 4, 1);
+        assertEquals(board1.getSpacesLeft(), 76);
+
+        GoBoard board2 = new GoBoard(5, 6);
+        assertEquals(board2.getSpacesLeft(), 30);
+        board2.placePiece(4, 0, 2);
+        board2.placePiece(3, 1, 2);
+        board2.placePiece(2, 2, 2);
+        board2.placePiece(1, 3, 2);
+        board2.placePiece(0, 4, 2);
+        assertEquals(board2.getSpacesLeft(), 25);
+    }
+
+    // Taiki Test 2
+    // Test getPiece GoBoard
+    @Test
+    public void testGetPiece() {
+        GoBoard board = new GoBoard();
+        board.placePiece(4, 0, 1);
+        board.placePiece(3, 1, 2);
+        board.placePiece(2, 2, 1);
+        board.placePiece(1, 3, 2);
+        board.placePiece(0, 4, 1);
+        assertEquals(board.getPiece(4, 0), (Integer) 1);
+        assertEquals(board.getPiece(3, 1), (Integer) 2);
+        assertEquals(board.getPiece(2, 2), (Integer) 1);
+        assertEquals(board.getPiece(1, 3), (Integer) 2);
+        assertEquals(board.getPiece(0, 4), (Integer) 1);
+    }
 }
