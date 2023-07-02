@@ -24,17 +24,17 @@ public class GoUnitTest {
     @Test
     public void Test_libertyCount() {
         GoBoard board = new GoBoard();
-        //Test libertyCount method without placing pieces.
-        assertEquals(board.libertyCount(3, 4 , 2, false), 4);
+        //Test libertyCount method without placing pieces
+        assertEquals(board.libertyCount(3, 4 , 2, true), 4);
         //Test libertyCount method after placing pieces
         board.placePiece(3, 3, 1);
-        assertEquals(board.libertyCount(3, 4 , 2, false), 3);
+        assertEquals(board.libertyCount(3, 4 , 2, true), 3);
 
         board.placePiece(3, 5, 1);
-        assertEquals(board.libertyCount(3, 4 , 2, false), 2);
+        assertEquals(board.libertyCount(3, 4 , 2, true), 2);
 
         board.placePiece(2, 4, 1);
-        assertEquals(board.libertyCount(3, 4 , 2, false), 1);
+        assertEquals(board.libertyCount(3, 4 , 2, true), 1);
     }
 
     //Yuanning Test 1
@@ -85,6 +85,7 @@ public class GoUnitTest {
     }
     //Zaid Test1
     //Test get num rows GoBoard
+    @Test
     public void getRows() {
         GoBoard board1 = new GoBoard();
         assertEquals(board1.getNumRows(), 9);
@@ -95,11 +96,12 @@ public class GoUnitTest {
 
     //Zaid Test2
     //Test get num cols GoBoard
+    @Test
     public void getCols() {
         GoBoard board1 = new GoBoard();
         assertEquals(board1.getNumRows(), 9);
 
         GoBoard board2 = new GoBoard(5, 6);
-        assertEquals(board2.getNumRows(), 6);
+        assertEquals(board2.getNumCols(), 6);
     }
 }
