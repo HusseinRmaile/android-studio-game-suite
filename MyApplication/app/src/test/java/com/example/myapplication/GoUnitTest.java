@@ -37,4 +37,23 @@ public class GoUnitTest {
         assertEquals(board.libertyCount(3, 4 , 2, false), 1);
 
     }
+    //Zaid Test1
+    //Test get num rows GoBoard
+    public void getRows() {
+        GoBoard board1 = new GoBoard();
+        assertEquals(board1.getNumRows(), 9);
+
+        GoBoard board2 = new GoBoard(5, 6);
+        assertEquals(board2.getNumRows(), 5);
+    }
+
+    //Zaid Test2
+    //Test get num cols GoBoard
+    public void getCols() {
+        GoBoard board1 = new GoBoard();
+        assertEquals(board1.getNumRows(), 9);
+
+        GoBoard board2 = new GoBoard(5, 6);
+        assertEquals(board2.getNumRows(), 6);
+    }
 }
