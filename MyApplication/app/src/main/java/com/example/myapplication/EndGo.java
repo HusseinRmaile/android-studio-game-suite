@@ -39,12 +39,22 @@ public class EndGo extends AppCompatActivity{
         TextView player1WinCount = findViewById(R.id.player1WinCount);
         int player1Win = getIntent().getIntExtra("player1WinCounter", 0);
         player1WinCount.setText(Integer.toString(player1Win));
+
         TextView player2WinCount = findViewById(R.id.player2WinCount);
         int player2Win = getIntent().getIntExtra("player2WinCounter", 0);
         player2WinCount.setText(Integer.toString(player2Win));
+
         TextView drawCount = findViewById(R.id.drawCount);
         int draw = getIntent().getIntExtra("drawCounter", 0);
         drawCount.setText(Integer.toString(draw));
+
+        TextView player1Score = findViewById(R.id.player1Score);
+        double player1score = getIntent().getDoubleExtra("player1score", 0);
+        player1Score.setText(Double.toString(player1score));
+
+        TextView player2Score = findViewById(R.id.player2Score);
+        double player2score = getIntent().getDoubleExtra("player2score", 0) + 6.5;
+        player2Score.setText(Double.toString(player2score));
 
         playAgain = findViewById(R.id.playAgain);
         quitGame = findViewById(R.id.quitGame);

@@ -38,4 +38,12 @@ public class GoStone {
     public int getIndex() {
         return index;
     }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
+    }
 }
