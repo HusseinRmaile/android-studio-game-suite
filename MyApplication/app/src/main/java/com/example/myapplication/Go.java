@@ -68,8 +68,6 @@ public class Go extends AppCompatActivity{
         board = new GoBoard();
         turn = 0;
         Log.d("Go", "game state is " + gameState);
-
-
     }
     private void boardMake(){
         GridLayout griddy = (GridLayout) findViewById(R.id.griddy);

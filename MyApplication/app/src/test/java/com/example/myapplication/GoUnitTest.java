@@ -1,9 +1,8 @@
 package com.example.myapplication;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-
+import java.util.Random;
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -22,6 +21,7 @@ public class GoUnitTest {
     }
     //Jeongyeop Han Test2
     //Test libertyCount method in GoBoard class
+    @Test
     public void Test_libertyCount() {
         GoBoard board = new GoBoard();
         //Test libertyCount method without placing pieces.
@@ -35,6 +35,52 @@ public class GoUnitTest {
 
         board.placePiece(2, 4, 1);
         assertEquals(board.libertyCount(3, 4 , 2, false), 1);
+    }
 
+    //Yuanning Test 1
+    @Test
+    public void testScoreKeeper1() {
+        GoBoard board = new GoBoard();
+        board.placePiece(4, 0, 1);
+        board.placePiece(3, 1, 1);
+        board.placePiece(2, 2, 1);
+        board.placePiece(1, 3, 1);
+        board.placePiece(0, 4, 1);
+        board.placePiece(8, 5, 2);
+        board.placePiece(7, 6, 2);
+        board.placePiece(6, 7, 2);
+        board.placePiece(5, 8, 2);
+        double[] scores = GoScoreKeeper.checkScore(board);
+        assertEquals(scores[0], 10.0, 1e-15);
+        assertEquals(scores[1], 6.0, 1e-15);
+    }
+
+    //Yuanning Test 2
+    @Test
+    public void testScoreKeeper2() {
+        GoBoard board = new GoBoard();
+        board.placePiece(4, 0, 1);
+        board.placePiece(3, 1, 1);
+        board.placePiece(2, 2, 1);
+        board.placePiece(1, 3, 1);
+        board.placePiece(0, 4, 1);
+        board.placePiece(1, 5, 1);
+        board.placePiece(2, 6, 1);
+        board.placePiece(3, 7, 1);
+        board.placePiece(4, 8, 1);
+
+        board.placePiece(5, 0, 2);
+        board.placePiece(5, 1, 2);
+        board.placePiece(5, 2, 2);
+        board.placePiece(6, 3, 2);
+        board.placePiece(7, 4, 2);
+        board.placePiece(8, 5, 2);
+        board.placePiece(7, 6, 2);
+        board.placePiece(6, 7, 2);
+        board.placePiece(5, 8, 2);
+
+        double[] scores = GoScoreKeeper.checkScore(board);
+        assertEquals(scores[0], 20.0, 1e-15);
+        assertEquals(scores[1], 18.0, 1e-15);
     }
 }

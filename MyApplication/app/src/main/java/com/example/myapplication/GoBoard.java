@@ -60,9 +60,7 @@
             board[row][col] = Cur;
             ArrayList<Integer> ret = capture(row, col, playerNumber % 2 + 1);
             //compare with board1 or compare with board2 revert back board = board2
-            if (checkKO(playerNumber)) {
-                revertBoard(playerNumber);
-            }
+
             if(libertyCount(row, col, playerNumber, true) == 0){
                 board[row][col] = new GoEmpty(row,col);
                 unCheck();
@@ -102,52 +100,6 @@
             }
             return ret;
         }
-
-
-        private void revertBoard(int playerNumber) {
-            if (playerNumber == 1) {
-                for (int i = 0; i < numRows; i++) {
-                    for (int j = 0; j < numCols; j++) {
-                        board[i][j] = KOboard2[i][j];
-                    }
-                }
-            }
-            if (playerNumber == 2) {
-                for (int i = 0; i < numRows; i++) {
-                    for (int j = 0; j < numCols; j++) {
-                        board[i][j] = KOboard1[i][j];
-                    }
-                }
-            }
-        }
-
-        private boolean checkKO(int playerNumber) {
-            if (spacesLeft > 76) {
-                return false;
-            }
-            if (playerNumber == 1) {
-                for (int i = 0; i < numRows; i++) {
-                    for (int j =0; j < numCols; j++) {
-                        if (KOboard2[i][j].getColor() != 0 && !(KOboard2[i][j].equals(board[i][j]))) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-            if (playerNumber == 2) {
-                for (int i = 0; i < numRows; i++) {
-                    for (int j =0; j < numCols; j++) {
-                        if (KOboard1[i][j].getColor() != 0 && !(KOboard1[i][j].equals(board[i][j]))) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
-
 
         public int libertyCount(int row, int col, int playerNumber, boolean puttingDown) {
             int liberty = 0;

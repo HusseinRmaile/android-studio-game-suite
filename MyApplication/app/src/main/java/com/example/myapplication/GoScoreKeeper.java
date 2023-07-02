@@ -14,21 +14,21 @@ public class GoScoreKeeper {
         boolean[][] visited = new boolean[board.getNumRows()][board.getNumCols()];
         for (int i = 0; i < board.getNumRows(); i++) {
             for (int j = 0; j < board.getNumCols(); j++) {
-                Log.d("GoScoreKeeper", "trying to check piece at location" + i + " and " + j);
+                //Log.d("GoScoreKeeper", "trying to check piece at location" + i + " and " + j);
                 if (board.getPiece(i, j) == 0 && !visited[i][j]) {
 
                     ArrayList<int[]> cluster = findCluster(board, i, j);
-                    System.out.println("starting position" + i + j);
+                    //System.out.println("starting position" + i + j);
                     Set<Integer> colorList = new HashSet<Integer>();
                     for (int[] position : cluster) {
                         // print x, y coordinates in the cluster for debug and set them as visited
                         int x = position[0];
                         int y = position[1];
                         visited[x][y] = true;
-                        System.out.println("x: " + x + ", y: " + y);
+                        //System.out.println("x: " + x + ", y: " + y);
                         // check neighbors for color
                         int localColor = checkNeighbor(board, x, y);
-                        System.out.println("local color at this place is" + localColor);
+                        //System.out.println("local color at this place is" + localColor);
                         if (localColor != 0) {
                             colorList.add(localColor);
                         }
@@ -40,20 +40,20 @@ public class GoScoreKeeper {
                     if (colorList.size() == 1) { // if this cluster is surrounded by the same color
                         Integer[] colorArray = colorList.toArray(new Integer[0]);
                         if (colorArray[0] == 1) {
-                            System.out.println("black space");
+                            //System.out.println("black space");
                             for (int[] position : cluster) {
                                 int x = position[0];
                                 int y = position[1];
-                                System.out.println("x: " + x + ", y: " + y);
+                                //System.out.println("x: " + x + ", y: " + y);
                             }
 
                             blackSpace += cluster.size();
                         } else if (colorArray[0] == 2) {
-                            System.out.println("white space");
+                            //System.out.println("white space");
                             for (int[] position : cluster) {
                                 int x = position[0];
                                 int y = position[1];
-                                System.out.println("x: " + x + ", y: " + y);
+                                //System.out.println("x: " + x + ", y: " + y);
                             }
                             whiteSpace += cluster.size();
                         }
@@ -61,8 +61,8 @@ public class GoScoreKeeper {
                 }
             }
         }
-        System.out.println("black has " + blackSpace);
-        System.out.println("white has " + whiteSpace);
+        //System.out.println("black has " + blackSpace);
+        //System.out.println("white has " + whiteSpace);
         double[] scores = new double[2];
         scores[0] = blackSpace;
         scores[1] = whiteSpace;
@@ -80,7 +80,7 @@ public class GoScoreKeeper {
             if (neighborX >= 0 && neighborX < board.getNumRows() && neighborY >= 0 && neighborY < board.getNumCols()
                     && board.getPiece(neighborX, neighborY) != 0) {
                 colorList.add(board.getPiece(neighborX, neighborY));
-                System.out.println("the color at position " + neighborX + ", " + neighborY + " is " + board.getPiece(neighborX, neighborY));
+                //System.out.println("the color at position " + neighborX + ", " + neighborY + " is " + board.getPiece(neighborX, neighborY));
             }
         }
         boolean allSame = colorList.size() == 1;
