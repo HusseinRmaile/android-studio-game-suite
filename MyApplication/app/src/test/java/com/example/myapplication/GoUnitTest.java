@@ -198,4 +198,36 @@ public class GoUnitTest {
 
     }
 
+
+    //Hussein Test 1
+    //testing what happens when a piece is actually present
+    @Test
+    public void testDeletePiece1(){
+        GoBoard board = new GoBoard();
+
+        board.placePiece(0,0,1);
+        assertEquals(1,(int) board.getPiece(0,0));
+        board.deletePiece(0,0);
+        assertEquals(0, (int) board.getPiece(0,0));
+
+        board.placePiece(7,7,2);
+        assertEquals(2,(int) board.getPiece(7,7));
+        board.deletePiece(7,7);
+        assertEquals(0, (int) board.getPiece(7,7));
+    }
+
+    //Hussein test 2
+    //testing if deletePiece errors when called on cells with nothing to delete
+    @Test
+    public void testDeletePiece2(){
+        GoBoard board = new GoBoard();
+
+        assertEquals(0, (int) board.getPiece(4,5));
+        board.deletePiece(4,5);
+        assertEquals(0, (int) board.getPiece(4,5));
+
+        assertEquals(0, (int) board.getPiece(8,8));
+        board.deletePiece(8,8);
+        assertEquals(0, (int) board.getPiece(8,8));
+    }
 }
