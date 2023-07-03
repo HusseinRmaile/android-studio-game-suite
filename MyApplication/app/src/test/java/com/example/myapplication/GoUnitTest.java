@@ -144,4 +144,58 @@ public class GoUnitTest {
         assertEquals(board.getPiece(1, 3), (Integer) 2);
         assertEquals(board.getPiece(0, 4), (Integer) 1);
     }
+
+    //Tate Unit 1
+    //test capture method
+    @Test
+    public void testCapture() {
+        GoBoard board = new GoBoard();
+        board.placePiece(1, 1, 1);
+        board.placePiece(1, 2, 1);
+        board.placePiece(2, 1, 1);
+        board.placePiece(2, 2, 1);
+        assertEquals(board.getPiece(1, 1), (Integer) 1);
+        board.placePiece(0, 1, 2);
+        board.placePiece(0, 2, 2);
+        board.placePiece(3, 1, 2);
+        board.placePiece(3, 2, 2);
+        board.placePiece(1, 0, 2);
+        board.placePiece(2, 0, 2);
+        board.placePiece(1, 3, 2);
+        board.placePiece(2, 3, 2);
+        assertEquals(board.getPiece(1, 1), (Integer) 0);
+
+
+    }
+    //Tate Unit 1
+    //test capture on every side
+    @Test
+    public void testCaptureComp() {
+        GoBoard board = new GoBoard();
+        board.placePiece(0, 2, 1);
+        board.placePiece(4, 2, 1);
+        board.placePiece(2, 0, 1);
+        board.placePiece(2, 4, 1);
+        board.placePiece(1, 1, 1);
+        board.placePiece(3, 1, 1);
+        board.placePiece(1, 3, 1);
+        board.placePiece(3, 3, 1);
+        board.placePiece(1, 2, 2);
+        board.placePiece(2, 1, 2);
+        board.placePiece(3, 2, 2);
+        board.placePiece(2, 3, 2);
+        board.placePiece(3, 2, 2);
+        assertEquals(board.getPiece(1, 2), (Integer) 2);
+        assertEquals(board.getPiece(2, 1), (Integer) 2);
+        assertEquals(board.getPiece(3, 2), (Integer) 2);
+        assertEquals(board.getPiece(2, 3), (Integer) 2);
+        board.placePiece(2, 2, 1);
+        assertEquals(board.getPiece(1, 2), (Integer) 0);
+        assertEquals(board.getPiece(2, 1), (Integer) 0);
+        assertEquals(board.getPiece(3, 2), (Integer) 0);
+        assertEquals(board.getPiece(2, 3), (Integer) 0);
+
+
+    }
+
 }
