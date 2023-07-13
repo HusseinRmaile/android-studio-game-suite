@@ -1,13 +1,17 @@
 package com.example.myapplication;
 
 public class WordleWords {
-    private static WordleWords player;
+    private volatile static WordleWords words;
     private WordleWords(){};
 
     public static WordleWords getInstance(){
-        if (player == null){
-            player = new WordleWords();
+        if (words == null){
+            synchronized (WordleWords.class) {
+                if (words == null) {
+                    words = new WordleWords();
+                }
+            }
         }
-        return player;
+        return words;
     }
 }
