@@ -144,4 +144,90 @@ public class GoUnitTest {
         assertEquals(board.getPiece(1, 3), (Integer) 2);
         assertEquals(board.getPiece(0, 4), (Integer) 1);
     }
+
+    //Tate Unit 1
+    //test capture method
+    @Test
+    public void testCapture() {
+        GoBoard board = new GoBoard();
+        board.placePiece(1, 1, 1);
+        board.placePiece(1, 2, 1);
+        board.placePiece(2, 1, 1);
+        board.placePiece(2, 2, 1);
+        assertEquals(board.getPiece(1, 1), (Integer) 1);
+        board.placePiece(0, 1, 2);
+        board.placePiece(0, 2, 2);
+        board.placePiece(3, 1, 2);
+        board.placePiece(3, 2, 2);
+        board.placePiece(1, 0, 2);
+        board.placePiece(2, 0, 2);
+        board.placePiece(1, 3, 2);
+        board.placePiece(2, 3, 2);
+        assertEquals(board.getPiece(1, 1), (Integer) 0);
+
+
+    }
+    //Tate Unit 1
+    //test capture on every side
+    @Test
+    public void testCaptureComp() {
+        GoBoard board = new GoBoard();
+        board.placePiece(0, 2, 1);
+        board.placePiece(4, 2, 1);
+        board.placePiece(2, 0, 1);
+        board.placePiece(2, 4, 1);
+        board.placePiece(1, 1, 1);
+        board.placePiece(3, 1, 1);
+        board.placePiece(1, 3, 1);
+        board.placePiece(3, 3, 1);
+        board.placePiece(1, 2, 2);
+        board.placePiece(2, 1, 2);
+        board.placePiece(3, 2, 2);
+        board.placePiece(2, 3, 2);
+        board.placePiece(3, 2, 2);
+        assertEquals(board.getPiece(1, 2), (Integer) 2);
+        assertEquals(board.getPiece(2, 1), (Integer) 2);
+        assertEquals(board.getPiece(3, 2), (Integer) 2);
+        assertEquals(board.getPiece(2, 3), (Integer) 2);
+        board.placePiece(2, 2, 1);
+        assertEquals(board.getPiece(1, 2), (Integer) 0);
+        assertEquals(board.getPiece(2, 1), (Integer) 0);
+        assertEquals(board.getPiece(3, 2), (Integer) 0);
+        assertEquals(board.getPiece(2, 3), (Integer) 0);
+
+
+    }
+
+
+    //Hussein Test 1
+    //testing what happens when a piece is actually present
+    @Test
+    public void testDeletePiece1(){
+        GoBoard board = new GoBoard();
+
+        board.placePiece(0,0,1);
+        assertEquals(1,(int) board.getPiece(0,0));
+        board.deletePiece(0,0);
+        assertEquals(0, (int) board.getPiece(0,0));
+
+        board.placePiece(7,7,2);
+        assertEquals(2,(int) board.getPiece(7,7));
+        board.deletePiece(7,7);
+        assertEquals(0, (int) board.getPiece(7,7));
+    }
+
+    //Hussein test 2
+    //testing if deletePiece errors when called on cells with nothing to delete
+    @Test
+    public void testDeletePiece2(){
+        GoBoard board = new GoBoard();
+
+        assertEquals(0, (int) board.getPiece(4,5));
+        board.deletePiece(4,5);
+        assertEquals(0, (int) board.getPiece(4,5));
+
+        assertEquals(0, (int) board.getPiece(8,8));
+        board.deletePiece(8,8);
+        assertEquals(0, (int) board.getPiece(8,8));
+    }
 }
