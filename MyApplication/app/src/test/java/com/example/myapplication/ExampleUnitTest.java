@@ -1,3 +1,4 @@
+
 //package com.example.myapplication;
 //
 //import org.junit.Test;
@@ -218,4 +219,3 @@
 //        }
 //        GoScoreKeeper.checkScore(board1);
 //    }
-//}

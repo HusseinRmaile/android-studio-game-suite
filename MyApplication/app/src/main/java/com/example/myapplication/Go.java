@@ -65,7 +65,7 @@ public class Go extends AppCompatActivity{
 
         boardMake();
 
-        board = new GoBoard();
+        board = GoBoard.getInstance();
         turn = 0;
         Log.d("Go", "game state is " + gameState);
     }

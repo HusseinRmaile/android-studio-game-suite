@@ -18,8 +18,10 @@
 
         private Stack<GoStone> delList = new Stack<>();
 
+        private static GoBoard uniqueBoard;
+
         //default 19x19 board with 5 in a row win condition
-        public GoBoard() {
+        private GoBoard() {
             this.numRows = 9;
             this.numCols = 9;
             this.spacesLeft = numRows * numCols;
@@ -32,17 +34,17 @@
         }
 
         //customizable board dimensions and win condition
-        public GoBoard(int height, int width) {
-            this.numRows = height;
-            this.numCols = width;
-            this.spacesLeft = numRows * numCols;
-            this.board = new GoStone[numRows][numCols];
-            for (int i = 0; i < numRows; i++) {
-                for (int j = 0; j < numCols; j++) {
-                    board[i][j] = new GoEmpty(i,j);
-                }
-            }
-        }
+//        public GoBoard(int height, int width) {
+//            this.numRows = height;
+//            this.numCols = width;
+//            this.spacesLeft = numRows * numCols;
+//            this.board = new GoStone[numRows][numCols];
+//            for (int i = 0; i < numRows; i++) {
+//                for (int j = 0; j < numCols; j++) {
+//                    board[i][j] = new GoEmpty(i,j);
+//                }
+//            }
+//        }
         public void deletePiece(int row, int col){
             board[row][col] = new GoEmpty(row,col);
         }
@@ -153,6 +155,13 @@
                  delList) {
                 i.setChain(false);
             }
+        }
+
+        public static GoBoard getInstance() {
+            if (uniqueBoard == null) {
+                uniqueBoard = new GoBoard();
+            }
+            return uniqueBoard;
         }
 
         public int getNumRows() {
