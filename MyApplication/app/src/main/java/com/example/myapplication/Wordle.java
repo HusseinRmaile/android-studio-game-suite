@@ -16,6 +16,7 @@ public class Wordle extends AppCompatActivity{
     private char[] qwerty = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
             'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '<',
             'Z', 'X', 'C', 'V', 'B', 'N', 'M','E','N','T'};
+    private String curr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +40,26 @@ public class Wordle extends AppCompatActivity{
                 View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
                 View intersectionCur = (View) findViewById(R.id.button_x);
                 intersectionCur.setId(10 * i + j);
+
                 FrameLayout cur = (FrameLayout) intersectionCur;
+                cur.getChildAt(0).setId(10 * i + j);
+
                 TextView key = (TextView) cur.getChildAt(1);
                 key.setText(Character.toString(qwerty[10 * i + j]));
             }
+        }
+    }
+    //this builds the current word guess
+    public void append(View key) {
+        char letter = qwerty[key.getId()];
+        if (curr.length() < 5) {
+            curr = curr + letter;
+        }
+    }
+
+    public void delete(View key) {
+        if (curr.length() > 0) {
+            curr = curr.substring(0, curr.length() - 1);
         }
     }
 }
