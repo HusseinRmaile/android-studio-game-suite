@@ -65,7 +65,7 @@ public class Gomoku extends AppCompatActivity{
 
         boardMake();
 
-        board = new GomokuBoard();
+        board = GomokuBoard.getInstance();
         turn = 0;
         Log.d("Gomoku", "game state is " + gameState);
 
