@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Wordle extends AppCompatActivity{
     private TextView nameDisplay;
     private ImageView dynamicImageView;
-    private char[] qwerty = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
+    private char[] qwerty = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+            'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '<',
+            'Z', 'X', 'C', 'V', 'B', 'N', 'M','E','N','T'};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,21 @@ public class Wordle extends AppCompatActivity{
 
         dynamicImageView = findViewById(R.id.player1Avatar);
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
+        boardMake();
     }
 
+    private void boardMake(){
+        GridLayout keyboard = (GridLayout) findViewById(R.id.KeyBoard);
+        keyboard.removeAllViews();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 10; j++) {
+                View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
+                View intersectionCur = (View) findViewById(R.id.button_x);
+                intersectionCur.setId(10 * i + j);
+                FrameLayout cur = (FrameLayout) intersectionCur;
+                TextView key = (TextView) cur.getChildAt(1);
+                key.setText(Character.toString(qwerty[10 * i + j]));
+            }
+        }
+    }
 }
