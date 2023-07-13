@@ -14,8 +14,8 @@ public class Wordle extends AppCompatActivity{
     private TextView nameDisplay;
     private ImageView dynamicImageView;
     private char[] qwerty = {'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
-            'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '<',
-            'Z', 'X', 'C', 'V', 'B', 'N', 'M','E','N','T'};
+            'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '*',
+            'Z', 'X', 'C', 'V', 'B', 'N', 'M','*','*','*'};
     private String curr = "";
 
     @Override
@@ -37,15 +37,27 @@ public class Wordle extends AppCompatActivity{
         keyboard.removeAllViews();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 10; j++) {
-                View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
-                View intersectionCur = (View) findViewById(R.id.button_x);
-                intersectionCur.setId(10 * i + j);
+                if(10 * i + j == 19 || 10 * i + j >= 27) {
+                    View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
+                    View intersectionCur = (View) findViewById(R.id.button_x);
+                    intersectionCur.setId(10 * i + j);
 
-                FrameLayout cur = (FrameLayout) intersectionCur;
-                cur.getChildAt(0).setId(10 * i + j);
+                    FrameLayout cur = (FrameLayout) intersectionCur;
+                    cur.getChildAt(0).setId(10 * i + j);
 
-                TextView key = (TextView) cur.getChildAt(1);
-                key.setText(Character.toString(qwerty[10 * i + j]));
+                    TextView key = (TextView) cur.getChildAt(1);
+                    //key.setText(Character.toString(qwerty[10 * i + j]));
+                } else {
+                    View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
+                    View intersectionCur = (View) findViewById(R.id.button_x);
+                    intersectionCur.setId(10 * i + j);
+
+                    FrameLayout cur = (FrameLayout) intersectionCur;
+                    cur.getChildAt(0).setId(10 * i + j);
+
+                    TextView key = (TextView) cur.getChildAt(1);
+                    key.setText(Character.toString(qwerty[10 * i + j]));
+                }
             }
         }
     }
