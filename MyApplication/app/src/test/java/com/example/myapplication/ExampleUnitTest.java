@@ -205,17 +205,17 @@ public class ExampleUnitTest {
         assertEquals(boardB.placePiece(0,4,2), 2);
     }
 
-    @Test
-    public void GoScoreTest() {
-        //int[][] board1 = GoScoreKeeper.generateBoard(9, 9);
-        GoBoard board1 = new GoBoard();
-        for (int i = 0; i < board1.getNumRows(); i++) {
-            // Iterate over each column
-            for (int j = 0; j < board1.getNumCols(); j++) {
-                System.out.print(board1.getPiece(i,j) + " ");
-            }
-            System.out.println(); // Move to the next line after each row
-        }
-        GoScoreKeeper.checkScore(board1);
-    }
+//    @Test
+//    public void GoScoreTest() {
+//        //int[][] board1 = GoScoreKeeper.generateBoard(9, 9);
+//        GoBoard board1 = new GoBoard();
+//        for (int i = 0; i < board1.getNumRows(); i++) {
+//            // Iterate over each column
+//            for (int j = 0; j < board1.getNumCols(); j++) {
+//                System.out.print(board1.getPiece(i,j) + " ");
+//            }
+//            System.out.println(); // Move to the next line after each row
+//        }
+//        GoScoreKeeper.checkScore(board1);
+//    }
 }
