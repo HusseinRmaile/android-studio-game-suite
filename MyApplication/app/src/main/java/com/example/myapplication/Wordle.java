@@ -65,13 +65,21 @@ public class Wordle extends AppCompatActivity{
     public void append(View key) {
         char letter = qwerty[key.getId()];
         if (curr.length() < 5) {
+            //this is where you update the grid han/yaunning
             curr = curr + letter;
         }
     }
 
     public void delete(View key) {
         if (curr.length() > 0) {
+            //this is where you update the grid han/yaunning
             curr = curr.substring(0, curr.length() - 1);
+        }
+    }
+
+    public void submit(View key) {
+        if (curr.length() == 5) {
+            //this is where you call for the logic Taiki/ hussein
         }
     }
 }
