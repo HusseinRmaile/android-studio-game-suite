@@ -50,10 +50,20 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="1dp"
-            android:columnCount="10"
-            android:rowCount="3"
+            android:columnCount="5"
+            android:rowCount="6"
             ></GridLayout>
 
     </LinearLayout>
+
+    <GridView
+        android:layout_width="300dp"
+        android:layout_height="351dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.46" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
