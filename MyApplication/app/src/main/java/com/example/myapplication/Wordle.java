@@ -72,7 +72,7 @@ public class Wordle extends AppCompatActivity{
                 }
             }
         }
-        //create wordld board.
+        //create wordld board 5col and 6rows
         GridLayout wordleBoard = (GridLayout) findViewById(R.id.wordleBoard);
         wordleBoard.removeAllViews();
         for (int i = 0; i < 6; i++) {
@@ -83,7 +83,6 @@ public class Wordle extends AppCompatActivity{
 
                 FrameLayout cur1 = (FrameLayout) intersection;
                 cur1.getChildAt(0).setId(5 * i + j);
-
             }
         }
 
