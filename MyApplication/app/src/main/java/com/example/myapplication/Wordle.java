@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -30,6 +32,16 @@ public class Wordle extends AppCompatActivity{
         dynamicImageView = findViewById(R.id.player1Avatar);
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
         boardMake();
+
+        ImageView cellDisplay = findViewById(R.id.imageView);
+        cellDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int red = Color.parseColor("#F44336");
+                cellDisplay.setColorFilter(red);
+                cellDisplay.setBackgroundColor(red);
+            }
+        });
     }
 
     private void boardMake(){
@@ -90,4 +102,6 @@ public class Wordle extends AppCompatActivity{
             curr = curr.substring(0, curr.length() - 1);
         }
     }
+
+    
 }
