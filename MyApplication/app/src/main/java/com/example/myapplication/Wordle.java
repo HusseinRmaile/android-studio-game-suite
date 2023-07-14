@@ -60,6 +60,17 @@ public class Wordle extends AppCompatActivity{
                 }
             }
         }
+
+        GridLayout wordleBoard = (GridLayout) findViewById(R.id.wordleBoard);
+        wordleBoard.removeAllViews();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 5; j++) {
+
+
+            }
+        }
+
+
     }
     //this builds the current word guess
     public void append(View key) {
