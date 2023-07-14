@@ -76,10 +76,10 @@ public class Wordle extends AppCompatActivity{
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
                 View boxInflated = View.inflate(Wordle.this, R.layout.wordleboard,wordleBoard);
-                View intersection = (View) findViewById(R.id.wordleBox);
-                intersection.setId(5 * i + j);
+                View intersectionCur1 = (View) findViewById(R.id.wordleBox);
+                intersectionCur1.setId(5 * i + j);
 
-                FrameLayout cur1 = (FrameLayout) intersection;
+                FrameLayout cur1 = (FrameLayout) intersectionCur1;
                 cur1.getChildAt(0).setId(5 * i + j);
             }
         }
