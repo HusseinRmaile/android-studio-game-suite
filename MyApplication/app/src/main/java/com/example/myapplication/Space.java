@@ -6,8 +6,6 @@ public class Space {
     private int libertiesCount;
     private int connectionCount;
     private int state;
-
-
 }
 
 

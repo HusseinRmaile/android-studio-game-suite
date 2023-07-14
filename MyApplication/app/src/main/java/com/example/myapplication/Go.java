@@ -65,7 +65,7 @@ public class Go extends AppCompatActivity{
 
         boardMake();
 
-        board = new GoBoard();
+        board = GoBoard.getInstance();
         turn = 0;
         Log.d("Go", "game state is " + gameState);
     }
@@ -194,20 +194,14 @@ public class Go extends AppCompatActivity{
         }
     }
     public void pass(View button) {
-        if (gameEnded) {
-            //call whatever method is needed for counting up points
-            //place(button);
+        Log.d("Go", "Pass");
+        if (lastPass >= 0 && lastPass == turn - 1) {
+            gameEnded = true;
             Button passBut = findViewById(R.id.passButton);
             passBut.setVisibility(View.GONE);
             Button endGame = findViewById(R.id.endGameButton);
             endGame.setVisibility(View.VISIBLE);
             return;
-        }
-        Log.d("Go", "Pass");
-        if (lastPass >= 0 && lastPass == turn - 1) {
-            gameEnded = true;
-            Button buttonCur = findViewById(R.id.passButton);
-            buttonCur.setText("Done");
         }
         lastPass = turn;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);

@@ -18,8 +18,10 @@
 
         private Stack<GoStone> delList = new Stack<>();
 
+        private static GoBoard uniqueBoard;
+
         //default 19x19 board with 5 in a row win condition
-        public GoBoard() {
+        private GoBoard() {
             this.numRows = 9;
             this.numCols = 9;
             this.spacesLeft = numRows * numCols;
@@ -32,17 +34,17 @@
         }
 
         //customizable board dimensions and win condition
-        public GoBoard(int height, int width) {
-            this.numRows = height;
-            this.numCols = width;
-            this.spacesLeft = numRows * numCols;
-            this.board = new GoStone[numRows][numCols];
-            for (int i = 0; i < numRows; i++) {
-                for (int j = 0; j < numCols; j++) {
-                    board[i][j] = new GoEmpty(i,j);
-                }
-            }
-        }
+//        public GoBoard(int height, int width) {
+//            this.numRows = height;
+//            this.numCols = width;
+//            this.spacesLeft = numRows * numCols;
+//            this.board = new GoStone[numRows][numCols];
+//            for (int i = 0; i < numRows; i++) {
+//                for (int j = 0; j < numCols; j++) {
+//                    board[i][j] = new GoEmpty(i,j);
+//                }
+//            }
+//        }
         public void deletePiece(int row, int col){
             board[row][col] = new GoEmpty(row,col);
         }
@@ -73,31 +75,6 @@
             spacesLeft--;
             //playerNumber successfully placed
 
-            //update board 1 or baord 2
-            if (playerNumber == 1) {
-                KOboard1 = new GoStone[numRows][numCols];
-                for (int i = 0; i < numRows; i++) {
-                    for (int j = 0; j < numCols; j++) {
-                        GoStone stone = board[i][j];
-                        KOboard1[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-//                        if (stone.getColor() != 0) {
-//                            KOboard1[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-//                        }
-                    }
-                }
-            }
-            if (playerNumber == 2) {
-                KOboard2 = new GoStone[numRows][numCols];
-                for (int i = 0; i < numRows; i++) {
-                    for (int j = 0; j < numCols; j++) {
-                        GoStone stone = board[i][j];
-                        KOboard2[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-//                        if (stone.getColor() != 0) {
-//                            KOboard2[i][j] = new GoStone(stone.getColor(), stone.getRow(), stone.getCol());
-//                        }
-                    }
-                }
-            }
             return ret;
         }
 
@@ -111,7 +88,7 @@
             }
             GoStone marked = board[row][col];
             int color = marked.getColor();
-            if (color != playerNumber || marked.isChain()) {
+            if ((color != playerNumber && color!= 0) || marked.isChain()) {
                 return 0;
             }
             marked.setChain(true);
@@ -120,6 +97,7 @@
             liberty += libertyCount(row + 1,col,playerNumber, false);
             liberty += libertyCount(row,col - 1,playerNumber, false);
             liberty += libertyCount(row,col + 1,playerNumber, false);
+
             return liberty;
         }
 
@@ -177,6 +155,13 @@
                  delList) {
                 i.setChain(false);
             }
+        }
+
+        public static GoBoard getInstance() {
+            if (uniqueBoard == null) {
+                uniqueBoard = new GoBoard();
+            }
+            return uniqueBoard;
         }
 
         public int getNumRows() {

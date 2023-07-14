@@ -9,8 +9,10 @@ public class GomokuBoard {
     private int winLength;
     private int spacesLeft;
 
+    private static GomokuBoard uniqueInstance;
+
     //default 19x19 board with 5 in a row win condition
-    public GomokuBoard() {
+    private GomokuBoard() {
         this.numRows = 19;
         this.numCols = 19;
         this.winLength = 5;
@@ -24,18 +26,18 @@ public class GomokuBoard {
     }
 
     //customizable board dimensions and win condition
-    public GomokuBoard(int height, int width, int winLength) {
-        this.numRows = height;
-        this.numCols = width;
-        this.winLength = winLength;
-        this.spacesLeft = numRows * numCols;
-        this.board = new int[numRows][numCols];
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                board[i][j] = 0;
-            }
-        }
-    }
+//    public GomokuBoard(int height, int width, int winLength) {
+//        this.numRows = height;
+//        this.numCols = width;
+//        this.winLength = winLength;
+//        this.spacesLeft = numRows * numCols;
+//        this.board = new int[numRows][numCols];
+//        for (int i = 0; i < numRows; i++) {
+//            for (int j = 0; j < numCols; j++) {
+//                board[i][j] = 0;
+//            }
+//        }
+//    }
 
     public int placePiece(int row, int col, int playerNumber){
         if(col < 0 || col >= numCols){
@@ -253,5 +255,12 @@ public class GomokuBoard {
 
     public int getSpacesLeft() {
         return spacesLeft;
+    }
+
+    public static GomokuBoard getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new GomokuBoard();
+        }
+        return uniqueInstance;
     }
 }
