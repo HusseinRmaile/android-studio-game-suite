@@ -19,8 +19,8 @@ public class WordleLogic {
     //enter/submit button should call this method, it returns the color for each letter
     public int[] checkWord(String guess) {
         guess = guess.toUpperCase();
-        int[] color = {0,0,0,0,0,0};
-        boolean[] linked = {false,false,false,false,false,false};
+        int[] color = {0,0,0,0,0};
+        boolean[] linked = {false,false,false,false,false};
         for (int j = 0; j < word.length(); j++) {
             if (word.charAt(j) == guess.charAt(j)) {
                 color[j] = 1;
@@ -30,8 +30,8 @@ public class WordleLogic {
         //i is the guess' index
         for (int i = 0; i < guess.length(); i++) {
             //j is the actual word's index
-            for (int j = 0; j < word.length(); i++) {
-                 if (!linked[j] && word.charAt(j) == guess.charAt(i)) {
+            for (int j = 0; j < word.length(); j++) {
+                 if (color[i] != 1 && !linked[j] && word.charAt(j) == guess.charAt(i)) {
                     color[i] = 2;
                     linked[j] = true;
                     break;
