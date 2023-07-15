@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.w3c.dom.Text;
 
 public class Wordle extends AppCompatActivity{
@@ -139,11 +138,13 @@ public class Wordle extends AppCompatActivity{
     public void submit(View key) {
         if (curr.length() == 5) {
             //this is where you call for the logic Taiki/ hussein
+            WordleLogic.checkWord(curr);
             System.out.println(curr);
-            System.out.println("submitting" + row);
+//            System.out.println("submitting" + row);
             row += 1;
             col = -1;
             curr = "";
+
         }
     }
 

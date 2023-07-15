@@ -2,7 +2,7 @@ package com.example.myapplication;
 
 public class WordleLogic {
     private volatile static WordleLogic logic;
-    private String word = WordleWords.getInstance().randomWord();
+    private static String word = WordleWords.getInstance().randomWord();
     private WordleLogic(){};
 
     public static WordleLogic getInstance(){
@@ -17,7 +17,8 @@ public class WordleLogic {
     }
 
     //enter/submit button should call this method, it returns the color for each letter
-    public int[] checkWord(String guess) {
+    public static int[] checkWord(String guess) {
+        System.out.println(word);
         guess = guess.toUpperCase();
         int[] color = {0,0,0,0,0};
         boolean[] linked = {false,false,false,false,false};
