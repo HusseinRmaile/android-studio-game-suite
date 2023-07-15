@@ -3,6 +3,11 @@ package com.example.myapplication;
 public class WordlePlayer {
     private volatile static WordlePlayer player;
     private int lives;
+
+    private int wins;
+
+    private int loss;
+
     private WordlePlayer(){};
 
     public static WordlePlayer getInstance(){
@@ -35,5 +40,18 @@ public class WordlePlayer {
 
     public void resetLives() {
         lives = 6;
+    }
+
+    public void setWinLoss(int wins, int loss) {
+        this.wins = wins;
+        this.loss = loss;
+    }
+
+    public void addWin() {
+        wins++;
+    }
+
+    public void addLoss() {
+        loss++;
     }
 }

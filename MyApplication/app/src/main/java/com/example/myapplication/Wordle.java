@@ -167,7 +167,14 @@ public class Wordle extends AppCompatActivity{
             WordlePlayer.getInstance().decrementLives();
             curr = "";
             if (WordlePlayer.getInstance().getLives() == 0) {
-                //end the game screen
+                for (int i = 0; i < color.length; i++) {
+                    if (color[i] != 1) {
+                        WordlePlayer.getInstance().addLoss();
+                        //game lost
+                    }
+                }
+                WordlePlayer.getInstance().addWin();
+                //game won
             }
         }
     }
