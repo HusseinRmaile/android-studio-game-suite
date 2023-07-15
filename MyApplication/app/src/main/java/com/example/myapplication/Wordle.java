@@ -34,6 +34,7 @@ public class Wordle extends AppCompatActivity{
 
         changeRed(1, 1);
         changeGreen(3, 4);
+        changeYellow(4, 2);
     }
 
     private void boardMake(){
@@ -105,6 +106,12 @@ public class Wordle extends AppCompatActivity{
     public void changeGreen(int row, int col) {
         View view = wordleViews[row][col];
         int red = Color.parseColor("#FF57D65C");
+        view.setBackgroundColor(red);
+    }
+
+    public void changeYellow(int row, int col) {
+        View view = wordleViews[row][col];
+        int red = Color.parseColor("#EFCD65");
         view.setBackgroundColor(red);
     }
 }
