@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 public class WordlePlayer {
     private volatile static WordlePlayer player;
+    private int lives;
     private WordlePlayer(){};
 
     public static WordlePlayer getInstance(){
@@ -13,5 +14,16 @@ public class WordlePlayer {
             }
         }
         return player;
+    }
+
+    // checkWord()'s array gets passed in here
+    private void checkLives(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            // if any tile is not green, subtract 1 from lives and leave the method
+            if (arr[i] != 1) {
+                lives -= 1;
+                return;
+            }
+        }
     }
 }
