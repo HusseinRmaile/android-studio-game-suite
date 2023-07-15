@@ -142,24 +142,33 @@ public class Wordle extends AppCompatActivity{
             col = -1;
 
             int[] color = WordleLogic.checkWord(curr);
+            boolean isGreen = false;
             for (int i = 0; i < 5; i++) {
                 if (color[i] == 0) {
                     ChangeColorContext colorContext = new ChangeColorContext();
                     ChangeColorStrategy grayStrategy = new ChangeGrayStrategy();
                     colorContext.setChangeColorStrategy(grayStrategy);
                     colorContext.changeColor(row, i);
-                } else if(color[i] == 1) {
+                    isGreen = false;
+                } else if (color[i] == 1) {
                     ChangeColorContext colorContext = new ChangeColorContext();
                     ChangeColorStrategy greenStrategy = new ChangeGreenStrategy();
                     colorContext.setChangeColorStrategy(greenStrategy);
                     colorContext.changeColor(row, i);
-                } else if(color[i] == 2) {
+                    isGreen = true;
+
+                } else if (color[i] == 2) {
                     ChangeColorContext colorContext = new ChangeColorContext();
                     ChangeColorStrategy yellowStrategy = new ChangeYellowStrategy();
                     colorContext.setChangeColorStrategy(yellowStrategy);
                     colorContext.changeColor(row, i);
+                    isGreen = false;
                 }
             }
+            if (isGreen) {
+                // go to end screen
+            }
+
             row += 1;
             curr = "";
         }
