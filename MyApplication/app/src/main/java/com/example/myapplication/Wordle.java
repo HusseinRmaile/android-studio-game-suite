@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,10 +18,11 @@ public class Wordle extends AppCompatActivity{
             'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '*',
             'Z', 'X', 'C', 'V', 'B', 'N', 'M','*','*','*'};
     private String curr = "";
-    private  View[][] wordleViews;
+
     private boolean backspace;
     private int row = 0;
     private int col = -1;
+    private static View[][] wordleViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +36,12 @@ public class Wordle extends AppCompatActivity{
         dynamicImageView = findViewById(R.id.player1Avatar);
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
         boardMake();
-
-        changeGreen(3, 4);
-        changeYellow(4, 2);
-        changeGray(0,2);
+        /* change color to gray
+        ChangeColorContext colorContext = new ChangeColorContext();
+        ChangeColorStrategy grayStrategy = new ChangeGrayStrategy();
+        colorContext.setChangeColorStrategy(grayStrategy);
+        colorContext.changeColor(1, 4);
+         */
     }
 
     private void boardMake(){
@@ -145,25 +147,7 @@ public class Wordle extends AppCompatActivity{
         }
     }
 
-    public void changeGreen(int row, int col) {
-        int index = 5 * row + col + 100;
-        View view = findViewById(index);
-//        View view = wordleViews[row][col];
-        int green = Color.parseColor("#FF57D65C");
-        view.setBackgroundColor(green);
-    }
-
-    public void changeYellow(int row, int col) {
-        int index = 5 * row + col + 100;
-        View view = findViewById(index);
-        int yellow = Color.parseColor("#EFCD65");
-        view.setBackgroundColor(yellow);
-    }
-
-    public void changeGray(int row, int col) {
-        int index = 5 * row + col + 100;
-        View view = findViewById(index);
-        int gray = Color.parseColor("#888888");
-        view.setBackgroundColor(gray);
+    public static View[][] getWordleViews() {
+        return wordleViews;
     }
 }
