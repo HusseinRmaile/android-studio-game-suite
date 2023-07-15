@@ -79,6 +79,7 @@ public class Wordle extends AppCompatActivity{
         }
     }
     //this builds the current word guess
+    //if the current String is not already filled, it will append the character being pressed
     public void append(View key) {
         char letter = qwerty[key.getId()];
         if (curr.length() < 5) {
@@ -88,6 +89,8 @@ public class Wordle extends AppCompatActivity{
         System.out.println(curr);
     }
 
+    //this allows players to delete unwanted characters
+    //if the current row is not empty, it will delete the last character
     public void delete(View key) {
         if (curr.length() > 0) {
             //this is where you update the grid han/yaunning
@@ -96,6 +99,7 @@ public class Wordle extends AppCompatActivity{
         System.out.println(curr);
     }
 
+    //this method communicates with game logic in order to evaluate the guess
     public void submit(View key) {
         if (curr.length() == 5) {
             //this is where you call for the logic Taiki/ hussein
