@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -8,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.w3c.dom.Text;
 
 public class Wordle extends AppCompatActivity{
@@ -144,12 +144,11 @@ public class Wordle extends AppCompatActivity{
     public void submit(View key) {
         if (curr.length() == 5) {
             //this is where you call for the logic Taiki/ hussein
-            System.out.println(curr);
-            System.out.println("submitting" + row);
+            WordleLogic.checkWord(curr);
             col = -1;
 
             int[] color = WordleLogic.checkWord(curr);
-            boolean isGreen = false;
+            boolean isGreen = true;
             for (int i = 0; i < 5; i++) {
                 if (color[i] == 0) {
                     ChangeColorContext colorContext = new ChangeColorContext();
@@ -162,7 +161,6 @@ public class Wordle extends AppCompatActivity{
                     ChangeColorStrategy greenStrategy = new ChangeGreenStrategy();
                     colorContext.setChangeColorStrategy(greenStrategy);
                     colorContext.changeColor(row, i);
-                    isGreen = true;
 
                 } else if (color[i] == 2) {
                     ChangeColorContext colorContext = new ChangeColorContext();
@@ -172,21 +170,51 @@ public class Wordle extends AppCompatActivity{
                     isGreen = false;
                 }
             }
+
             if (isGreen) {
                 // go to end screen
+                Intent intent = new Intent(Wordle.this, EndWordle.class);
+                WordlePlayer.getInstance().addWin();
+                int loss = WordlePlayer.getInstance().getLoss();
+                int win = WordlePlayer.getInstance().getWins();
+                WordlePlayer.getInstance().setWinLoss(win, loss);
+                intent.putExtra("player1WinCounter", WordlePlayer.getInstance().getWins());
+                intent.putExtra("player1LoseCounter", WordlePlayer.getInstance().getLoss());
+                startActivity(intent);
             }
 
             row += 1;
             WordlePlayer.getInstance().decrementLives();
             curr = "";
             if (WordlePlayer.getInstance().getLives() == 0) {
+                boolean notGreen = false;
                 for (int i = 0; i < color.length; i++) {
                     if (color[i] != 1) {
-                        WordlePlayer.getInstance().addLoss();
-                        //game lost
+                        notGreen = true;
                     }
                 }
-                WordlePlayer.getInstance().addWin();
+                if (notGreen) {
+                    //lose the game
+                    WordlePlayer.getInstance().addLoss();
+                    int loss = WordlePlayer.getInstance().getLoss();
+                    int win = WordlePlayer.getInstance().getWins();
+                    WordlePlayer.getInstance().setWinLoss(win, loss);
+                    Intent intent = new Intent(Wordle.this, EndWordle.class);
+                    intent.putExtra("player1WinCounter", WordlePlayer.getInstance().getWins());
+                    intent.putExtra("player1LoseCounter", WordlePlayer.getInstance().getLoss());
+                    startActivity(intent);
+
+                }
+//                else {
+//                    WordlePlayer.getInstance().addWin();
+//                    int loss = WordlePlayer.getInstance().getLoss();
+//                    int win = WordlePlayer.getInstance().getWins();
+//                    WordlePlayer.getInstance().setWinLoss(win, loss);
+//                    Intent intent = new Intent(Wordle.this, EndWordle.class);
+//                    intent.putExtra("player1WinCounter", WordlePlayer.getInstance().getWins());
+//                    startActivity(intent);
+//                }
+
                 //game won
             }
         }

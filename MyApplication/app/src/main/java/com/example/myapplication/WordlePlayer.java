@@ -54,4 +54,10 @@ public class WordlePlayer {
     public void addLoss() {
         loss++;
     }
+    public int getWins() {
+        return wins;
+    }
+    public int getLoss() {
+        return loss;
+    }
 }

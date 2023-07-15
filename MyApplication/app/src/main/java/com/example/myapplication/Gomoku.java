@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.graphics.Color;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -60,7 +59,7 @@ public class Gomoku extends AppCompatActivity{
         player1WinCount.setText(Integer.toString(player1WinCounter));
         TextView player2WinCount = findViewById(R.id.player2WinCount);
         player2WinCount.setText(Integer.toString(player2WinCounter));
-        TextView draw = findViewById(R.id.drawCount);
+        TextView draw = findViewById(R.id.player1LoseCount);
         draw.setText(Integer.toString(drawCount));
 
         boardMake();
