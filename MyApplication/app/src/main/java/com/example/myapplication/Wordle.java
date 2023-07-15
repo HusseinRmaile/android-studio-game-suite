@@ -29,10 +29,8 @@ public class Wordle extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wordle);
-
         nameDisplay = findViewById(R.id.player1Name);
         nameDisplay.setText(InitialConfigWordle.userName);
-
         dynamicImageView = findViewById(R.id.player1Avatar);
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
         boardMake();
@@ -49,6 +47,9 @@ public class Wordle extends AppCompatActivity{
         keyboard.removeAllViews();
         backspace = true;
         WordlePlayer.getInstance().resetLives();
+        View count = (View) findViewById(R.id.numLives);
+        TextView liveCount = (TextView) count;
+        liveCount.setText(String.format("%d",WordlePlayer.getInstance().getLives()));
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 10; j++) {
                 if(10 * i + j == 19 || 10 * i + j >= 27) {
@@ -184,7 +185,12 @@ public class Wordle extends AppCompatActivity{
             }
 
             row += 1;
+
             WordlePlayer.getInstance().decrementLives();
+            View count = (View) findViewById(R.id.numLives);
+            TextView liveCount = (TextView) count;
+            liveCount.setText(String.format("%d",WordlePlayer.getInstance().getLives()));
+
             curr = "";
             if (WordlePlayer.getInstance().getLives() == 0) {
                 boolean notGreen = false;
