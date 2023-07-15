@@ -32,7 +32,6 @@ public class Wordle extends AppCompatActivity{
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
         boardMake();
 
-        changeRed(1, 1);
         changeGreen(3, 4);
         changeYellow(4, 2);
         changeGray(0,2);
@@ -96,12 +95,6 @@ public class Wordle extends AppCompatActivity{
         if (curr.length() > 0) {
             curr = curr.substring(0, curr.length() - 1);
         }
-    }
-
-    public void changeRed(int row, int col) {
-        View view = wordleViews[row][col];
-        int red = Color.parseColor("#FFFA8181");
-        view.setBackgroundColor(red);
     }
 
     public void changeGreen(int row, int col) {
