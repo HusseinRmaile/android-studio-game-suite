@@ -3,6 +3,8 @@ package com.example.myapplication;
 //import android.content.Intent;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +38,8 @@ public class InitialConfigWordle extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 avatar = avatar1;
+                clearAllFilters();
+                avatar1.setColorFilter(Color.parseColor("#80FFFFFF"), PorterDuff.Mode.SRC_ATOP);
             }
         });
 
@@ -43,6 +47,8 @@ public class InitialConfigWordle extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 avatar = avatar2;
+                clearAllFilters();
+                avatar2.setColorFilter(Color.parseColor("#80FFFFFF"), PorterDuff.Mode.SRC_ATOP);
             }
         });
 
@@ -50,6 +56,7 @@ public class InitialConfigWordle extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 userName = inputEditText.getText().toString();
+                avatar.clearColorFilter();
                 boolean invalid = true;
                 for (int i = 0; i < userName.length(); i++){
                     if (userName.charAt(i) != ' '){
@@ -66,6 +73,11 @@ public class InitialConfigWordle extends AppCompatActivity{
                 }
             }
         });
+    }
+
+    public void clearAllFilters() {
+        avatar1.clearColorFilter();
+        avatar2.clearColorFilter();
     }
 
     public static class GomokuPlayer {

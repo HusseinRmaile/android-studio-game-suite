@@ -19,12 +19,12 @@ public class WordleWords {
 
     public void addWords(String words){
         defaultWords();
-        wordList.add(wordList.size(), words);
+        wordList.add(wordList.size(), words.toUpperCase());
     }
     public void addWords(ArrayList<String> words) {
         defaultWords();
         for (int i = 0; i < words.size(); i++) {
-            wordList.add(wordList.size(), words.get(i));
+            wordList.add(wordList.size(), words.get(i).toUpperCase());
         }
     }
 
@@ -33,15 +33,16 @@ public class WordleWords {
             return;
         }
         ArrayList<String> words = new ArrayList<String>();
-        words.add("Phone");
-        words.add("Lunch");
-        words.add("Arrow");
-        words.add("Whirl");
+        words.add("Phone".toUpperCase());
+        words.add("Lunch".toUpperCase());
+        words.add("Arrow".toUpperCase());
+        words.add("Whirl".toUpperCase());
 
         wordList = words;
     }
 
     public String randomWord() {
+        defaultWords();
         int idx = (int) (Math.random() * wordList.size());
         return wordList.get(idx);
     }
