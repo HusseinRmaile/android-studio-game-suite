@@ -22,14 +22,18 @@ public class WordleLogic {
     public int[] checkWord(String guess) {
         int[] color = {0,0,0,0,0,0};
         boolean[] linked = {false,false,false,false,false,false};
+        //update linked array
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == guess.charAt(i)) {
+                color[i] = 1;
+                linked[i] = true;
+            }
+        }
         //i is the guess' index
         for (int i = 0; i < guess.length(); i++) {
             //j is the actual word's index
-            for (int j = 0; j < word.length(); i++) {
-                if (word.charAt(j) == guess.charAt(j)) {
-                    color[j] = 1;
-                    linked[j] = true;
-                } else if (!linked[j] && word.charAt(j) == guess.charAt(i)) {
+            for (int j = 0; j < word.length(); j++) {
+                if (!linked[j] && word.charAt(j) == guess.charAt(i)) {
                     color[i] = 2;
                     linked[j] = true;
                 }
