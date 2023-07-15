@@ -30,8 +30,11 @@ public class EndWordle extends AppCompatActivity{
         player1Avatar.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
 
         TextView player1WinCount = findViewById(R.id.player1WinCount);
+        TextView player1LoseCount = findViewById(R.id.player1LoseCount);
         int player1Win = getIntent().getIntExtra("player1WinCounter", 0);
         player1WinCount.setText(Integer.toString(player1Win));
+        int player1Loss = getIntent().getIntExtra("player1LoseCounter", 0);
+        player1LoseCount.setText(Integer.toString(player1Loss));
 
         playAgain = findViewById(R.id.playAgain);
         quitGame = findViewById(R.id.quitGame);

@@ -42,7 +42,7 @@ public class EndGomoku extends AppCompatActivity{
         TextView player2WinCount = findViewById(R.id.player2WinCount);
         int player2Win = getIntent().getIntExtra("player2WinCounter", 0);
         player2WinCount.setText(Integer.toString(player2Win));
-        TextView drawCount = findViewById(R.id.drawCount);
+        TextView drawCount = findViewById(R.id.player1LoseCount);
         int draw = getIntent().getIntExtra("drawCounter", 0);
         drawCount.setText(Integer.toString(draw));
 

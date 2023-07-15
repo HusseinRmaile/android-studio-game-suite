@@ -166,10 +166,16 @@ public class Wordle extends AppCompatActivity{
                     isGreen = false;
                 }
             }
+
             if (isGreen) {
                 // go to end screen
                 Intent intent = new Intent(Wordle.this, EndWordle.class);
-                intent.putExtra("player1WinCounter", 1);
+                WordlePlayer.getInstance().addWin();
+                int loss = WordlePlayer.getInstance().getLoss();
+                int win = WordlePlayer.getInstance().getWins();
+                WordlePlayer.getInstance().setWinLoss(win, loss);
+                intent.putExtra("player1WinCounter", WordlePlayer.getInstance().getWins());
+                intent.putExtra("player1LoseCounter", WordlePlayer.getInstance().getLoss());
                 startActivity(intent);
             }
 
@@ -177,13 +183,34 @@ public class Wordle extends AppCompatActivity{
             WordlePlayer.getInstance().decrementLives();
             curr = "";
             if (WordlePlayer.getInstance().getLives() == 0) {
+                boolean notGreen = false;
                 for (int i = 0; i < color.length; i++) {
                     if (color[i] != 1) {
-                        WordlePlayer.getInstance().addLoss();
-                        //game lost
+                        notGreen = true;
                     }
                 }
-                WordlePlayer.getInstance().addWin();
+                if (notGreen) {
+                    //lose the game
+                    WordlePlayer.getInstance().addLoss();
+                    int loss = WordlePlayer.getInstance().getLoss();
+                    int win = WordlePlayer.getInstance().getWins();
+                    WordlePlayer.getInstance().setWinLoss(win, loss);
+                    Intent intent = new Intent(Wordle.this, EndWordle.class);
+                    intent.putExtra("player1WinCounter", WordlePlayer.getInstance().getWins());
+                    intent.putExtra("player1LoseCounter", WordlePlayer.getInstance().getLoss());
+                    startActivity(intent);
+
+                }
+//                else {
+//                    WordlePlayer.getInstance().addWin();
+//                    int loss = WordlePlayer.getInstance().getLoss();
+//                    int win = WordlePlayer.getInstance().getWins();
+//                    WordlePlayer.getInstance().setWinLoss(win, loss);
+//                    Intent intent = new Intent(Wordle.this, EndWordle.class);
+//                    intent.putExtra("player1WinCounter", WordlePlayer.getInstance().getWins());
+//                    startActivity(intent);
+//                }
+
                 //game won
             }
         }

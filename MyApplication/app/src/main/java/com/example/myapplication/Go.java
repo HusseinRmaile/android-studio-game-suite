@@ -60,7 +60,7 @@ public class Go extends AppCompatActivity{
         player1WinCount.setText(Integer.toString(player1WinCounter));
         TextView player2WinCount = findViewById(R.id.player2WinCount);
         player2WinCount.setText(Integer.toString(player2WinCounter));
-        TextView draw = findViewById(R.id.drawCount);
+        TextView draw = findViewById(R.id.player1LoseCount);
         draw.setText(Integer.toString(drawCount));
 
         boardMake();
