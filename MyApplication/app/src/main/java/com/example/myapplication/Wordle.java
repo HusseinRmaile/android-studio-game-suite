@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
 public class Wordle extends AppCompatActivity{
     private TextView nameDisplay;
     private ImageView dynamicImageView;
@@ -18,6 +20,9 @@ public class Wordle extends AppCompatActivity{
             'Z', 'X', 'C', 'V', 'B', 'N', 'M','*','*','*'};
     private String curr = "";
     private  View[][] wordleViews;
+    private boolean backspace;
+    private int row = 0;
+    private int col = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +45,34 @@ public class Wordle extends AppCompatActivity{
     private void boardMake(){
         GridLayout keyboard = (GridLayout) findViewById(R.id.KeyBoard);
         keyboard.removeAllViews();
+        backspace = true;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 10; j++) {
                 if(10 * i + j == 19 || 10 * i + j >= 27) {
-                    View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
-                    View intersectionCur = (View) findViewById(R.id.button_x);
-                    intersectionCur.setId(10 * i + j);
+                    if (backspace) {
+                        View inflated = View.inflate(Wordle.this, R.layout.key_button, keyboard);
+                        View intersectionCur = (View) findViewById(R.id.button_x);
+                        intersectionCur.setId(10 * i + j);
 
-                    FrameLayout cur = (FrameLayout) intersectionCur;
-                    cur.getChildAt(0).setId(10 * i + j);
+                        FrameLayout cur = (FrameLayout) intersectionCur;
+                        cur.getChildAt(0).setId(10 * i + j);
+                        cur.getChildAt(0).setOnClickListener(this::delete);
 
-                    TextView key = (TextView) cur.getChildAt(1);
-                    //key.setText(Character.toString(qwerty[10 * i + j]));
+                        TextView key = (TextView) cur.getChildAt(1);
+                        key.setText("<");
+                        backspace = false;
+                    } else {
+                        View inflated = View.inflate(Wordle.this, R.layout.key_button, keyboard);
+                        View intersectionCur = (View) findViewById(R.id.button_x);
+                        intersectionCur.setId(10 * i + j);
+
+                        FrameLayout cur = (FrameLayout) intersectionCur;
+                        cur.getChildAt(0).setId(10 * i + j);
+                        cur.getChildAt(0).setOnClickListener(this::submit);
+
+                        TextView key = (TextView) cur.getChildAt(1);
+                        key.setText("=");
+                    }
                 } else {
                     View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
                     View intersectionCur = (View) findViewById(R.id.button_x);
@@ -74,10 +95,10 @@ public class Wordle extends AppCompatActivity{
             for (int j = 0; j < 5; j++) {
                 View boxInflated = View.inflate(Wordle.this, R.layout.wordleboard, wordleBoard);
                 View intersectionCur1 = (View) findViewById(R.id.wordleBox);
-                intersectionCur1.setId(5 * i + j);
+                intersectionCur1.setId(5 * i + j + 100);
 
                 FrameLayout cur1 = (FrameLayout) intersectionCur1;
-                cur1.getChildAt(0).setId(5 * i + j);
+                cur1.getChildAt(0).setId(5 * i + j + 100);
 
                 wordleViews[i][j] = intersectionCur1;
             }
@@ -85,32 +106,63 @@ public class Wordle extends AppCompatActivity{
     }
     //this builds the current word guess
     public void append(View key) {
+
         char letter = qwerty[key.getId()];
         if (curr.length() < 5) {
+            col ++;
+            System.out.println("appending letter" + row);
+            //this is where you update the grid han/yaunning
+            int index = 5 * row + col + 100;
+            FrameLayout aaa = (FrameLayout) findViewById(index);
+            TextView gridText = (TextView) aaa.getChildAt(1);
+            gridText.setText(Character.toString(qwerty[key.getId()]));
             curr = curr + letter;
         }
+        System.out.println(curr);
     }
 
     public void delete(View key) {
         if (curr.length() > 0) {
+            //this is where you update the grid han/yaunning
+            int index = 5 * row + col + 100;
+            FrameLayout aaa = (FrameLayout) findViewById(index);
+            TextView gridText = (TextView) aaa.getChildAt(1);
+            gridText.setText("");
             curr = curr.substring(0, curr.length() - 1);
+            col --;
+        }
+        System.out.println(curr);
+    }
+
+    public void submit(View key) {
+        if (curr.length() == 5) {
+            //this is where you call for the logic Taiki/ hussein
+            System.out.println(curr);
+            System.out.println("submitting" + row);
+            row += 1;
+            col = -1;
+            curr = "";
         }
     }
 
     public void changeGreen(int row, int col) {
-        View view = wordleViews[row][col];
+        int index = 5 * row + col + 100;
+        View view = findViewById(index);
+//        View view = wordleViews[row][col];
         int green = Color.parseColor("#FF57D65C");
         view.setBackgroundColor(green);
     }
 
     public void changeYellow(int row, int col) {
-        View view = wordleViews[row][col];
+        int index = 5 * row + col + 100;
+        View view = findViewById(index);
         int yellow = Color.parseColor("#EFCD65");
         view.setBackgroundColor(yellow);
     }
 
     public void changeGray(int row, int col) {
-        View view = wordleViews[row][col];
+        int index = 5 * row + col + 100;
+        View view = findViewById(index);
         int gray = Color.parseColor("#888888");
         view.setBackgroundColor(gray);
     }
