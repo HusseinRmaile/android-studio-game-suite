@@ -1,12 +1,10 @@
 package com.example.myapplication;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -77,8 +75,12 @@ public class Wordle extends AppCompatActivity{
         wordleBoard.removeAllViews();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
+                View boxInflated = View.inflate(Wordle.this, R.layout.wordleboard,wordleBoard);
+                View intersectionCur1 = (View) findViewById(R.id.wordleBox);
+                intersectionCur1.setId(5 * i + j);
 
-
+                FrameLayout cur1 = (FrameLayout) intersectionCur1;
+                cur1.getChildAt(0).setId(5 * i + j);
             }
         }
 
