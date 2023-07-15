@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -142,7 +143,7 @@ public class Wordle extends AppCompatActivity{
             col = -1;
 
             int[] color = WordleLogic.checkWord(curr);
-            boolean isGreen = false;
+            boolean isGreen = true;
             for (int i = 0; i < 5; i++) {
                 if (color[i] == 0) {
                     ChangeColorContext colorContext = new ChangeColorContext();
@@ -155,7 +156,6 @@ public class Wordle extends AppCompatActivity{
                     ChangeColorStrategy greenStrategy = new ChangeGreenStrategy();
                     colorContext.setChangeColorStrategy(greenStrategy);
                     colorContext.changeColor(row, i);
-                    isGreen = true;
 
                 } else if (color[i] == 2) {
                     ChangeColorContext colorContext = new ChangeColorContext();
@@ -167,6 +167,9 @@ public class Wordle extends AppCompatActivity{
             }
             if (isGreen) {
                 // go to end screen
+                Intent intent = new Intent(Wordle.this, EndWordle.class);
+                intent.putExtra("player1WinCounter", 1);
+                startActivity(intent);
             }
 
             row += 1;

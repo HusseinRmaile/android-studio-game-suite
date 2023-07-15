@@ -24,10 +24,10 @@ public class EndWordle extends AppCompatActivity{
         winMessage.setText(Gomoku.winMessage);
 
         player1Name = findViewById(R.id.player1Name);
-        player1Name.setText(InitialConfigGomoku.userName1);
+        player1Name.setText(InitialConfigWordle.userName);
 
         player1Avatar = findViewById(R.id.player1Avatar);
-        player1Avatar.setImageDrawable(InitialConfigGomoku.player_avatar1.getDrawable());
+        player1Avatar.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
 
         TextView player1WinCount = findViewById(R.id.player1WinCount);
         int player1Win = getIntent().getIntExtra("player1WinCounter", 0);
