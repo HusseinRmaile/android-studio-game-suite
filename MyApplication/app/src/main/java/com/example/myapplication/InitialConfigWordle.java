@@ -27,7 +27,7 @@ public class InitialConfigWordle extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_config_wordle);
-
+        WordlePlayer.getInstance().setWinLoss(0,0);
         inputEditText = findViewById(R.id.inputName1);
         storeButton = findViewById(R.id.storeButton);
         displayTextView = findViewById(R.id.displayTextView);
