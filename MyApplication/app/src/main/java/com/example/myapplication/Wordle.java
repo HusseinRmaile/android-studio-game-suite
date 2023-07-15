@@ -17,6 +17,7 @@ public class Wordle extends AppCompatActivity{
             'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '*',
             'Z', 'X', 'C', 'V', 'B', 'N', 'M','*','*','*'};
     private String curr = "";
+    private  View[][] wordleViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +32,7 @@ public class Wordle extends AppCompatActivity{
         dynamicImageView.setImageDrawable(InitialConfigWordle.avatar.getDrawable());
         boardMake();
 
-        ImageView cellDisplay = findViewById(R.id.imageView);
-        cellDisplay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int red = Color.parseColor("#F44336");
-                cellDisplay.setColorFilter(red);
-                cellDisplay.setBackgroundColor(red);
-            }
-        });
+        changeRed(1, 1);
     }
 
     private void boardMake(){
@@ -73,18 +66,20 @@ public class Wordle extends AppCompatActivity{
 
         GridLayout wordleBoard = (GridLayout) findViewById(R.id.wordleBoard);
         wordleBoard.removeAllViews();
+        wordleViews = new View[6][5];
+
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 5; j++) {
-                View boxInflated = View.inflate(Wordle.this, R.layout.wordleboard,wordleBoard);
+                View boxInflated = View.inflate(Wordle.this, R.layout.wordleboard, wordleBoard);
                 View intersectionCur1 = (View) findViewById(R.id.wordleBox);
                 intersectionCur1.setId(5 * i + j);
 
                 FrameLayout cur1 = (FrameLayout) intersectionCur1;
                 cur1.getChildAt(0).setId(5 * i + j);
+
+                wordleViews[i][j] = intersectionCur1;
             }
         }
-
-
     }
     //this builds the current word guess
     public void append(View key) {
@@ -100,5 +95,9 @@ public class Wordle extends AppCompatActivity{
         }
     }
 
-    
+    public void changeRed(int row, int col) {
+        View view = wordleViews[row][col];
+        int red = Color.parseColor("#F44336");
+        view.setBackgroundColor(red);
+    }
 }
