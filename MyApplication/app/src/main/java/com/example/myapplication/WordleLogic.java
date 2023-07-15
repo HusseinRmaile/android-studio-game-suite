@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.util.Log;
+
 public class WordleLogic {
     private volatile static WordleLogic logic;
     private String word = WordleWords.getInstance().randomWord();
@@ -25,7 +27,7 @@ public class WordleLogic {
             //j is the actual word's index
             for (int j = 0; j < word.length(); i++) {
                 if (word.charAt(j) == guess.charAt(j)) {
-                    color[i] = 1;
+                    color[j] = 1;
                     linked[j] = true;
                 } else if (!linked[j] && word.charAt(j) == guess.charAt(i)) {
                     color[i] = 2;
