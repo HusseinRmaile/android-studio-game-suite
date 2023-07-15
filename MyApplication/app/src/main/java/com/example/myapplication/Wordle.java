@@ -141,8 +141,28 @@ public class Wordle extends AppCompatActivity{
             //this is where you call for the logic Taiki/ hussein
             System.out.println(curr);
             System.out.println("submitting" + row);
-            row += 1;
             col = -1;
+
+            int[] color = WordleLogic.checkWord(curr);
+            for (int i = 0; i < 5; i++) {
+                if (color[i] == 0) {
+                    ChangeColorContext colorContext = new ChangeColorContext();
+                    ChangeColorStrategy grayStrategy = new ChangeGrayStrategy();
+                    colorContext.setChangeColorStrategy(grayStrategy);
+                    colorContext.changeColor(row, i);
+                } else if(color[i] == 1) {
+                    ChangeColorContext colorContext = new ChangeColorContext();
+                    ChangeColorStrategy greenStrategy = new ChangeGreenStrategy();
+                    colorContext.setChangeColorStrategy(greenStrategy);
+                    colorContext.changeColor(row, i);
+                } else if(color[i] == 2) {
+                    ChangeColorContext colorContext = new ChangeColorContext();
+                    ChangeColorStrategy yellowStrategy = new ChangeYellowStrategy();
+                    colorContext.setChangeColorStrategy(yellowStrategy);
+                    colorContext.changeColor(row, i);
+                }
+            }
+            row += 1;
             curr = "";
         }
     }
