@@ -40,4 +40,9 @@ public class WordleWords {
 
         wordList = words;
     }
+
+    public String randomWord() {
+        int idx = (int) (Math.random() * wordList.size());
+        return wordList.get(idx);
+    }
 }
