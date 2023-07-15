@@ -48,6 +48,7 @@ public class Wordle extends AppCompatActivity{
         GridLayout keyboard = (GridLayout) findViewById(R.id.KeyBoard);
         keyboard.removeAllViews();
         backspace = true;
+        WordlePlayer.getInstance().resetLives();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 10; j++) {
                 if(10 * i + j == 19 || 10 * i + j >= 27) {
@@ -163,7 +164,11 @@ public class Wordle extends AppCompatActivity{
                 }
             }
             row += 1;
+            WordlePlayer.getInstance().decrementLives();
             curr = "";
+            if (WordlePlayer.getInstance().getLives() == 0) {
+                //end the game screen
+            }
         }
     }
 

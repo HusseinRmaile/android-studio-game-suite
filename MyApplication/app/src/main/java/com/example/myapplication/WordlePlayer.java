@@ -26,4 +26,14 @@ public class WordlePlayer {
             }
         }
     }
+    public int getLives() {
+        return lives;
+    }
+    public void decrementLives() {
+        lives -= 1;
+    }
+
+    public void resetLives() {
+        lives = 6;
+    }
 }
