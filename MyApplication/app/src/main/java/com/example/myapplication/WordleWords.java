@@ -41,6 +41,11 @@ public class WordleWords {
         wordList = words;
     }
 
+    // Getter for the wordList
+    public ArrayList<String> getWordList() {
+        return wordList;
+    }
+
     public String randomWord() {
         defaultWords();
         int idx = (int) (Math.random() * wordList.size());

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import java.util.ArrayList;
 
 
 import android.content.Context;
@@ -41,5 +42,40 @@ public class WordleUnitTest {
 
         // Assert that both player1 and player2 refer to the same instance
         assertSame(logic1, logic2);
+    }
+
+    // test the addWords method with String parameter
+    // Taiki test 1
+    @Test
+    public void testAddWordsString() {
+        WordleWords words1 = WordleWords.getInstance();
+        words1.addWords("three");
+        assertSame(words1.getWordList().size(), 1);
+        words1.addWords("throw");
+        assertSame(words1.getWordList().size(), 2);
+        words1.addWords("twirl");
+        assertSame(words1.getWordList().size(), 3);
+        words1.addWords("trips");
+        assertSame(words1.getWordList().size(), 4);
+        words1.addWords("tulip");
+        assertSame(words1.getWordList().size(), 5);
+    }
+
+    // test the addWords method with ArrayList parameter
+    // Taiki test 2
+    @Test
+    public void testAddWordsArrayList() {
+        WordleWords words1 = WordleWords.getInstance();
+        ArrayList<String> list1 = new ArrayList<>();
+        list1.add("three");
+        list1.add("throw");
+        list1.add("twirl");
+        words1.addWords(list1);
+        assertSame(words1.getWordList().size(), 3);
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.add("trips");
+        list2.add("tulip");
+        words1.addWords(list2);
+        assertSame(words1.getWordList().size(), 5);
     }
 }
