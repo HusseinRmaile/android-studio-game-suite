@@ -2,16 +2,9 @@ package com.example.myapplication;
 
 public class WordlePlayer {
     private volatile static WordlePlayer player;
-<<<<<<< HEAD
     private int lives = 6;
-=======
-    private int lives;
-
     private int wins;
-
     private int loss;
-
->>>>>>> 58747b151df77c395f1ab9a4a46caf9ca1b0b65b
     private WordlePlayer(){};
 
     public static WordlePlayer getInstance() {
