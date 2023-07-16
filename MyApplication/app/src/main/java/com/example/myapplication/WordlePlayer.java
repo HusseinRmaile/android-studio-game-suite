@@ -3,15 +3,12 @@ package com.example.myapplication;
 public class WordlePlayer {
     private volatile static WordlePlayer player;
     private int lives;
-
     private int wins;
-
     private int loss;
-
     private WordlePlayer(){};
 
-    public static WordlePlayer getInstance(){
-        if (player == null){
+    public static WordlePlayer getInstance() {
+        if (player == null) {
             synchronized (WordlePlayer.class) {
                 if (player == null) {
                     player = new WordlePlayer();
