@@ -2,7 +2,7 @@ package com.example.myapplication;
 
 public class WordlePlayer {
     private volatile static WordlePlayer player;
-    private int lives = 6;
+    private int lives;
     private int wins;
     private int loss;
     private WordlePlayer(){};
