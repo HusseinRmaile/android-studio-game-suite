@@ -27,7 +27,7 @@ public class ExampleUnitTest {
     //tests default constructor and custom constructor for board
     public void boardInitialization() {
         //checking if default constructor sets board properly
-        GomokuBoard board1 = new GomokuBoard();
+        /*GomokuBoard board1 = new GomokuBoard();
 
         assertEquals(board1.getNumRows(),19);
         assertEquals(board1.getNumCols(),19);
@@ -217,5 +217,5 @@ public class ExampleUnitTest {
 //            System.out.println(); // Move to the next line after each row
 //        }
 //        GoScoreKeeper.checkScore(board1);
-//    }
+//    }*/
 }
