@@ -3,7 +3,10 @@ package com.example.myapplication;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 import android.content.Context;
@@ -98,5 +101,25 @@ public class WordleUnitTest {
         player1.setWinLoss(4, 3);
         assertSame(player1.getWins(), 4);
         assertSame(player1.getLoss(), 3);
+    }
+
+    //Jeongyeop Han checking wordle default method in WordleWords class
+    public void checkDefault() {
+        WordleWords testWords = WordleWords.getInstance();
+        ArrayList<String> testList = new ArrayList<>();
+        testList.add("first");
+        testList.add("seven");
+        testList.add("eight");
+        testWords.addWords(testList);
+        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("FIRST", "SEVEN", "EIGHT"));
+        assertEquals(testWords.getWordList(), expectedList);
+    }
+
+    //Jeongyeop Han testing resetLives in wordlePlayer class
+    public void checkCheckLives() {
+        WordlePlayer playerTest = WordlePlayer.getInstance();
+        playerTest.setLives(4);
+        playerTest.resetLives();
+        assertEquals(playerTest.getLives(), 6);
     }
 }
