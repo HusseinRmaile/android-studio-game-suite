@@ -23,4 +23,23 @@ public class WordleUnitTest {
         assert (colors[3] == 0);
         assert (colors[4] == 0);
     }
+
+    // test the singleton method, making sure that they are actually creating only 1 instance
+    @Test
+    public void testPlayerSingletonInstance() {
+        WordlePlayer player1 = WordlePlayer.getInstance();
+        WordlePlayer player2 = WordlePlayer.getInstance();
+
+        // Assert that both player1 and player2 refer to the same instance
+        assertSame(player1, player2);
+    }
+
+    @Test
+    public void testLogicSingletonInstance() {
+        WordleLogic logic1 = WordleLogic.getInstance();
+        WordleLogic logic2 = WordleLogic.getInstance();
+
+        // Assert that both player1 and player2 refer to the same instance
+        assertSame(logic1, logic2);
+    }
 }
