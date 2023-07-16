@@ -78,4 +78,25 @@ public class WordleUnitTest {
         words1.addWords(list2);
         assertSame(words1.getWordList().size(), 5);
     }
+    @Test
+    //Zaid Akkawi test getLive()
+    public void getLivesChecker() {
+        WordlePlayer player1 = WordlePlayer.getInstance();
+        assertSame(player1.getLives(), 0);
+        player1.setLives(-1);
+        assertSame(player1.getLives(), -1);
+        player1.setLives(6);
+        assertSame(player1.getLives(), 6);
+    }
+
+    //Zaid Akkawi checking or setter for wins/losses
+    @Test
+    public void checkWinsLosses() {
+        WordlePlayer player1 = WordlePlayer.getInstance();
+        assertSame(player1.getWins(), 0);
+        assertSame(player1.getLoss(), 0);
+        player1.setWinLoss(4, 3);
+        assertSame(player1.getWins(), 4);
+        assertSame(player1.getLoss(), 3);
+    }
 }

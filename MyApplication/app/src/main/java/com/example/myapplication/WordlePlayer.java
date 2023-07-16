@@ -35,6 +35,10 @@ public class WordlePlayer {
         lives -= 1;
     }
 
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
     public void resetLives() {
         lives = 6;
     }
