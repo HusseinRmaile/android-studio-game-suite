@@ -50,15 +50,15 @@ public class WordleUnitTest {
     public void testAddWordsString() {
         WordleWords words1 = WordleWords.getInstance();
         words1.addWords("three");
-        assertSame(words1.getWordList().size(), 1);
-        words1.addWords("throw");
-        assertSame(words1.getWordList().size(), 2);
-        words1.addWords("twirl");
-        assertSame(words1.getWordList().size(), 3);
-        words1.addWords("trips");
-        assertSame(words1.getWordList().size(), 4);
-        words1.addWords("tulip");
         assertSame(words1.getWordList().size(), 5);
+        words1.addWords("throw");
+        assertSame(words1.getWordList().size(), 6);
+        words1.addWords("twirl");
+        assertSame(words1.getWordList().size(), 7);
+        words1.addWords("trips");
+        assertSame(words1.getWordList().size(), 8);
+        words1.addWords("tulip");
+        assertSame(words1.getWordList().size(), 9);
     }
 
     // test the addWords method with ArrayList parameter
@@ -71,12 +71,12 @@ public class WordleUnitTest {
         list1.add("throw");
         list1.add("twirl");
         words1.addWords(list1);
-        assertSame(words1.getWordList().size(), 3);
+        assertSame(words1.getWordList().size(), 7);
         ArrayList<String> list2 = new ArrayList<>();
         list2.add("trips");
         list2.add("tulip");
         words1.addWords(list2);
-        assertSame(words1.getWordList().size(), 5);
+        assertSame(words1.getWordList().size(), 9);
     }
     @Test
     //Zaid Akkawi test getLive()
