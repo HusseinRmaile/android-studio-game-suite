@@ -19,13 +19,57 @@ public class WordleUnitTest {
     @Test
     public void correctWordComparison() {
         WordleLogic logic = WordleLogic.getInstance();
-        logic.setWord("Arrow");
+        logic.setWord("arrow");
         int[] colors = logic.checkWord("rarer");
         assert (colors[0] == 2);
         assert (colors[1] == 2);
         assert (colors[2] == 1);
         assert (colors[3] == 0);
         assert (colors[4] == 0);
+
+        logic.setWord("phone");
+        colors = logic.checkWord("whirl");
+        assert (colors[0] == 0);
+        assert (colors[1] == 1);
+        assert (colors[2] == 0);
+        assert (colors[3] == 0);
+        assert (colors[4] == 0);
+
+        logic.setWord("pearl");
+        colors = logic.checkWord("trees");
+        assert (colors[0] == 0);
+        assert (colors[1] == 2);
+        assert (colors[2] == 2);
+        assert (colors[3] == 0);
+        assert (colors[4] == 0);
+
+        logic.setWord("carts");
+        colors = logic.checkWord("whole");
+        assert (colors[0] == 0);
+        assert (colors[1] == 0);
+        assert (colors[2] == 0);
+        assert (colors[3] == 0);
+        assert (colors[4] == 0);
+    }
+
+    @Test
+    public void caseIndependent() {
+        WordleLogic logic = WordleLogic.getInstance();
+        logic.setWord("ARROW");
+        int[] colors = logic.checkWord("arrow");
+        assert (colors[0] == 1);
+        assert (colors[1] == 1);
+        assert (colors[2] == 1);
+        assert (colors[3] == 1);
+        assert (colors[4] == 1);
+
+        logic.setWord("arrow");
+        colors = logic.checkWord("ARROW");
+        assert (colors[0] == 1);
+        assert (colors[1] == 1);
+        assert (colors[2] == 1);
+        assert (colors[3] == 1);
+        assert (colors[4] == 1);
     }
 
     // test the singleton method, making sure that they are actually creating only 1 instance
@@ -52,6 +96,7 @@ public class WordleUnitTest {
     @Test
     public void testAddWordsString() {
         WordleWords words1 = WordleWords.getInstance();
+        words1.resetWordList();
         words1.addWords("three");
         assertSame(words1.getWordList().size(), 5);
         words1.addWords("throw");
@@ -69,6 +114,7 @@ public class WordleUnitTest {
     @Test
     public void testAddWordsArrayList() {
         WordleWords words1 = WordleWords.getInstance();
+        words1.resetWordList();
         ArrayList<String> list1 = new ArrayList<>();
         list1.add("three");
         list1.add("throw");
@@ -104,18 +150,21 @@ public class WordleUnitTest {
     }
 
     //Jeongyeop Han checking wordle default method in WordleWords class
+    @Test
     public void checkDefault() {
         WordleWords testWords = WordleWords.getInstance();
+        testWords.resetWordList();
         ArrayList<String> testList = new ArrayList<>();
         testList.add("first");
         testList.add("seven");
         testList.add("eight");
         testWords.addWords(testList);
-        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("FIRST", "SEVEN", "EIGHT"));
+        ArrayList<String> expectedList = new ArrayList<>(Arrays.asList("PHONE","LUNCH","ARROW","WHIRL","FIRST", "SEVEN", "EIGHT"));
         assertEquals(testWords.getWordList(), expectedList);
     }
 
     //Jeongyeop Han testing resetLives in wordlePlayer class
+    @Test
     public void checkCheckLives() {
         WordlePlayer playerTest = WordlePlayer.getInstance();
         playerTest.setLives(4);

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class WordleWords {
     private volatile static WordleWords words;
     private ArrayList<String> wordList;
-    private boolean defaultInitialized;
+    private boolean defaultInitialized = false;
     private WordleWords(){};
 
     public static WordleWords getInstance(){
@@ -32,6 +32,7 @@ public class WordleWords {
         if (defaultInitialized) {
             return;
         }
+        defaultInitialized = true;
         ArrayList<String> words = new ArrayList<String>();
         words.add("Phone".toUpperCase());
         words.add("Lunch".toUpperCase());
@@ -44,6 +45,11 @@ public class WordleWords {
     // Getter for the wordList
     public ArrayList<String> getWordList() {
         return wordList;
+    }
+
+    public void resetWordList() {
+        defaultInitialized = false;
+        defaultWords();
     }
 
 
