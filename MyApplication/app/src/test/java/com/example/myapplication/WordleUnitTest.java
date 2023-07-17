@@ -122,4 +122,43 @@ public class WordleUnitTest {
         playerTest.resetLives();
         assertEquals(playerTest.getLives(), 6);
     }
+    // Tate Johnson testing edge case of the logic if the number of yellows is right
+    @Test
+    public void yellowCheck() {
+        WordleLogic logic = WordleLogic.getInstance();
+        logic.setWord("start");
+        int[] colors = logic.checkWord("aaiaa");
+        assert (colors[0] == 2);
+        assert (colors[1] == 0);
+        assert (colors[2] == 0);
+        assert (colors[3] == 0);
+        assert (colors[4] == 0);
+
+        logic.setWord("staat");
+        colors = logic.checkWord("aaiia");
+        assert (colors[0] == 2);
+        assert (colors[1] == 2);
+        assert (colors[2] == 0);
+        assert (colors[3] == 0);
+        assert (colors[4] == 0);
+
+        logic.setWord("staaa");
+        colors = logic.checkWord("aaiia");
+        assert (colors[0] == 2);
+        assert (colors[1] == 2);
+        assert (colors[2] == 0);
+        assert (colors[3] == 0);
+        assert (colors[4] == 1);
+    }
+    @Test
+    public void testGreen() {
+        WordleLogic logic = WordleLogic.getInstance();
+        logic.setWord("idddd");
+        int[] colors = logic.checkWord("iiiii");
+        assert (colors[0] == 1);
+        assert (colors[1] == 0);
+        assert (colors[2] == 0);
+        assert (colors[3] == 0);
+        assert (colors[4] == 0);
+    }
 }
