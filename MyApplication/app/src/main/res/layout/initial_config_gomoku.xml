@@ -161,8 +161,8 @@
     <EditText
         android:id="@+id/wincondition"
         android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toStartOf="@+id/textView23"

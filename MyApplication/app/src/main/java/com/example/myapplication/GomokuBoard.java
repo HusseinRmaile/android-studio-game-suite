@@ -13,6 +13,10 @@ public class GomokuBoard {
 
     //default 19x19 board with 5 in a row win condition
     private GomokuBoard() {
+        resetGomokuBoard();
+    }
+
+    public void resetGomokuBoard() {
         this.numRows = 19;
         this.numCols = 19;
         this.winLength = 5;
