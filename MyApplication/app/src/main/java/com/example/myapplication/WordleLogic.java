@@ -2,7 +2,7 @@ package com.example.myapplication;
 
 public class WordleLogic {
     private volatile static WordleLogic logic;
-    private static String word = WordleWords.getInstance().randomWord();
+    private static String word;
     private WordleLogic(){};
 
     public static WordleLogic getInstance(){
@@ -40,6 +40,10 @@ public class WordleLogic {
             }
         }
         return color;
+    }
+
+    public void newWord() {
+        word = WordleWords.getInstance().randomWord();
     }
     //for testing purposes
     public void setWord(String word) {

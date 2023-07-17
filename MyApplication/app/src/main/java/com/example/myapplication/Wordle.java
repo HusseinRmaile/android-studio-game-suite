@@ -50,6 +50,7 @@ public class Wordle extends AppCompatActivity{
         View count = (View) findViewById(R.id.numLives);
         TextView liveCount = (TextView) count;
         liveCount.setText(String.format("%d",WordlePlayer.getInstance().getLives()));
+        WordleLogic.getInstance().newWord();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 10; j++) {
                 if(10 * i + j == 19 || 10 * i + j >= 27) {
