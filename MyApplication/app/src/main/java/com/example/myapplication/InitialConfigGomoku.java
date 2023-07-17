@@ -152,6 +152,14 @@ public class InitialConfigGomoku extends AppCompatActivity{
                         invalid2 = false;
                     }
                 }
+
+                GomokuBoard board = GomokuBoard.getInstance();
+                EditText winCon = findViewById(R.id.wincondition);
+                if (winCon.getText().toString().equals("")) {
+                    winCon.setText("5");
+                }
+                board.setWinLength(Integer.parseInt(winCon.getText().toString()));
+
                 if (invalid1) {
                     inputName1.setError("Invalid name");
                 } else if (invalid2) {
