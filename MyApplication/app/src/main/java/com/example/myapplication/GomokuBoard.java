@@ -19,7 +19,6 @@ public class GomokuBoard {
     public void resetGomokuBoard() {
         this.numRows = 19;
         this.numCols = 19;
-        this.winLength = 5;
         this.spacesLeft = numRows * numCols;
         this.board = new int[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
@@ -259,6 +258,16 @@ public class GomokuBoard {
 
     public int getSpacesLeft() {
         return spacesLeft;
+    }
+
+    public void setWinLength(int winLength) {
+        if (winLength < 4) {
+            this.winLength = 4;
+        } else if (winLength > 9) {
+            this.winLength = 9;
+        } else {
+            this.winLength = winLength;
+        }
     }
 
     public static GomokuBoard getInstance() {
