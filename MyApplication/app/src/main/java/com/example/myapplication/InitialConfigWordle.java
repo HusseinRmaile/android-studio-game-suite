@@ -58,7 +58,9 @@ public class InitialConfigWordle extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 userName = inputEditText.getText().toString();
-                avatar.clearColorFilter();
+                if (avatar != null) {
+                    avatar.clearColorFilter();
+                }
                 boolean invalid = true;
                 for (int i = 0; i < userName.length(); i++){
                     if (userName.charAt(i) != ' '){
