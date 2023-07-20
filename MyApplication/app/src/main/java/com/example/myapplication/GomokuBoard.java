@@ -261,13 +261,7 @@ public class GomokuBoard {
     }
 
     public void setWinLength(int winLength) {
-        if (winLength < 4) {
-            this.winLength = 4;
-        } else if (winLength > 9) {
-            this.winLength = 9;
-        } else {
             this.winLength = winLength;
-        }
     }
 
     public static GomokuBoard getInstance() {
