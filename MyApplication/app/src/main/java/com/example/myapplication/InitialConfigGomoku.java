@@ -138,8 +138,10 @@ public class InitialConfigGomoku extends AppCompatActivity{
             public void onClick(View v) {
                 userName1 = inputName1.getText().toString();
                 userName2 = inputName2.getText().toString();
-                player_avatar1.clearColorFilter();
-                player_avatar2.clearColorFilter();
+                if(player_avatar1 != null && player_avatar2 != null) {
+                    player_avatar1.clearColorFilter();
+                    player_avatar2.clearColorFilter();
+                }
                 boolean invalid1 = true;
                 boolean invalid2 = true;
                 for (int i = 0; i < userName1.length(); i++){
