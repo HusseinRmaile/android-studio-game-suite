@@ -142,6 +142,7 @@ public class InitialConfigGomoku extends AppCompatActivity{
                 player_avatar2.clearColorFilter();
                 boolean invalid1 = true;
                 boolean invalid2 = true;
+                boolean invalid3 = false;
                 for (int i = 0; i < userName1.length(); i++){
                     if (userName1.charAt(i) != ' '){
                         invalid1 = false;
@@ -156,9 +157,13 @@ public class InitialConfigGomoku extends AppCompatActivity{
                 GomokuBoard board = GomokuBoard.getInstance();
                 EditText winCon = findViewById(R.id.wincondition);
                 if (winCon.getText().toString().equals("")) {
-                    winCon.setText("5");
+                    invalid3 = true;
+                } else {
+                    board.setWinLength(Integer.parseInt(winCon.getText().toString()));
+                    if (board.getWinLength() < 4 || board.getWinLength() > 9) {
+                        invalid3 = true;
+                    }
                 }
-                board.setWinLength(Integer.parseInt(winCon.getText().toString()));
 
                 if (invalid1) {
                     inputName1.setError("Invalid name");
@@ -168,7 +173,9 @@ public class InitialConfigGomoku extends AppCompatActivity{
                     inputName1.setError("Choose an avatar");
                 } else if (player_avatar2 == null) {
                     inputName2.setError("Choose an avatar");
-                }else {
+                }else if (invalid3) {
+                    winCon.setError("Please pick a number between 4-9");
+                } else {
                     Intent intent = new Intent(InitialConfigGomoku.this, Gomoku.class);
                     startActivity(intent);
                 }
