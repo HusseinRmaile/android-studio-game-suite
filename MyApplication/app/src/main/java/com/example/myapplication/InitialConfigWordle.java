@@ -47,7 +47,9 @@ public class InitialConfigWordle extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 avatar = avatar2;
-                clearAllFilters();
+                if (avatar != null) {
+                    clearAllFilters();
+                }
                 avatar2.setColorFilter(Color.parseColor("#80FFFFFF"), PorterDuff.Mode.SRC_ATOP);
             }
         });
