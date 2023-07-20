@@ -18,8 +18,6 @@ public class Wordle extends AppCompatActivity{
             'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '*',
             'Z', 'X', 'C', 'V', 'B', 'N', 'M','*','*','*'};
     private String curr = "";
-
-    private boolean backspace;
     private int row = 0;
     private int col = -1;
     private static View[][] wordleViews;
@@ -45,7 +43,6 @@ public class Wordle extends AppCompatActivity{
     private void boardMake(){
         GridLayout keyboard = (GridLayout) findViewById(R.id.KeyBoard);
         keyboard.removeAllViews();
-        backspace = true;
         WordlePlayer.getInstance().resetLives();
         View count = (View) findViewById(R.id.numLives);
         TextView liveCount = (TextView) count;
@@ -53,39 +50,21 @@ public class Wordle extends AppCompatActivity{
         WordleLogic.getInstance().newWord();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 10; j++) {
-                if(10 * i + j == 19 || 10 * i + j >= 27) {
-                    if (backspace) {
-                        View inflated = View.inflate(Wordle.this, R.layout.key_button, keyboard);
-                        View intersectionCur = (View) findViewById(R.id.button_x);
-                        intersectionCur.setId(10 * i + j);
-
-                        FrameLayout cur = (FrameLayout) intersectionCur;
-                        cur.getChildAt(0).setId(10 * i + j);
-                        cur.getChildAt(0).setOnClickListener(this::delete);
-
-                        TextView key = (TextView) cur.getChildAt(1);
-                        key.setText("<");
-                        backspace = false;
-                    } else {
-                        View inflated = View.inflate(Wordle.this, R.layout.key_button, keyboard);
-                        View intersectionCur = (View) findViewById(R.id.button_x);
-                        intersectionCur.setId(10 * i + j);
-
-                        FrameLayout cur = (FrameLayout) intersectionCur;
-                        cur.getChildAt(0).setId(10 * i + j);
+                View inflated = View.inflate(Wordle.this, R.layout.key_button, keyboard);
+                View intersectionCur = (View) findViewById(R.id.button_x);
+                intersectionCur.setId(10 * i + j);
+                FrameLayout cur = (FrameLayout) intersectionCur;
+                cur.getChildAt(0).setId(10 * i + j);
+                if(10 * i + j == 19) {
+                    cur.getChildAt(0).setOnClickListener(this::delete);
+                    TextView key = (TextView) cur.getChildAt(1);
+                    key.setText("<");
+                }else if (10 * i + j >= 27) {
                         cur.getChildAt(0).setOnClickListener(this::submit);
-
                         TextView key = (TextView) cur.getChildAt(1);
                         key.setText("=");
-                    }
                 } else {
-                    View inflated = View.inflate(Wordle.this, R.layout.key_button,keyboard);
-                    View intersectionCur = (View) findViewById(R.id.button_x);
-                    intersectionCur.setId(10 * i + j);
-
-                    FrameLayout cur = (FrameLayout) intersectionCur;
                     cur.getChildAt(0).setId(10 * i + j);
-
                     TextView key = (TextView) cur.getChildAt(1);
                     key.setText(Character.toString(qwerty[10 * i + j]));
                 }
