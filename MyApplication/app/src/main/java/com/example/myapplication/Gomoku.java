@@ -107,7 +107,7 @@ public class Gomoku extends AppCompatActivity{
         }
     }
     public void place (View button) {
-
+        timeKeeper();
         ImageButton buttonCur = (ImageButton) button;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
@@ -142,27 +142,52 @@ public class Gomoku extends AppCompatActivity{
             startActivity(intent);
         } else if (gameState == 1) {
             //player 1 win
-            p1.setWinCounter(p1.getWinCounter() + 1);
-            winMessage = "Player 1 wins!";
-            Log.d("Gomoku", "Player 1 win count: " + p1.getWinCounter());
-            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
-            intent.putExtra("player1WinCounter", p1.getWinCounter());
-            intent.putExtra("player2WinCounter", p2.getWinCounter());
-            intent.putExtra("drawCounter", p1.getDrawCounter());
-            startActivity(intent);
+            play1Win();
         } else if (gameState == 2) {
             //player 2 win
-            p2.setWinCounter(p2.getWinCounter() + 1);
-            winMessage = "Player 2 wins!";
-            Log.d("Gomoku", "Player 2 win count: " + p2.getWinCounter());
-            Intent intent = new Intent(Gomoku.this, EndGomoku.class);
-            intent.putExtra("player1WinCounter", p1.getWinCounter());
-            intent.putExtra("player2WinCounter", p2.getWinCounter());
-            intent.putExtra("drawCounter", p1.getDrawCounter());
-            startActivity(intent);
+            play2Win();
         } else if (gameState == -2) {
             //something went wrong if it makes it here
             return;
         }
     }
+
+    private void play2Win() {
+        p2.setWinCounter(p2.getWinCounter() + 1);
+        winMessage = "Player 2 wins!";
+        Log.d("Gomoku", "Player 2 win count: " + p2.getWinCounter());
+        Intent intent = new Intent(Gomoku.this, EndGomoku.class);
+        intent.putExtra("player1WinCounter", p1.getWinCounter());
+        intent.putExtra("player2WinCounter", p2.getWinCounter());
+        intent.putExtra("drawCounter", p1.getDrawCounter());
+        startActivity(intent);
+    }
+
+    private void play1Win() {
+        p1.setWinCounter(p1.getWinCounter() + 1);
+        winMessage = "Player 1 wins!";
+        Log.d("Gomoku", "Player 1 win count: " + p1.getWinCounter());
+        Intent intent = new Intent(Gomoku.this, EndGomoku.class);
+        intent.putExtra("player1WinCounter", p1.getWinCounter());
+        intent.putExtra("player2WinCounter", p2.getWinCounter());
+        intent.putExtra("drawCounter", p1.getDrawCounter());
+        startActivity(intent);
+    }
+
+    public void timeKeeper() {
+        if (turn != 0) {
+            Timer.getInstance().stop();
+
+        }
+        TextView timeBox = findViewById(R.id.timer);
+        Timer.getInstance().time(findViewById(timeBox.getId()));
+        if (timeBox.getText().equals("")) {
+            if (turn % 2 + 1 == 1) {
+                play2Win();
+            } else {
+                play1Win();
+            }
+        }
+    }
+
 }

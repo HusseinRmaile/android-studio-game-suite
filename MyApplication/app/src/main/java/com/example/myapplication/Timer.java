@@ -14,13 +14,16 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class Timer {
-    private static final long timeLimit = 5 * 60000;
-    private static final long interval = 1000;
-    private CountDownTimer timer;
+
+    private static Timer uniqueTimer;
+    private CountDownTimer shotClock;
+    private Timer(){
+        return;
+    }
 
 
     public void time(TextView mTextField) {
-        new CountDownTimer(30000, 1000) {
+        shotClock = new CountDownTimer(30000, 1000) {
 
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -29,12 +32,23 @@ public class Timer {
 
             @SuppressLint("SetTextI18n")
             public void onFinish() {
-                mTextField.setText("done!");
+                mTextField.setText("");
+
             }
         }.start();
 
     }
 
-    public void stop() {}
+    public void stop() {
+        shotClock.cancel();
+    }
+
+
+    public static Timer getInstance() {
+        if (uniqueTimer == null) {
+            uniqueTimer = new Timer();
+        }
+        return uniqueTimer;
+    }
 
 }
