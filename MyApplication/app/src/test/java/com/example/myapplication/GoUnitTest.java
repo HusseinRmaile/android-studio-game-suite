@@ -1,15 +1,15 @@
-//package com.example.myapplication;
-//
-//import static org.junit.Assert.assertEquals;
-//import org.junit.Test;
-//import java.util.Random;
+package com.example.myapplication;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import java.util.Random;
 ///**
 // * Example local unit test, which will execute on the development machine (host).
 // *
 // * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
 // */
-//public class GoUnitTest {
-//    //Jeongyeop Han Test1
+public class GoUnitTest {
+    //    //Jeongyeop Han Test1
 //    //Test goStone Initialization
 //    @Test
 //    public void goStoneInitialization() {
@@ -83,27 +83,29 @@
 //        assertEquals(scores[0], 20.0, 1e-15);
 //        assertEquals(scores[1], 18.0, 1e-15);
 //    }
-//    //Zaid Test1
-//    //Test get num rows GoBoard
-//    @Test
-//    public void getRows() {
-//        GoBoard board1 = new GoBoard();
-//        assertEquals(board1.getNumRows(), 9);
-//
-//        GoBoard board2 = new GoBoard(5, 6);
-//        assertEquals(board2.getNumRows(), 5);
-//    }
-//
-//    //Zaid Test2
-//    //Test get num cols GoBoard
-//    @Test
-//    public void getCols() {
-//        GoBoard board1 = new GoBoard();
-//        assertEquals(board1.getNumRows(), 9);
-//
-//        GoBoard board2 = new GoBoard(5, 6);
-//        assertEquals(board2.getNumCols(), 6);
-//    }
+    //Zaid Test1
+    //Test get num rows GoBoard
+    @Test
+    public void getRows() {
+        GoBoard board1 = GoBoard.getInstance();
+        assertEquals(board1.getNumRows(), 9);
+
+        GoBoard board2 = GoBoard.getInstance();
+        board2.setNumRows(5);
+        assertEquals(board2.getNumRows(), 5);
+    }
+
+    //Zaid Test2
+    //Test get num cols GoBoard
+    @Test
+    public void getCols() {
+        GoBoard board1 = GoBoard.getInstance();
+        assertEquals(board1.getNumRows(), 9);
+
+        GoBoard board2 = GoBoard.getInstance();
+        board2.setNumCols(6);
+        assertEquals(board2.getNumCols(), 6);
+    }
 //
 //    // Taiki Test 1
 //    // Test getSpacesLeft GoBoard
@@ -230,4 +232,4 @@
 //        board.deletePiece(8,8);
 //        assertEquals(0, (int) board.getPiece(8,8));
 //    }
-//}
+}
