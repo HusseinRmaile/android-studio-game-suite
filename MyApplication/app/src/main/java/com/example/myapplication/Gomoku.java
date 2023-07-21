@@ -175,13 +175,17 @@ public class Gomoku extends AppCompatActivity{
     }
 
     public void timeKeeper() {
+        if (turn != 0) {
+            Timer.getInstance().stop();
+
+        }
         TextView timeBox = findViewById(R.id.timer);
         Timer.getInstance().time(findViewById(timeBox.getId()));
         if (timeBox.getText().equals("")) {
             if (turn % 2 + 1 == 1) {
-                play1Win();
-            } else {
                 play2Win();
+            } else {
+                play1Win();
             }
         }
     }
