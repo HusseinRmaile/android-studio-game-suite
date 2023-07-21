@@ -20,6 +20,16 @@
         app:layout_constraintTop_toBottomOf="@+id/goBoard" />
 
     <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/player1LoseCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
