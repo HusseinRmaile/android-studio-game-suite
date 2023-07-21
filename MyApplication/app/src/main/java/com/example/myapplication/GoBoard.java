@@ -4,7 +4,7 @@
     import java.util.ArrayList;
     import java.util.Stack;
 
-    public class    GoBoard {
+    public class GoBoard implements Board{
         private int numRows;
         private int numCols;
         private GoStone board[][];
@@ -20,7 +20,7 @@
 
         private static GoBoard uniqueBoard;
 
-        //default 19x19 board with 5 in a row win condition
+        //default 9x1 board
         private GoBoard() {
             this.numRows = 9;
             this.numCols = 9;
