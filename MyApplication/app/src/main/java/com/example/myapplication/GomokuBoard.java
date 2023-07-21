@@ -1,6 +1,6 @@
 package com.example.myapplication;
 
-public class GomokuBoard {
+public class GomokuBoard implements Board{
     private int numRows;
     private int numCols;
     private int board[][];
@@ -242,6 +242,11 @@ public class GomokuBoard {
             }
             System.out.print('\n');
         }
+    }
+
+    @Override
+    public Integer getPiece(int x, int y) {
+        return null;
     }
 
     public int getNumRows() {
