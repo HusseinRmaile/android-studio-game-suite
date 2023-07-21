@@ -107,6 +107,7 @@ public class Gomoku extends AppCompatActivity{
         }
     }
     public void place (View button) {
+
         ImageButton buttonCur = (ImageButton) button;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
