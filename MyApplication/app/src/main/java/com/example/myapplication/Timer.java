@@ -33,9 +33,9 @@ public class Timer {
             @SuppressLint("SetTextI18n")
             public void onFinish() {
                 if (turn % 2 == 0) {
-                    mTextField.setText("Player 2 ran out of time");
+                    mTextField.setText("Player 2 ran out of time!");
                 } else {
-                    mTextField.setText("Player 1 ran out of time");
+                    mTextField.setText("Player 1 ran out of time!");
                 }
             }
         }.start();
