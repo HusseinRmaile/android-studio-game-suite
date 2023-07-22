@@ -107,13 +107,24 @@ public class Gomoku extends AppCompatActivity{
         }
     }
     public void place (View button) {
-        timeKeeper();
+        if (gameState == 1) {
+            //player 1 win
+            play1Win();
+            return;
+        } else if (gameState == 2) {
+            //player 2 win
+            play2Win();
+            return;
+        }
         ImageButton buttonCur = (ImageButton) button;
         ImageView turnbox = (ImageView) findViewById(R.id.turnbox);
         piece = buttonCur.getId();
         row = piece / bSize;
         col = piece % bSize;
         gameState = board.placePiece(row, col, turn % 2 + 1);
+        if (gameState != -1) {
+            timeKeeper();
+        }
 
         if (gameState == 0) {
             //0 means piece was placed and game continues
@@ -174,19 +185,18 @@ public class Gomoku extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void timeKeeper() {
+    private void timeKeeper() {
         if (turn != 0) {
             Timer.getInstance().stop();
 
         }
         TextView timeBox = findViewById(R.id.timer);
-        Timer.getInstance().time(findViewById(timeBox.getId()));
-        if (timeBox.getText().equals("")) {
-            if (turn % 2 + 1 == 1) {
-                play2Win();
-            } else {
-                play1Win();
-            }
+        Timer.getInstance().time(findViewById(timeBox.getId()), turn);
+        if (timeBox.getText().equals("Player 2 ran out of time")) {
+            gameState = 1;
+        }
+        if (timeBox.getText().equals("Player 1 ran out of time")) {
+            gameState = 2;
         }
     }
 

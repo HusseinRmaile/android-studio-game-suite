@@ -22,8 +22,8 @@ public class Timer {
     }
 
 
-    public void time(TextView mTextField) {
-        shotClock = new CountDownTimer(30000, 1000) {
+    public void time(TextView mTextField, int turn) {
+        shotClock = new CountDownTimer(15000, 1000) {
 
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -32,8 +32,11 @@ public class Timer {
 
             @SuppressLint("SetTextI18n")
             public void onFinish() {
-                mTextField.setText("");
-
+                if (turn % 2 == 0) {
+                    mTextField.setText("Player 2 ran out of time");
+                } else {
+                    mTextField.setText("Player 1 ran out of time");
+                }
             }
         }.start();
 
