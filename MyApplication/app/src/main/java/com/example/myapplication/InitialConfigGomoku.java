@@ -37,6 +37,8 @@ public class InitialConfigGomoku extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.initial_config_gomoku);
+        EditText winCon = findViewById(R.id.wincondition);
+        winCon.setText("5");
 
         player1.setWinCounter(0);
         player2.setWinCounter(0);
@@ -177,6 +179,7 @@ public class InitialConfigGomoku extends AppCompatActivity{
                     inputName2.setError("Choose an avatar");
                 }else if (invalid3) {
                     winCon.setError("Please pick a number between 4-9");
+                    winCon.setText("");
                 } else {
                     Intent intent = new Intent(InitialConfigGomoku.this, Gomoku.class);
                     startActivity(intent);
